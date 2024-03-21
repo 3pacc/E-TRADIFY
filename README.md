@@ -30,3 +30,4 @@ Monitoring: Continuous monitoring is necessary to ensure the model's performance
 Market Efficiency: Financial markets are highly efficient, making it difficult to achieve consistently high returns.
                     Data Snooping Bias: The risk of overfitting to past data, making the strategy less effective in the future.
 Regulatory and Ethical Considerations: Ensuring compliance with local laws and regulations is crucial, especially when using alternative data sources.
+## modification branch
