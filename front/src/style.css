@@ -11,13 +11,13 @@
   }
   
   body {
-    background: #f6f5f7;
+    background: whitesmoke;
     display: flex;
     justify-content: center;
     align-items: center;
     font-family: "Poppins", sans-serif;
     flex-direction: column;
-    height: 100vh;
+    height: 90vh;
     margin: -20px 0 50px;
   }
   
@@ -261,4 +261,3 @@
     color: #3c97bf;
     text-decoration: none;
   }
-  

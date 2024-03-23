@@ -3,6 +3,7 @@ import "./style.css";
 import SignInForm from "./SignIn";
 import SignUpForm from "./SignUp";
 
+
 export default function App() {
   const [type, setType] = useState("signIn");
   const handleOnClick = text => {

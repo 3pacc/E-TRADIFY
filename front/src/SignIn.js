@@ -1,5 +1,10 @@
 import React from "react";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { fas } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'; 
+import { fab } from '@fortawesome/free-brands-svg-icons';
+library.add(fab);
+library.add(fas);
 
 function SignInForm() {
   const [state, setState] = React.useState({
@@ -33,15 +38,15 @@ function SignInForm() {
       <form onSubmit={handleOnSubmit}>
         <h1>Sign in</h1>
         <div className="social-container">
-          <a href="#" className="social">
-            <i className="fab fa-facebook-f" />
-          </a>
-          <a href="#" className="social">
-            <i className="fab fa-google-plus-g" />
-          </a>
-          <a href="#" className="social">
-            <i className="fab fa-linkedin-in" />
-          </a>
+            <a href="#" className="social">
+                <FontAwesomeIcon icon={['fab', 'facebook-f']} />
+            </a>
+            <a href="#" className="social">
+                <FontAwesomeIcon icon={['fab', 'google-plus-g']} />
+            </a>
+            <a href="#" className="social">
+                <FontAwesomeIcon icon={['fab', 'linkedin-in']} />
+            </a>
         </div>
         <span>or use your account</span>
         <input
