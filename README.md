@@ -1,13 +1,13 @@
 # "Financial Predictive Analysis Platform"
 This platform utilizes machine learning to predict financial market trends, focusing on cryptocurrencies like Bitcoin. The system analyzes historical data to forecast future price movements, incorporating technical indicators for enhanced prediction accuracy.
-Lien_projet ou je peux voir le kanban,roadmap et taches: [Inclure le lien une fois disponible]
+(https://github.com/users/3pacc/projects/7)
 
 ## Project Contributors
 
 - El Moudden Riad
 - Tribak Anas
-- Abdain Mohammed Jamal
 - Oukessou Bakr
+- Abdain Mohammed Jamal
 
 ## Features
 ## Fonctionnalités proposées
@@ -59,16 +59,22 @@ Ensure Node.js and ReactJS are installed on your system.
 npm install
 ```
 Pour lancer l'application côté back-end, lancez la commande :
-```npm start```
+```
+npm start
+```
 Passez ensuite sur le port 3000 dans votre navigateur.
 
 ReactJS est requis pour pouvoir exécuter cette application. C'est le front end de l'app.
 Pour installer tous les modules nécessaires au fonctionnement de notre jeu, exécutez la commande suivante :
 
-```npm install```
+```
+npm install
+```
 Puis pour lancer l'applica(ion coté front lancez la commande :
 
-```npm start```
+```
+npm start
+```
 Par la suite passez sur le port 3001 sur le Browser.
 
 
