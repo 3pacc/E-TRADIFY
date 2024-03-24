@@ -1,4 +1,4 @@
-# Financial Predictive Analysis Platform
+# Plateforme d'Analyse Prédictive Financière
 
 Cette plateforme utilise le machine learning pour prédire les tendances des marchés financiers, en se concentrant spécifiquement sur les crypto-monnaies telles que le Bitcoin. Pour cela, le système recueille et analyse des données historiques provenant de différentes sources, telles que les prix passés, le volume de transactions, la volatilité, et d'autres indicateurs pertinents.
 
