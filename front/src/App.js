@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./style.css";
-import SignInForm from "./SignIn";
-import SignUpForm from "./SignUp";
+import SignInForm from "./login/SignIn";
+import SignUpForm from "./login/SignUp";
 
 
 export default function App() {
