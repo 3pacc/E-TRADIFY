@@ -38,7 +38,7 @@ function CryptoPrices() {
                 return {
                     [key]: {
                         ...prices[key],
-                        price: data.price,
+                        price: data['price'],
                     }
                 };
             });
@@ -68,6 +68,7 @@ function CryptoPrices() {
 }
 
 export default CryptoPrices; 
+
 
 
 
