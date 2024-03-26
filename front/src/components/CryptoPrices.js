@@ -4,7 +4,7 @@
 //================================================================================================================================
 
 import React, { useState, useEffect } from 'react';
-import './style.css'; // Assurez-vous que le chemin vers le fichier CSS est correct
+import './style.css'; 
 
 function CryptoPrices() {
     const [prices, setPrices] = useState({
@@ -161,7 +161,7 @@ Using Binance and Coincgecko API
 ===============================================================================================================================
 
 import React, { useState, useEffect } from 'react';
-import './style.css'; // Assurez-vous que le chemin vers le fichier CSS est correct
+import './style.css'; 
 
 function CryptoPrices() {
     const [cryptoData, setCryptoData] = useState({});
@@ -188,11 +188,15 @@ function CryptoPrices() {
             const response = await fetch(coingeckoURL);
             const data = await response.json();
 
-            // Adapter les clés et les données selon vos besoins
+            
             const additionalData = {
                 BTCUSDT: { marketCap: data.bitcoin.usd_market_cap, dailyChange: data.bitcoin.usd_24h_change, volume: data.bitcoin.usd_24h_vol },
                 ETHUSDT: { marketCap: data.ethereum.usd_market_cap, dailyChange: data.ethereum.usd_24h_change, volume: data.ethereum.usd_24h_vol },
-                // Ajoutez d'autres cryptomonnaies ici
+                XRPUSDT: { marketCap: data.xrp.usd_market_cap, dailyChange: data.xrp.usd_24h_change, volume: data.xrp.usd_24h_vol },
+                ADAUSDT: { marketCap: data.cardano.usd_market_cap, dailyChange: data.cardano.usd_24h_change, volume: data.cardano.usd_24h_vol },
+                SOLUSDT: { marketCap: data.solana.usd_market_cap, dailyChange: data.solana.usd_24h_change, volume: data.solana.usd_24h_vol },
+                BNBUSDT: { marketCap: data.bnb.usd_market_cap, dailyChange: data.bnb.usd_24h_change, volume: data.bnb.usd_24h_vol }
+                //more..
             };
 
             setCryptoData(prevData => {
