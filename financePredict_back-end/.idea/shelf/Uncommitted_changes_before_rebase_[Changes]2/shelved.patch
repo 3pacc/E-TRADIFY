@@ -1,0 +1,415 @@
+Index: ../front/src/login/SignIn.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../front/src/login/SignIn.js b/../front/src/login/SignIn.js
+--- a/../front/src/login/SignIn.js	
++++ b/../front/src/login/SignIn.js	
+@@ -1,73 +1,83 @@
+-import React from "react";
+-import { library } from '@fortawesome/fontawesome-svg-core';
+-import { fas } from '@fortawesome/free-solid-svg-icons';
+-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'; 
+-import { fab } from '@fortawesome/free-brands-svg-icons';
+-library.add(fab);
+-library.add(fas);
++import React, { useState } from "react";
++import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
++import { faFacebookF, faGoogle, faLinkedinIn } from "@fortawesome/free-brands-svg-icons";
++
++function SignInForm({ setIsLoggedIn }) {
++  const [formData, setFormData] = useState({
++    email: "",
++    password: "",
++  });
++  const [formErrors, setFormErrors] = useState({});
+ 
+-function SignInForm() {
+-  const [state, setState] = React.useState({
+-    email: "",
+-    password: ""
+-  });
+-  const handleChange = evt => {
+-    const value = evt.target.value;
+-    setState({
+-      ...state,
+-      [evt.target.name]: value
+-    });
+-  };
+-
+-  const handleOnSubmit = evt => {
+-    evt.preventDefault();
+-
+-    const { email, password } = state;
+-    alert(`You are login with email: ${email} and password: ${password}`);
+-
+-    for (const key in state) {
+-      setState({
+-        ...state,
+-        [key]: ""
+-      });
++  const handleChange = (e) => {
++    setFormData({ ...formData, [e.target.name]: e.target.value });
++  };
++
++  const validateForm = () => {
++    let errors = {};
++    if (!formData.email.includes("@")) {
++      errors.email = "Please enter a valid email address";
++    }
++    if (!formData.password.trim()) {
++      errors.password = "Password is required";
++    }
++    setFormErrors(errors);
++    return Object.keys(errors).length === 0;
++  };
++
++  const handleSubmit = (e) => {
++    e.preventDefault();
++    if (validateForm()) {
++      // Make API call to authenticate user
++      console.log("Form submitted:", formData);
++      setFormData({
++        email: "",
++        password: "",
++      });
++      
++      setIsLoggedIn(true); // Update login status after successful login
+     }
+   };
+ 
+   return (
+     <div className="form-container sign-in-container">
+-      <form onSubmit={handleOnSubmit}>
++      <form onSubmit={handleSubmit}>
+         <h1>Sign in</h1>
+         <div className="social-container">
+-            <a href="#" className="social">
+-                <FontAwesomeIcon icon={['fab', 'facebook-f']} />
+-            </a>
+-            <a href="#" className="social">
+-                <FontAwesomeIcon icon={['fab', 'google-plus-g']} />
+-            </a>
+-            <a href="#" className="social">
+-                <FontAwesomeIcon icon={['fab', 'linkedin-in']} />
+-            </a>
++          <a href="#" className="social">
++            <FontAwesomeIcon icon={faFacebookF} />
++          </a>
++          <a href="#" className="social">
++            <FontAwesomeIcon icon={faGoogle} />
++          </a>
++          <a href="#" className="social">
++            <FontAwesomeIcon icon={faLinkedinIn} />
++          </a>
+         </div>
+         <span>or use your account</span>
+         <input
+           type="email"
++          name="email"
+           placeholder="Email"
+-          name="email"
+-          value={state.email}
++          value={formData.email}
+           onChange={handleChange}
++          required
+         />
++        {formErrors.email && <span className="error">{formErrors.email}</span>}
+         <input
+           type="password"
+           name="password"
+           placeholder="Password"
+-          value={state.password}
++          value={formData.password}
+           onChange={handleChange}
++          required
+         />
++        {formErrors.password && <span className="error">{formErrors.password}</span>}
+         <a href="#">Forgot your password?</a>
+-        <button>Sign In</button>
++        <button type="submit">Sign In</button>
+       </form>
+     </div>
+   );
+ }
+ 
+-export default SignInForm;
++export default SignInForm;
+\ No newline at end of file
+Index: ../front/src/login/SignUp.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../front/src/login/SignUp.js b/../front/src/login/SignUp.js
+--- a/../front/src/login/SignUp.js	
++++ b/../front/src/login/SignUp.js	
+@@ -1,4 +1,4 @@
+-import React from "react";
++import React, { useState } from "react";
+ import { library } from '@fortawesome/fontawesome-svg-core';
+ import { fas } from '@fortawesome/free-solid-svg-icons';
+ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'; 
+@@ -6,43 +6,70 @@
+ library.add(fab);
+ library.add(fas);
+ 
+-function SignUpForm() {
++function SignUpForm({ setIsLoggedIn }) {
++  const [formData, setFormData] = useState({
++    name: "",
++    email: "",
++    password: "",
++    confirmPassword: "",
++  });
++  const [formErrors, setFormErrors] = useState({});
++
++  const handleChange = (e) => {
++    setFormData({ ...formData, [e.target.name]: e.target.value });
++  };
+ 
+-    const initialState = {
++
++  const handleOnSubmit = (e) => {
++    e.preventDefault();
++    if (validateForm()) {
++      // Make API call to register user
++      console.log("Form submitted:", formData);
++      // Reset form after submission
++      setFormData({
+         name: "",
+         email: "",
+-        password: ""
+-      };
+-    const [state, setState] = React.useState(initialState);
+-
+-  const handleChange = evt => {
+-    const { name, value } = evt.target;
+-    setState(prevState => ({
+-      ...prevState,
+-      [name]: value
+-    }));
++        password: "",
++        confirmPassword: "",
++      });
++      setIsLoggedIn(true); // Update login status after successful signup
++    }
+   };
+ 
+-  const handleOnSubmit = evt => {
+-    evt.preventDefault();
+-    if (!validateForm()) return;
+-
+-    const { name, email, password } = state;
+-    alert(`You are signed up with name: ${name}, email: ${email}.`);
+-
+-    // Reset state to initial after form submission
+-    setState(initialState);
+-  };
+   const validateForm = () => {
+-    if (!state.email.includes('@')) {
+-      alert('Please enter a valid email address.');
+-      return false;
++    let isValid = true;
++    const newFormErrors = { ...formErrors };
++  
++    if (!formData.name.trim()) {
++      newFormErrors.name = true;
++      isValid = false;
++    } else {
++      newFormErrors.name = false;
++    }
++  
++    if (!formData.email.includes("@")) {
++      newFormErrors.email = true;
++      isValid = false;
++    } else {
++      newFormErrors.email = false;
+     }
+-    if (state.password.length < 6) {
+-      alert('Password should be at least 6 characters long.');
+-      return false;
++  
++    if (formData.password.length < 6) {
++      newFormErrors.password = true;
++      isValid = false;
++    } else {
++      newFormErrors.password = false;
+     }
+-    return true;
++  
++    if (formData.password !== formData.confirmPassword) {
++      newFormErrors.confirmPassword = true;
++      isValid = false;
++    } else {
++      newFormErrors.confirmPassword = false;
++    }
++  
++    setFormErrors(newFormErrors);
++    return isValid;
+   };
+ 
+   return (
+@@ -64,24 +91,42 @@
+         <input
+           type="text"
+           name="name"
+-          value={state.name}
+-          onChange={handleChange}
+           placeholder="Name"
++          value={formData.name}
++          onChange={handleChange}
++          className={formErrors.name ? "error" : ""}
++          required
+         />
++        {formErrors.name && <span className="error">{formErrors.name}</span>}
+         <input
+           type="email"
+           name="email"
+-          value={state.email}
++          value={formData.email}
+           onChange={handleChange}
++          className={formErrors.email ? "error" : ""}
+           placeholder="Email"
+         />
++        {formErrors.email && <span className="error">{formErrors.email}</span>}
+         <input
+           type="password"
+           name="password"
+-          value={state.password}
++          value={formData.password}
+           onChange={handleChange}
++          className={formErrors.password ? "error" : ""}
+           placeholder="Password"
+         />
++        {formErrors.password && <span className="error">{formErrors.password}</span>}
++        <input
++          type="password"
++          name="confirmPassword"
++          placeholder="Confirm Password"
++          value={formData.confirmPassword}
++          onChange={handleChange}
++          className={formErrors.confirmPassword ? "error" : ""}
++          required
++        />
++        {formErrors.confirmPassword && <span className="error">{formErrors.confirmPassword}</span>}
++        
+         <button>Sign Up</button>
+       </form>
+     </div>
+Index: ../front/src/login/style.css
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../front/src/login/style.css b/../front/src/login/style.css
+--- a/../front/src/login/style.css	
++++ b/../front/src/login/style.css	
+@@ -91,13 +91,18 @@
+     text-align: center;
+   }
+   
+-  input {
+-    background-color: #eee;
+-    border: none;
+-    padding: 12px 15px;
+-    margin: 8px 0;
+-    width: 100%;
+-  }
++  
++input {
++  background-color: #eee;
++  border: 1px solid transparent;
++  padding: 12px 15px;
++  margin: 8px 0;
++  width: 100%;
++}
++
++input.error {
++  border-color: red;
++}
+   
+   .container {
+     background-color: #fff;
+@@ -260,4 +265,7 @@
+   footer a {
+     color: #3c97bf;
+     text-decoration: none;
++  }
++  .error{
++    color: red;
+   }
+\ No newline at end of file
+Index: ../front/src/App.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../front/src/App.js b/../front/src/App.js
+--- a/../front/src/App.js	
++++ b/../front/src/App.js	
+@@ -1,5 +1,5 @@
+ import React, { useState } from "react";
+-import { Routes, Route } from "react-router-dom";
++import { Routes, Route, Navigate } from "react-router-dom";
+ import "./login/style.css";
+ import CryptoPrices from "./components/CryptoPrices"; // Assurez-vous que le chemin est correct
+ import SignInForm from "./login/SignIn";
+@@ -7,6 +7,7 @@
+ 
+ export default function App() {
+   const [type, setType] = useState("signIn");
++  const [isLoggedIn, setIsLoggedIn] = useState(false);
+ 
+   const handleOnClick = text => {
+     if (text !== type) {
+@@ -16,13 +17,17 @@
+ 
+   const containerClass = "container " + (type === "signUp" ? "right-panel-active" : "");
+ 
++  if (isLoggedIn) {
++    return <CryptoPrices />;
++  }
++
+   return (
+     <div className="App">
+       <Routes>
+         <Route path="/" element={
+           <div className={containerClass} id="container">
+-            <SignUpForm />
+-            <SignInForm />
++            <SignUpForm setIsLoggedIn={setIsLoggedIn} />
++            <SignInForm setIsLoggedIn={setIsLoggedIn} />
+             <div className="overlay-container">
+               <div className="overlay">
+                 <div className="overlay-panel overlay-left">
+@@ -51,10 +56,24 @@
+             </div>
+           </div>
+         } />
+-        <Route path="/signup" element={<SignUpForm />} />
+-        <Route path="/signin" element={<SignInForm />} />
+-        <Route path="/CryptoPrices" element={<CryptoPrices />} />
+-        {/* Ajoutez d'autres routes ici si nécessaire */}
++        <Route
++          path="/signup"
++          element={<SignUpForm setIsLoggedIn={setIsLoggedIn} />}
++        />
++        <Route
++          path="/signin"
++          element={<SignInForm setIsLoggedIn={setIsLoggedIn} />}
++        />
++        <Route
++          path="/CryptoPrices"
++          element={
++            isLoggedIn ? (
++              <CryptoPrices />
++            ) : (
++              <Navigate to="/signin" replace={true} />
++            )
++          }
++        />
+       </Routes>
+     </div>
+   );
