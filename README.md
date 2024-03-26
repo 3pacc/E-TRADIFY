@@ -1,4 +1,4 @@
-# Plateforme d'Analyse Prédictive Financière
+# E-TRADIFY : Plateforme d'Analyse Prédictive Financière
 
 Cette plateforme utilise le machine learning pour prédire les tendances des marchés financiers, en se concentrant spécifiquement sur les crypto-monnaies telles que le Bitcoin. Pour cela, le système recueille et analyse des données historiques provenant de différentes sources, telles que les prix passés, le volume de transactions, la volatilité, et d'autres indicateurs pertinents.
 
@@ -110,7 +110,7 @@ La plateforme sera disponible le 1er Septembre 2024 , Tenez vous prêt !
 #
 #
 
-# Financial Predictive Analysis Platform
+# E-TRADIFY : Financial Predictive Analysis Platform
 
 This platform utilizes machine learning to predict financial market trends, focusing specifically on cryptocurrencies like Bitcoin. To do so, the system collects and analyzes historical data from various sources, such as past prices, transaction volume, volatility, and other relevant indicators.
 
