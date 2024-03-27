@@ -55,6 +55,8 @@ Ce projet utilise les technologies suivantes :
 - Node.js
 - Visual Studio Code
 - ReactJS
+- Spring-boot
+- Axios
 - Jupyter
 - SQL
 
@@ -167,6 +169,8 @@ This project utilizes the following technologies:
 - Node.js
 - Visual Studio Code
 - ReactJS
+- Spring-boot
+- Axios
 - Jupyter
 - SQL
 

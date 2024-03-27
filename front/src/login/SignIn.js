@@ -1,36 +1,55 @@
-import React from "react";
+import React, { useState } from "react";
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'; 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { fab } from '@fortawesome/free-brands-svg-icons';
+import axios from 'axios';
+
 library.add(fab);
 library.add(fas);
 
-function SignInForm() {
-  const [state, setState] = React.useState({
-    email: "",
-    password: ""
+function SignInForm({ setIsLoggedIn }) {
+  const [formData, setFormData] = useState({
+    email: '',
+    password: '',
   });
-  const handleChange = evt => {
-    const value = evt.target.value;
-    setState({
-      ...state,
-      [evt.target.name]: value
-    });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
   };
 
-  const handleOnSubmit = evt => {
-    evt.preventDefault();
-
-    const { email, password } = state;
-    alert(`You are login with email: ${email} and password: ${password}`);
-
-    for (const key in state) {
-      setState({
-        ...state,
-        [key]: ""
-      });
+  const handleOnSubmit = async (e) => {
+    e.preventDefault();
+    if (validateForm()) {
+      try {
+        const response = await axios.post('/api/auth/signin', formData);
+        console.log(response.data);
+        setIsLoggedIn(true);
+        setFormData({
+          email: '',
+          password: '',
+        });
+      } catch (error) {
+        console.error('Error:', error);
+        // Handle error, e.g., display an error message to the user
+      }
     }
+  };
+
+  const validateForm = () => {
+    if (!formData.email.includes('@')) {
+      alert('Please enter a valid email address.');
+      return false;
+    }
+    if (formData.password.length < 6) {
+      alert('Password should be at least 6 characters long.');
+      return false;
+    }
+    return true;
   };
 
   return (
@@ -38,29 +57,29 @@ function SignInForm() {
       <form onSubmit={handleOnSubmit}>
         <h1>Sign in</h1>
         <div className="social-container">
-            <a href="#" className="social">
-                <FontAwesomeIcon icon={['fab', 'facebook-f']} />
-            </a>
-            <a href="#" className="social">
-                <FontAwesomeIcon icon={['fab', 'google-plus-g']} />
-            </a>
-            <a href="#" className="social">
-                <FontAwesomeIcon icon={['fab', 'linkedin-in']} />
-            </a>
+          <a href="#" className="social">
+            <FontAwesomeIcon icon={['fab', 'facebook-f']} />
+          </a>
+          <a href="#" className="social">
+            <FontAwesomeIcon icon={['fab', 'google-plus-g']} />
+          </a>
+          <a href="#" className="social">
+            <FontAwesomeIcon icon={['fab', 'linkedin-in']} />
+          </a>
         </div>
         <span>or use your account</span>
         <input
           type="email"
-          placeholder="Email"
           name="email"
-          value={state.email}
+          placeholder="Email"
+          value={formData.email}
           onChange={handleChange}
         />
         <input
           type="password"
           name="password"
           placeholder="Password"
-          value={state.password}
+          value={formData.password}
           onChange={handleChange}
         />
         <a href="#">Forgot your password?</a>
