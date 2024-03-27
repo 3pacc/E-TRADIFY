@@ -169,6 +169,8 @@ This project utilizes the following technologies:
 - Node.js
 - Visual Studio Code
 - ReactJS
+- Spring-boot
+- Axios
 - Jupyter
 - SQL
 
