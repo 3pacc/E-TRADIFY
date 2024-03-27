@@ -1,30 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'; 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { fab } from '@fortawesome/free-brands-svg-icons';
 import axios from 'axios';
+
 library.add(fab);
 library.add(fas);
 
-function SignUpForm() {
+function SignUpForm({ setIsLoggedIn }) {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
 
-    const initialState = {
-        name: "",
-        email: "",
-        password: ""
-      };
-    const [state, setState] = React.useState(initialState);
-
-  const handleChange = evt => {
-    const { name, value } = evt.target;
-    setState(prevState => ({
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevState) => ({
       ...prevState,
-      [name]: value
+      [name]: value,
     }));
   };
 
-  const handleSubmit = async (e) => {
+  const handleOnSubmit = async (e) => {
     e.preventDefault();
     if (validateForm()) {
       try {
@@ -35,19 +34,19 @@ function SignUpForm() {
           name: "",
           email: "",
           password: "",
-          confirmPassword: "",
         });
       } catch (error) {
         console.error('Error:', error);
       }
     }
   };
+
   const validateForm = () => {
-    if (!state.email.includes('@')) {
+    if (!formData.email.includes('@')) {
       alert('Please enter a valid email address.');
       return false;
     }
-    if (state.password.length < 6) {
+    if (formData.password.length < 6) {
       alert('Password should be at least 6 characters long.');
       return false;
     }
@@ -73,21 +72,21 @@ function SignUpForm() {
         <input
           type="text"
           name="name"
-          value={state.name}
+          value={formData.name}
           onChange={handleChange}
           placeholder="Name"
         />
         <input
           type="email"
           name="email"
-          value={state.email}
+          value={formData.email}
           onChange={handleChange}
           placeholder="Email"
         />
         <input
           type="password"
           name="password"
-          value={state.password}
+          value={formData.password}
           onChange={handleChange}
           placeholder="Password"
         />
