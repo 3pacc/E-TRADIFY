@@ -3,6 +3,7 @@
 //Using Binance API
 //================================================================================================================================
 
+/*
 import React, { useState, useEffect } from 'react';
 import './style.css'; 
 
@@ -38,7 +39,7 @@ function CryptoPrices() {
                 return {
                     [key]: {
                         ...prices[key],
-                        price: data.price,
+                        price: data['price'],
                     }
                 };
             });
@@ -49,7 +50,7 @@ function CryptoPrices() {
         };
 
         fetchData();
-        const interval = setInterval(fetchData, 5000); // Mise à jour toutes les 5 secondes
+        const interval = setInterval(fetchData, 3000); // Mise à jour toutes les 5 secondes
 
         return () => clearInterval(interval);
     }, []);
@@ -70,7 +71,7 @@ function CryptoPrices() {
 export default CryptoPrices; 
 
 
-
+*/
 
 
 /*
@@ -233,3 +234,137 @@ export default CryptoPrices;
 
 
 */
+
+
+
+
+//==========================================================================
+//Most Data Market from Binance API
+//==========================================================================
+
+
+import React, { useState, useEffect } from 'react';
+import './style.css'; 
+
+function CryptoPrices() {
+    const [prices, setPrices] = useState({
+        btc: { 
+            price: '', 
+            imageUrl: 'https://cryptologos.cc/logos/bitcoin-btc-logo.svg?v=029', 
+            change24h: '', 
+            marketCap: '', 
+            volume24h: '' 
+        },
+        eth: { 
+            price: '', 
+            imageUrl: 'https://cryptologos.cc/logos/ethereum-eth-logo.svg?v=029', 
+            change24h: '', 
+            marketCap: '', 
+            volume24h: '' 
+        },
+        xrp: { 
+            price: '', 
+            imageUrl: 'https://cryptologos.cc/logos/xrp-xrp-logo.svg?v=029', 
+            change24h: '', 
+            marketCap: '', 
+            volume24h: '' 
+        },
+        ada: { 
+            price: '', 
+            imageUrl: 'https://cryptologos.cc/logos/cardano-ada-logo.svg?v=029', 
+            change24h: '', 
+            marketCap: '', 
+            volume24h: '' 
+        },
+        sol: { 
+            price: '', 
+            imageUrl: 'https://cryptologos.cc/logos/solana-sol-logo.svg?v=029', 
+            change24h: '', 
+            marketCap: '', 
+            volume24h: '' 
+        },
+        bnb: { 
+            price: '', 
+            imageUrl: 'https://cryptologos.cc/logos/bnb-bnb-logo.svg?v=029', 
+            change24h: '', 
+            marketCap: '', 
+            volume24h: '' 
+        },
+        bch: { 
+            price: '', 
+            imageUrl: 'https://cryptologos.cc/logos/bitcoin-cash-bch-logo.svg?v=029', 
+            change24h: '', 
+            marketCap: '', 
+            volume24h: '' 
+        },
+        trx: { 
+            price: '', 
+            imageUrl: 'https://cryptologos.cc/logos/tron-trx-logo.svg?v=029', 
+            change24h: '', 
+            marketCap: '', 
+            volume24h: '' 
+        },
+    });
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const endpoint = 'https://api3.binance.com';
+            const queries = {
+                btc: '/api/v3/ticker/price?symbol=BTCUSDT',
+                eth: '/api/v3/ticker/price?symbol=ETHUSDT',
+                xrp: '/api/v3/ticker/price?symbol=XRPUSDT',
+                ada: '/api/v3/ticker/price?symbol=ADAUSDT',
+                sol: '/api/v3/ticker/price?symbol=SOLUSDT',
+                bnb: '/api/v3/ticker/price?symbol=BNBUSDT',
+                bch: '/api/v3/ticker/price?symbol=BCHUSDT',
+                trx: '/api/v3/ticker/price?symbol=TRXUSDT',
+            };
+
+            const requests = Object.keys(queries).map(async (key) => {
+                const response = await fetch(endpoint + queries[key]);
+                const data = await response.json();
+                const response24h = await fetch(endpoint + '/api/v3/ticker/24hr?symbol=' + key.toUpperCase() + 'USDT');
+                const data24h = await response24h.json();
+                return {
+                    [key]: {
+                        ...prices[key],
+                        price: data['price'],
+                        change24h: data24h['priceChangePercent'],
+                        marketCap: data24h['marketCap'],
+                        volume24h: data24h['volume'],
+                    }
+                };
+            });
+
+            const results = await Promise.all(requests);
+            const updatedPrices = Object.assign({}, ...results);
+            setPrices(updatedPrices);
+        };
+
+        fetchData();
+        const interval = setInterval(fetchData, 3000); // Mise à jour toutes les 5 secondes
+
+        return () => clearInterval(interval);
+    }, []);
+
+    return (
+        <div>
+            <h3>Crypto Prices</h3>
+            {Object.entries(prices).map(([key, value]) => (
+                <div key={key} className="priceItem">
+                    <img src={value.imageUrl} alt={key.toUpperCase()} style={{ width: '20px', marginRight: '10px', verticalAlign: 'middle' }} />
+                    <strong>{key.toUpperCase()}USDT :</strong> {value.price} | 
+                    <span> Evolution (24h): {value.change24h}%</span> | 
+                    <span> Market Cap: ${parseFloat(value.marketCap).toFixed(2)}</span> | 
+                    <span> Volume (24h): {value.volume24h}</span>
+                </div>
+            ))}
+        </div>
+    );
+}
+
+export default CryptoPrices;
+
+
+
+
