@@ -3,6 +3,7 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'; 
 import { fab } from '@fortawesome/free-brands-svg-icons';
+import axios from 'axios';
 library.add(fab);
 library.add(fas);
 
@@ -19,17 +20,21 @@ function SignInForm() {
     });
   };
 
-  const handleOnSubmit = evt => {
-    evt.preventDefault();
-
-    const { email, password } = state;
-    alert(`You are login with email: ${email} and password: ${password}`);
-
-    for (const key in state) {
-      setState({
-        ...state,
-        [key]: ""
-      });
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (validateForm()) {
+      try {
+        const response = await axios.post('/api/auth/signin', formData);
+        console.log(response.data);
+        setIsLoggedIn(true);
+        setFormData({
+          email: "",
+          password: "",
+        });
+      } catch (error) {
+        console.error('Error:', error);
+        // Handle error, e.g., display an error message to the user
+      }
     }
   };
 
