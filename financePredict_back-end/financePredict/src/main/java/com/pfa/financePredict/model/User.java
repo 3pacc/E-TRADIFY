@@ -18,6 +18,12 @@ public class User {
         this.email = email;
         this.password = password;
     }
+    public User(){
+        this.email="";
+        this.name="";
+        this.password="";
+        this.id=null;
+    }
 
     public Long getId() {
         return id;
