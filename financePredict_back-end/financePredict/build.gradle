@@ -16,6 +16,7 @@ repositories {
 }
 
 dependencies {
+	implementation 'com.microsoft.sqlserver:mssql-jdbc:9.4.0.jre8'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 //	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
