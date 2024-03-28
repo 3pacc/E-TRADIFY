@@ -76,6 +76,7 @@ export default CryptoPrices;
 
 
 
+
 /*
 ========================================================================================================================
 //Using coingecko API 
@@ -348,24 +349,70 @@ function CryptoPrices() {
 
         return () => clearInterval(interval);
     }, []);
+    
+    const [visibleCards, setVisibleCards] = useState(4);
 
-    return (
-        <div>
-            <h3>Crypto Prices</h3>
-            {Object.entries(prices).map(([key, value]) => (
-                <div key={key} className="priceItem">
-                    <img src={value.imageUrl} alt={key.toUpperCase()} style={{ width: '20px', marginRight: '10px', verticalAlign: 'middle' }} />
-                    <strong>{key.toUpperCase()}USDT :</strong> {value.price} | 
-                    <span> Evolution (24h): {value.change24h}%</span> | 
-                    <span> Market Cap: ${parseFloat(value.marketCap).toFixed(2)}</span> | 
-                    <span> Volume (24h): {value.volume24h}</span>
+    const handleShowMore = () => {
+      setVisibleCards((prevVisibleCards) => prevVisibleCards + 4);
+    };
+  
+    const renderCards = () => {
+      const cryptoKeys = Object.keys(prices);
+      const visibleCryptoKeys = cryptoKeys.slice(0, visibleCards);
+  
+      return visibleCryptoKeys.map((key) => {
+        const value = prices[key];
+        return (
+          <div key={key} className="swiper-slide">
+            <div className="items-wrapper">
+              <div className="market-more-item">
+                <div className="logo-container">
+                  <div className="logo-wrapper">
+                    <img className="logo" src={value.imageUrl} alt="icon" />
+                  </div>
+                  <div className="text-container">
+                    <h3>{key.toUpperCase()}USDT</h3>
+                    <span className="network">{value.price} $</span>
+                  </div>
                 </div>
-            ))}
+                <span className="percentage">{value.change24h}%</span>
+                <span className="apy">Apy</span>
+                <div className="details-container">
+                  <div className="detail">
+                    <span>TVL</span>
+                    <span>${parseFloat(value.marketCap).toFixed(2)} M</span>
+                  </div>
+                  <div className="detail">
+                    <span>Network</span>
+                    <span>Binance</span>
+                  </div>
+                </div>
+                <a href="staking-details.html" className="stack-button">
+                  Stack
+                </a>
+              </div>
+            </div>
+          </div>
+        );
+      });
+    };
+  
+    return (
+      <div className="crypto-prices">
+        <h2>Crypto Prices</h2>
+        <div className="card-container">
+          <div className="card-wrapper">{renderCards()}</div>
+          {visibleCards < Object.keys(prices).length && (
+            <button className="show-more-button" onClick={handleShowMore}>
+              Show More
+            </button>
+          )}
         </div>
+      </div>
     );
-}
-
-export default CryptoPrices;
+  }
+  
+  export default CryptoPrices;
 
 
 
