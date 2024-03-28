@@ -52,7 +52,6 @@ Les contributeurs à ce projet sont :
 ## Technologies utilisées
 
 Ce projet utilise les technologies suivantes :
-- Node.js
 - Visual Studio Code
 - ReactJS
 - Spring-boot
@@ -166,7 +165,6 @@ The contributors to this project are:
 ## Technologies Used
 
 This project utilizes the following technologies:
-- Node.js
 - Visual Studio Code
 - ReactJS
 - Spring-boot
