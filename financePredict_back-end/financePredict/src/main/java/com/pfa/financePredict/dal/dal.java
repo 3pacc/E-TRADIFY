@@ -41,6 +41,62 @@ public class dal {
         return users;
     }
 
+    public User getUserById(Long id) {
+        User user = null;
+        try {
+            String query = "SELECT * FROM users WHERE id = ?";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setLong(1, id);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                String name = resultSet.getString("name");
+                String email = resultSet.getString("email");
+                String password = resultSet.getString("password");
+                user = new User(id, name, email, password);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return user;
+    }
+    
+    public void createUser(User user) {
+        try {
+            String query = "INSERT INTO users (name, email, password) VALUES (?, ?, ?)";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, user.getName());
+            statement.setString(2, user.getEmail());
+            statement.setString(3, user.getPassword());
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public void updateUser(User user) {
+        try {
+            String query = "UPDATE users SET name = ?, email = ?, password = ? WHERE id = ?";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, user.getName());
+            statement.setString(2, user.getEmail());
+            statement.setString(3, user.getPassword());
+            statement.setLong(4, user.getId());
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public void deleteUser(Long id) {
+        try {
+            String query = "DELETE FROM users WHERE id = ?";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setLong(1, id);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
     public void closeConnection() {
         try {
             if (connection != null && !connection.isClosed()) {
