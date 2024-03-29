@@ -4,8 +4,11 @@ import com.pfa.financePredict.model.User;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class dal {
+    private static final Logger logger = LoggerFactory.getLogger(dal.class);
     private static final String DB_URL = "jdbc:sqlserver://localhost:1433;databaseName=PeakPredict;encrypt=true;trustServerCertificate=true";
     private static final String DB_USER = "riad";
     private static final String DB_PASSWORD = "";
@@ -15,9 +18,9 @@ public class dal {
     public dal() {
         try {
             connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
-            System.out.println("Connected to the database.");
+            logger.info("Connected to the database.");
         } catch (SQLException e) {
-            System.out.println("Error connecting to the database: " + e.getMessage());
+            logger.error("Error connecting to the database: {}", e.getMessage());
         }
     }
 
@@ -36,7 +39,7 @@ public class dal {
                 users.add(user);
             }
         } catch (SQLException e) {
-            System.out.println("Error retrieving users from the database: " + e.getMessage());
+            logger.error("Error retrieving users from the database: {}", e.getMessage());
         }
         return users;
     }
@@ -55,11 +58,11 @@ public class dal {
                 user = new User(id, name, email, password);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("Error retrieving user by ID: {}", e.getMessage());
         }
         return user;
     }
-    
+
     public void createUser(User user) {
         try {
             String query = "INSERT INTO users (name, email, password) VALUES (?, ?, ?)";
@@ -69,10 +72,10 @@ public class dal {
             statement.setString(3, user.getPassword());
             statement.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("Error creating user: {}", e.getMessage());
         }
     }
-    
+
     public void updateUser(User user) {
         try {
             String query = "UPDATE users SET name = ?, email = ?, password = ? WHERE id = ?";
@@ -83,10 +86,10 @@ public class dal {
             statement.setLong(4, user.getId());
             statement.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("Error updating user: {}", e.getMessage());
         }
     }
-    
+
     public void deleteUser(Long id) {
         try {
             String query = "DELETE FROM users WHERE id = ?";
@@ -94,17 +97,18 @@ public class dal {
             statement.setLong(1, id);
             statement.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("Error deleting user: {}", e.getMessage());
         }
+    }
 
     public void closeConnection() {
         try {
             if (connection != null && !connection.isClosed()) {
                 connection.close();
-                System.out.println("Disconnected from the database.");
+                logger.info("Disconnected from the database.");
             }
         } catch (SQLException e) {
-            System.out.println("Error closing the database connection: " + e.getMessage());
+            logger.error("Error closing the database connection: {}", e.getMessage());
         }
     }
 }
