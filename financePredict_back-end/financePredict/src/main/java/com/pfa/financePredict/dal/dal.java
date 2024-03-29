@@ -96,6 +96,7 @@ public class dal {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
 
     public void closeConnection() {
         try {
