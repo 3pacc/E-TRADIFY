@@ -41,6 +41,8 @@ function SignUpForm({ setIsLoggedIn }) {
     }
   };
 
+  
+
   const validateForm = () => {
     if (!formData.email.includes('@')) {
       alert('Please enter a valid email address.');

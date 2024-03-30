@@ -9,9 +9,9 @@ import org.slf4j.LoggerFactory;
 
 public class dal {
     private static final Logger logger = LoggerFactory.getLogger(dal.class);
-    private static final String DB_URL = "jdbc:sqlserver://localhost:1433;databaseName=PeakPredict;encrypt=true;trustServerCertificate=true";
-    private static final String DB_USER = "riad";
-    private static final String DB_PASSWORD = "";
+    private static final String DB_URL = "jdbc:mysql://localhost:3306/PeakPredict?useSSL=false";
+    private static final String DB_USER = "root";
+    private static final String DB_PASSWORD = "riad";
 
     private Connection connection;
 
@@ -24,10 +24,40 @@ public class dal {
         }
     }
 
+    public static void createDatabase() {
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306?useSSL=false", DB_USER, DB_PASSWORD)) {
+            String sql = "CREATE DATABASE IF NOT EXISTS PeakPredict";
+            try (Statement statement = connection.createStatement()) {
+                statement.execute(sql);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void createTables() {
+        try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD)) {
+            String userTableSql = "CREATE TABLE IF NOT EXISTS users (" +
+                    "id BIGINT AUTO_INCREMENT PRIMARY KEY," +
+                    "name VARCHAR(255)," +
+                    "email VARCHAR(255)," +
+                    "password VARCHAR(255)" +
+                    ")";
+            try (Statement statement = connection.createStatement()) {
+                statement.execute(userTableSql);
+            }
+
+            // Create other tables (Portfolio, PortfolioItem, MarketData, PredictionModel, Transaction) here
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public List<User> getAllUsers() {
         List<User> users = new ArrayList<>();
         try {
-            String query = "SELECT * FROM \"users\"";
+            String query = "SELECT * FROM users";
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
             while (resultSet.next()) {
@@ -63,14 +93,15 @@ public class dal {
         return user;
     }
 
-    public void createUser(User user) {
-        try {
+    public static void createUser(User user) {
+        try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD)) {
             String query = "INSERT INTO users (name, email, password) VALUES (?, ?, ?)";
-            PreparedStatement statement = connection.prepareStatement(query);
-            statement.setString(1, user.getName());
-            statement.setString(2, user.getEmail());
-            statement.setString(3, user.getPassword());
-            statement.executeUpdate();
+            try (PreparedStatement statement = connection.prepareStatement(query)) {
+                statement.setString(1, user.getName());
+                statement.setString(2, user.getEmail());
+                statement.setString(3, user.getPassword());
+                statement.executeUpdate();
+            }
         } catch (SQLException e) {
             logger.error("Error creating user: {}", e.getMessage());
         }
@@ -111,4 +142,10 @@ public class dal {
             logger.error("Error closing the database connection: {}", e.getMessage());
         }
     }
+
+    public static void main(String[] args) {
+        createDatabase();
+        createTables();
+    }
 }
+

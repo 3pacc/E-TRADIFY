@@ -19,10 +19,10 @@ public class UserController {
 
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@RequestBody User user) {
-        if(userService.findByEmail(user.getEmail()).isPresent()) {
+        if (userService.findByEmail(user.getEmail()).isPresent()) {
             return ResponseEntity.badRequest().body("Email is already taken!");
         }
-        userService.saveUser(user);
+        userService.createUser(user);
         return ResponseEntity.ok("User registered successfully!");
     }
     @PostMapping("/signin")
