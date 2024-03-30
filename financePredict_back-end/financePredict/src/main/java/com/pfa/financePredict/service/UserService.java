@@ -3,6 +3,7 @@ import com.pfa.financePredict.model.User;
 import com.pfa.financePredict.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import com.pfa.financePredict.dal.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -29,6 +30,9 @@ public class UserService {
         return userRepository.save(user);
     }
 
+    public void createUser(User user) {
+        dal.createUser(user);
+    }
 
     public User updateUser(User user) {
         return userRepository.save(user);
