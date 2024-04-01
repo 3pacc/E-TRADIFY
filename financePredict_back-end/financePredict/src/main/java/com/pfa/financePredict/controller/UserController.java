@@ -22,6 +22,7 @@ public class UserController {
         if (userService.findByEmail(user.getEmail()).isPresent()) {
             return ResponseEntity.badRequest().body("Email is already taken!");
         }
+        userService.saveUser(user);
         userService.createUser(user);
         return ResponseEntity.ok("User registered successfully!");
     }
@@ -41,12 +42,7 @@ public class UserController {
             return ResponseEntity.badRequest().body("User not found!");
         }
     }
-    
-    @GetMapping
-    public List<User> getAllUsers() {
-        return userService.getAllUsers();
-    }
-    
+
     @GetMapping("/{id}")
     public User getUserById(@PathVariable Long id) {
         return userService.getUserById(id);

@@ -248,7 +248,6 @@ export default CryptoPrices;
 
 import React, { useState, useEffect } from 'react';
 import './style.css'; 
-import Navbar from './navbar';
 
 
 function CryptoPrices() {
@@ -411,6 +410,7 @@ function CryptoPrices() {
           )}
         </div>
       </div>
+
     );
   }
   
