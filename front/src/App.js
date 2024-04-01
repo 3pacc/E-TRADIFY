@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import "./login/style.css";
+import './components/style.css'; 
+
 import CryptoPrices from "./components/CryptoPrices";
+import Navbar from './components/navbar';
 import SignInForm from "./login/SignIn";
 import SignUpForm from "./login/SignUp";
-import Navbar from './components/navbar';
 
 
 export default function App() {
@@ -21,7 +23,12 @@ export default function App() {
     "container " + (type === "signUp" ? "right-panel-active" : "");
 
   if (isLoggedIn) {
-    return <CryptoPrices />;
+    return (
+      <div>
+              <Navbar />
+              <CryptoPrices />
+            </div>
+      );
   }
 
   return (
@@ -77,8 +84,10 @@ export default function App() {
           path="/CryptoPrices"
           element={
             isLoggedIn ? (
-              <Navbar/>,
+              <div>
+              <Navbar />
               <CryptoPrices />
+            </div>
             ) : (
               <Navigate to="/signin" replace={true} />
             )
