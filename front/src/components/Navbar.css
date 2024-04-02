@@ -1,24 +1,35 @@
 .navbar {
-    background-color: #f2f2f2;
+    background-color: #d6e6ee;
     padding: 10px;
     position: fixed;
+    height: 60px;
     top: 0;
     left: 0;
     width: 100%;
     z-index: 100;
+    box-shadow: #333 1px 2px 10px;
+    align-items: center;
+    display: flex;
+    justify-content: flex-end;
+
   }
   
   .navbar-list {
     list-style-type: none;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    justify-content: space-evenly;
+    /* align-items: center; */
     margin: 0;
-    padding: 0;
+    /* flex-grow: 1; */
+    padding: 0px;
   }
   
   .navbar-list li {
     margin-right: 10px;
+    padding-right: 100px;
+    display: flex;
+    /* flex-shrink: 1; */
+    /* border: #333   2px solid; */
   }
   
   .navbar-list li:last-child {
@@ -27,10 +38,18 @@
   
   .navbar-list a {
     text-decoration: none;
+    font-weight: 900;
     color: #333;
     padding: 5px;
   }
-  
+  .navbar-list a:hover {
+    text-decoration: none;
+    font-weight: 900;
+    color: #4796ce;
+    padding: 5px;
+    transition: all 0.3s ease;
+    text-decoration: underline #4796ce 2.5px;
+  }
   .dropdown {
     position: relative;
   }
@@ -39,7 +58,7 @@
     position: absolute;
     top: 100%;
     left: 0;
-    background-color: #f9f9f9;
+    background-color: #f4fbff;
     min-width: 120px;
     padding: 10px;
     list-style-type: none;
@@ -58,4 +77,10 @@
   .dropdown-menu a {
     text-decoration: none;
     color: #333;
+  }
+  .logo{
+    padding-left: 10px;
+    font-size: xx-large;
+    font-weight: bold;
+    flex-grow: 1;
   }

@@ -351,11 +351,7 @@ function CryptoPrices() {
         return () => clearInterval(interval);
     }, []);
     
-    const [visibleCards, setVisibleCards] = useState(4);
-
-    const handleShowMore = () => {
-      setVisibleCards((prevVisibleCards) => prevVisibleCards + 4);
-    };
+    const [visibleCards, setVisibleCards] = useState();
   
     const renderCards = () => {
       const cryptoKeys = Object.keys(prices);
@@ -403,11 +399,6 @@ function CryptoPrices() {
         <h2>Crypto Prices</h2>
         <div className="card-container">
           <div className="card-wrapper">{renderCards()}</div>
-          {visibleCards < Object.keys(prices).length && (
-            <button className="show-more-button" onClick={handleShowMore}>
-              Show More
-            </button>
-          )}
         </div>
       </div>
 

@@ -15,24 +15,25 @@ const Navbar = () => {
 
   return (
     <nav className="navbar">
+      <div className="logo">logo</div>
       <ul className="navbar-list">
         <li>
           <a href="#">Link 1</a>
         </li>
         <li className="dropdown">
-          <a href="#" onClick={toggleDropdown1}>
+          <a href="#" onPointerDown={toggleDropdown1}>
             Dropdown 1
           </a>
           {isDropdownOpen1 && (
             <ul className="dropdown-menu">
               <li>
-                <a href="#">Dropdown Link 1</a>
+                <a href="#">Link 1</a>
               </li>
               <li>
-                <a href="#">Dropdown Link 2</a>
+                <a href="#">Link 2</a>
               </li>
               <li>
-                <a href="#">Dropdown Link 3</a>
+                <a href="#">Link 3</a>
               </li>
             </ul>
           )}
@@ -41,16 +42,16 @@ const Navbar = () => {
           <a href="#">Link 2</a>
         </li>
         <li className="dropdown">
-          <a href="#" onClick={toggleDropdown2}>
+          <a href="#" onMouseDown={toggleDropdown2}>
             Dropdown 2
           </a>
           {isDropdownOpen2 && (
             <ul className="dropdown-menu">
               <li>
-                <a href="#">Dropdown Link 4</a>
+                <a href="#">Link 4</a>
               </li>
               <li>
-                <a href="#">Dropdown Link 5</a>
+                <a href="#">Link 5</a>
               </li>
             </ul>
           )}
