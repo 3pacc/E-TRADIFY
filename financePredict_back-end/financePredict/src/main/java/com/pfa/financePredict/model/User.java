@@ -1,7 +1,6 @@
 package com.pfa.financePredict.model;
 import jakarta.persistence.*;
 
-
 @Entity
 @Table(name = "users") // Updated table name
 public class User {
@@ -11,6 +10,9 @@ public class User {
     private String name;
     private String email;
     private String password;
+    @Enumerated(EnumType.STRING)
+    private Role role;
+
 
     public User(Long id, String name, String email, String password) {
         this.id = id;
@@ -28,6 +30,8 @@ public class User {
     public Long getId() {
         return id;
     }
+
+    public void setId(Long id) { this.id = id;}
 
     public String getName() {
         return name;
@@ -51,5 +55,13 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 }
