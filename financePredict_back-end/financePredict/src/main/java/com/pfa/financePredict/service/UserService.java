@@ -34,8 +34,22 @@ public class UserService {
         dal.createUser(user);
     }
 
+
     public User updateUser(User user) {
-        return userRepository.save(user);
+        Optional<User> existingUser = userRepository.findById(user.getId());
+        if (existingUser.isPresent()) {
+            User updatedUser = existingUser.get();
+            updatedUser.setName(user.getName());
+            updatedUser.setEmail(user.getEmail());
+            updatedUser.setPassword(user.getPassword());
+            return userRepository.save(updatedUser);
+        } else {
+            throw new IllegalArgumentException("User not found with ID: " + user.getId());
+        }
+    }
+
+    public List<User> getUsersByRole(String role) {
+        return userRepository.findByRole(role);
     }
     
     public void deleteUser(Long id) {

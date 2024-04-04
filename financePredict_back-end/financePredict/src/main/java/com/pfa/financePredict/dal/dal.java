@@ -1,5 +1,5 @@
 package com.pfa.financePredict.dal;
-import com.pfa.financePredict.model.User;
+import com.pfa.financePredict.model.*;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -11,7 +11,7 @@ public class dal {
     private static final Logger logger = LoggerFactory.getLogger(dal.class);
     private static final String DB_URL = "jdbc:mysql://localhost:3306/PeakPredict?useSSL=false";
     private static final String DB_USER = "root";
-    private static final String DB_PASSWORD = "Lol_lol00";
+    private static final String DB_PASSWORD = "riad";
 
     private Connection connection;
 
@@ -41,14 +41,13 @@ public class dal {
                     "id BIGINT AUTO_INCREMENT PRIMARY KEY," +
                     "name VARCHAR(255)," +
                     "email VARCHAR(255)," +
-                    "password VARCHAR(255)" +
+                    "password VARCHAR(255)," +
+                    "role VARCHAR(255)" +
                     ")";
             try (Statement statement = connection.createStatement()) {
                 statement.execute(userTableSql);
             }
-
-            // Create other tables (Portfolio, PortfolioItem, MarketData, PredictionModel, Transaction) here
-
+            // ...
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -93,19 +92,42 @@ public class dal {
         return user;
     }
 
+    public User getUserByEmail(String email) {
+        User user = null;
+        try {
+            String query = "SELECT * FROM users WHERE email = ?";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, email);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                Long id = resultSet.getLong("id");
+                String name = resultSet.getString("name");
+                String password = resultSet.getString("password");
+                Role role = Role.valueOf(resultSet.getString("role"));
+                user = new User(id, name, email, password);
+                user.setRole(role);
+            }
+        } catch (SQLException e) {
+            logger.error("Error retrieving user by email: {}", e.getMessage());
+        }
+        return user;
+    }
+
     public static void createUser(User user) {
         try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD)) {
-            String query = "INSERT INTO users (name, email, password) VALUES (?, ?, ?)";
+            String query = "INSERT INTO users (name, email, password, role) VALUES (?, ?, ?, ?)";
             try (PreparedStatement statement = connection.prepareStatement(query)) {
                 statement.setString(1, user.getName());
                 statement.setString(2, user.getEmail());
                 statement.setString(3, user.getPassword());
+                statement.setString(4, user.getRole().toString());
                 statement.executeUpdate();
             }
         } catch (SQLException e) {
             logger.error("Error creating user: {}", e.getMessage());
         }
     }
+
 
     public void updateUser(User user) {
         try {
