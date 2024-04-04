@@ -2,6 +2,7 @@
 
 body {
   font-family: "Poppins";
+  display: flex;
 }
 
 .priceItem {
@@ -19,7 +20,7 @@ h3 {
   margin: 0 auto;
   padding: 20px;
   position:relative;
-  top:10px;
+  top:30px;
 }
 
 .card-container {

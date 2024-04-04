@@ -346,7 +346,7 @@ function CryptoPrices() {
         };
 
         fetchData();
-        const interval = setInterval(fetchData, 3000); // Mise à jour toutes les 5 secondes
+        const interval = setInterval(fetchData, 1000); // Mise à jour toutes les 5 secondes
 
         return () => clearInterval(interval);
     }, []);
@@ -397,6 +397,7 @@ function CryptoPrices() {
     return (
       <div className="crypto-prices">
         <h2>Crypto Prices</h2>
+          <h2>It is {new Date().toLocaleTimeString()}.</h2>
         <div className="card-container">
           <div className="card-wrapper">{renderCards()}</div>
         </div>

@@ -85,9 +85,9 @@ export default function App() {
           element={
             isLoggedIn ? (
               <div>
-              <Navbar />
-              <CryptoPrices />
-            </div>
+                <Navbar />
+                <CryptoPrices />
+              </div>
             ) : (
               <Navigate to="/signin" replace={true} />
             )
