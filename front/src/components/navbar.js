@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './Navbar.css';
+import './Drop.jsx';
 
 const Navbar = () => {
   const [isDropdownOpen1, setIsDropdownOpen1] = useState(false);
@@ -18,11 +19,11 @@ const Navbar = () => {
       <div className="logo">logo</div>
       <ul className="navbar-list">
         <li>
-          <a href="#">Link 1</a>
+          <a href="#">Home</a>
         </li>
         <li className="dropdown">
           <a href="#" onPointerDown={toggleDropdown1}>
-            Dropdown 1
+            Algorithms
           </a>
           {isDropdownOpen1 && (
             <ul className="dropdown-menu">
@@ -43,7 +44,7 @@ const Navbar = () => {
         </li>
         <li className="dropdown">
           <a href="#" onMouseDown={toggleDropdown2}>
-            Dropdown 2
+            Indicators
           </a>
           {isDropdownOpen2 && (
             <ul className="dropdown-menu">
@@ -56,6 +57,7 @@ const Navbar = () => {
             </ul>
           )}
         </li>
+        {/* <Drop/> */}
       </ul>
     </nav>
   );
