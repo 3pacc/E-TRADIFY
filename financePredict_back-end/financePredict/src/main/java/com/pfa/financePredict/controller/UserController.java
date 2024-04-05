@@ -45,7 +45,7 @@ public class UserController {
     public ResponseEntity<?> authenticateUser(@RequestBody User user) {
         dal dal = new dal();
         User foundUser = dal.getUserByEmail(user.getEmail());
-        dal.closeConnection();
+//        dal.closeConnection();
 
         if (foundUser != null) {
             if (foundUser.getPassword().equals(user.getPassword())) {

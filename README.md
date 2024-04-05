@@ -11,7 +11,7 @@ L'objectif principal est de fournir aux utilisateurs des informations fiables et
 ## Contributeurs au projet
 
 Les contributeurs à ce projet sont :
-- Abdain Mohammed Jamal
+- Abdaine Mohammed Jamal
 - Oukessou Bakr
 - El Moudden Riad 
 - Tribak Anas
