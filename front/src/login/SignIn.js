@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -33,6 +33,7 @@ function SignInForm({ setIsLoggedIn }) {
           email: '',
           password: '',
         });
+        sessionStorage.setItem('isLoggedIn', true);
       } catch (error) {
         console.error('Error:', error);
         // Handle error, e.g., display an error message to the user
@@ -50,6 +51,22 @@ function SignInForm({ setIsLoggedIn }) {
       return false;
     }
     return true;
+  };
+
+  const checkAuthentication = () => {
+    const isLoggedIn = sessionStorage.getItem('isLoggedIn');
+    if (isLoggedIn) {
+      setIsLoggedIn(true);
+    }
+  };
+
+  useEffect(() => {
+    checkAuthentication();
+  }, []);
+
+  const handleLogout = () => {
+    sessionStorage.removeItem('isLoggedIn');
+    setIsLoggedIn(false);
   };
 
   return (
