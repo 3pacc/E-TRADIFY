@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.pfa.financePredict.dal.dal;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -44,7 +45,7 @@ public class UserController {
     public ResponseEntity<?> authenticateUser(@RequestBody User user) {
         dal dal = new dal();
         User foundUser = dal.getUserByEmail(user.getEmail());
-        dal.closeConnection();
+//        dal.closeConnection();
 
         if (foundUser != null) {
             if (foundUser.getPassword().equals(user.getPassword())) {

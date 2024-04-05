@@ -1,5 +1,8 @@
 {
   "devDependencies": {
     "react-scripts": "^5.0.1"
+  },
+  "dependencies": {
+    "react-session-api": "^1.1.0"
   }
 }
