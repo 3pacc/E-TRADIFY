@@ -69,4 +69,12 @@ public class User {
     public void setRole(Role role) {
         this.role = role;
     }
+
+    public List<Portfolio> getPortfolios() {
+        return portfolios;
+    }
+
+    public void setPortfolios(List<Portfolio> portfolios) {
+        this.portfolios = portfolios;
+    }
 }
