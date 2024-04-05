@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.pfa.financePredict.dal.dal;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -133,5 +134,6 @@ public class UserController {
         // For simplicity, let's assume the token contains the user ID
         Long userId = Long.parseLong(token);
         return userService.getUserById(userId);
+
     }
 }

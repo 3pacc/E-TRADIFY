@@ -1,6 +1,8 @@
 package com.pfa.financePredict.model;
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "users") // Updated table name
 public class User {
@@ -12,6 +14,9 @@ public class User {
     private String password;
     @Enumerated(EnumType.STRING)
     private Role role;
+
+    @OneToMany(mappedBy = "user")
+    private List<Portfolio> portfolios;
 
 
     public User(Long id, String name, String email, String password) {
