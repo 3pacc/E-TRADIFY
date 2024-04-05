@@ -26,6 +26,10 @@ public class Portfolio {
         this.id=null;
     }
 
+    public boolean isUserAdmin() {
+        return user != null && user.getRole() == Role.ADMINISTRATOR;
+    }
+
     public Long getId() {
         return id;
     }
