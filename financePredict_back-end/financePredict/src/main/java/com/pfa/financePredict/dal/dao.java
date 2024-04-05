@@ -128,6 +128,20 @@ public class dao {
         }
     }
 
+    public static void createPortfolio(Portfolio portfolio) {
+        try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD)) {
+            String query = "INSERT INTO portfolios (name, description, user_id) VALUES (?, ?, ?)";
+            try (PreparedStatement statement = connection.prepareStatement(query)) {
+                statement.setString(1, portfolio.getName());
+                statement.setString(2, portfolio.getDescription());
+                statement.setLong(3, portfolio.getUser().getId());
+                statement.executeUpdate();
+            }
+        } catch (SQLException e) {
+            logger.error("Error creating portfolio: {}", e.getMessage());
+        }
+    }
+
 
     public void updateUser(User user) {
         try {
