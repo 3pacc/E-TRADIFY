@@ -1,4 +1,6 @@
 package com.pfa.financePredict.model;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -11,11 +13,15 @@ public class User {
     private Long id;
     private String name;
     private String email;
+
+    @JsonIgnore
     private String password;
+
     @Enumerated(EnumType.STRING)
     private Role role;
 
     @OneToMany(mappedBy = "user")
+    @JsonManagedReference
     private List<Portfolio> portfolios;
 
 

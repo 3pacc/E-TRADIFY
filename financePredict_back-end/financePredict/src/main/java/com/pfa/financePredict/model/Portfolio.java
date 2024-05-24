@@ -1,5 +1,6 @@
 package com.pfa.financePredict.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 @Entity
@@ -7,31 +8,24 @@ import jakarta.persistence.*;
 public class Portfolio {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "portfolio_id")
+    private Long portfolioId;
+
     private String name;
     private String description;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", nullable = false)
+    @JsonBackReference
     private User user;
 
-    public Portfolio(Long id, String name, String description) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-    }
-    public Portfolio(){
-        this.name="";
-        this.description="";
-        this.id=null;
+    // getters and setters
+    public Long getPortfolioId() {
+        return portfolioId;
     }
 
-    public boolean isUserAdmin() {
-        return user != null && user.getRole() == Role.ADMINISTRATOR;
-    }
-
-    public Long getId() {
-        return id;
+    public void setPortfolioId(Long portfolioId) {
+        this.portfolioId = portfolioId;
     }
 
     public String getName() {
@@ -40,14 +34,6 @@ public class Portfolio {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Portfolio(Long id) {
-        this.id = id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getDescription() {
