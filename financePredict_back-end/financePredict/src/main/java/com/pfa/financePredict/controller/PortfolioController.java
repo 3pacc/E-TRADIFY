@@ -14,13 +14,13 @@ import java.util.List;
 @RequestMapping("/api/portfolios")
 public class PortfolioController {
 
+    private final PortfolioService portfolioService;
+    private final UserService userService;
+
     @Autowired
-    private PortfolioService portfolioService;
-    private UserService userService;
-    @GetMapping
-    public ResponseEntity<List<Portfolio>> getAllPortfolios() {
-        List<Portfolio> portfolios = portfolioService.getAllPortfolios();
-        return ResponseEntity.ok(portfolios);
+    public PortfolioController(PortfolioService portfolioService, UserService userService) {
+        this.portfolioService = portfolioService;
+        this.userService = userService;
     }
 
     @GetMapping("/{id}")
@@ -41,15 +41,42 @@ public class PortfolioController {
 
     @PostMapping
     public ResponseEntity<Portfolio> createPortfolio(@RequestBody Portfolio portfolio, @RequestHeader("Authorization") String token) {
+        // Vérifier si l'utilisateur existe
         User currentUser = extractUserFromToken(token);
-        Portfolio createdPortfolio = portfolioService.createPortfolio(portfolio, currentUser);
+        if (currentUser == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+
+        // Vérifier l'utilisateur spécifié dans le corps de la requête
+        Long userId = portfolio.getUser().getId();
+        User user = userService.getUserById(userId);
+        if (user == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        }
+
+        // Associer le portfolio à l'utilisateur spécifié
+        portfolio.setUser(user);
+        Portfolio createdPortfolio = portfolioService.createPortfolio(portfolio, user);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdPortfolio);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Portfolio> updatePortfolio(@PathVariable Long id, @RequestBody Portfolio portfolio, @RequestHeader("Authorization") String token) {
+        // Vérifier si l'utilisateur existe
         User currentUser = extractUserFromToken(token);
-        portfolio.setId(id);
+        if (currentUser == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+
+        // Vérifier l'utilisateur spécifié dans le corps de la requête
+        Long userId = portfolio.getUser().getId();
+        User user = userService.getUserById(userId);
+        if (user == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        }
+
+        portfolio.setPortfolioId(id);
+        portfolio.setUser(user);
         Portfolio updatedPortfolio = portfolioService.updatePortfolio(portfolio, currentUser);
         return ResponseEntity.ok(updatedPortfolio);
     }
@@ -57,16 +84,20 @@ public class PortfolioController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletePortfolio(@PathVariable Long id, @RequestHeader("Authorization") String token) {
         User currentUser = extractUserFromToken(token);
+        if (currentUser == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+
         portfolioService.deletePortfolio(id, currentUser);
         return ResponseEntity.noContent().build();
     }
 
     private User extractUserFromToken(String token) {
-        // Implement the logic to extract the user from the token
-        // Return the User object
-        // For simplicity, let's assume the token contains the user ID
-        Long userId = Long.parseLong(token);
-        return userService.getUserById(userId);
-
+        try {
+            Long userId = Long.parseLong(token);
+            return userService.getUserById(userId);
+        } catch (NumberFormatException e) {
+            return null;
+        }
     }
 }

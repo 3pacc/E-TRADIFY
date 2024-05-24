@@ -1,6 +1,5 @@
 package com.pfa.financePredict.service;
 
-import com.pfa.financePredict.dal.dal;
 import com.pfa.financePredict.model.*;
 import com.pfa.financePredict.repository.PortfolioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,9 +26,9 @@ public class PortfolioService {
         return portfolioRepository.findByUserId(userId);
     }
 
-    public Portfolio createPortfolio(Portfolio portfolio, User currentUser) {
-        if (currentUser.getRole() == Role.ADMINISTRATOR || currentUser.getPortfolios() == null) {
-            portfolio.setUser(currentUser);
+    public Portfolio createPortfolio(Portfolio portfolio, User user) {
+        if (user.getRole() == Role.ADMINISTRATOR || (user.getPortfolios() != null && user.getPortfolios().isEmpty())) {
+            portfolio.setUser(user);
             return portfolioRepository.save(portfolio);
         } else {
             throw new IllegalArgumentException("Trader can have only one portfolio.");
@@ -37,27 +36,32 @@ public class PortfolioService {
     }
 
     public Portfolio updatePortfolio(Portfolio portfolio, User currentUser) {
-        if (currentUser.getRole() == Role.ADMINISTRATOR || portfolio.getUser().equals(currentUser)) {
-            Optional<Portfolio> existingPortfolio = portfolioRepository.findById(portfolio.getId());
-            if (existingPortfolio.isPresent()) {
-                Portfolio updatedPortfolio = existingPortfolio.get();
-                updatedPortfolio.setName(portfolio.getName());
-                updatedPortfolio.setDescription(portfolio.getDescription());
-                return portfolioRepository.save(updatedPortfolio);
-            } else {
-                throw new IllegalArgumentException("Portfolio not found with ID: " + portfolio.getId());
+        Portfolio existingPortfolio = portfolioRepository.findById(portfolio.getPortfolioId())
+                .orElseThrow(() -> new IllegalArgumentException("Portfolio not found"));
+
+        if (currentUser.getRole() == Role.ADMINISTRATOR || existingPortfolio.getUser().equals(currentUser)) {
+            existingPortfolio.setName(portfolio.getName());
+            existingPortfolio.setDescription(portfolio.getDescription());
+
+            // Vérifiez l'utilisateur spécifié pour le portfolio
+            User newUser = portfolio.getUser();
+            if (newUser != null) {
+                existingPortfolio.setUser(newUser);
             }
+            return portfolioRepository.save(existingPortfolio);
         } else {
-            throw new IllegalArgumentException("Unauthorized to update this portfolio.");
+            throw new IllegalArgumentException("You are not authorized to update this portfolio.");
         }
     }
 
     public void deletePortfolio(Long id, User currentUser) {
-        Portfolio portfolio = getPortfolioById(id);
-        if (currentUser.getRole() == Role.ADMINISTRATOR || portfolio.getUser().equals(currentUser)) {
-            portfolioRepository.deleteById(id);
+        Portfolio existingPortfolio = portfolioRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Portfolio not found"));
+
+        if (currentUser.getRole() == Role.ADMINISTRATOR || existingPortfolio.getUser().equals(currentUser)) {
+            portfolioRepository.delete(existingPortfolio);
         } else {
-            throw new IllegalArgumentException("Unauthorized to delete this portfolio.");
+            throw new IllegalArgumentException("You are not authorized to delete this portfolio.");
         }
     }
 }

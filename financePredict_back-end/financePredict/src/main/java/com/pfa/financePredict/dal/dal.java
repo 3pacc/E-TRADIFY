@@ -45,10 +45,11 @@ public class dal {
                     "role VARCHAR(255)" +
                     ")";
 
-            String portfolioTableSql = "CREATE TABLE IF NOT EXISTS portfolio (" +
+            String portfolioTableSql = "CREATE TABLE IF NOT EXISTS portfolios (" +
                     "portfolio_id INT AUTO_INCREMENT PRIMARY KEY," +
                     "user_id INT," +
                     "name VARCHAR(30)," +
+                    "description VARCHAR(255)," +
                     "FOREIGN KEY (user_id) REFERENCES users(id)" +
                     ")";
 
@@ -59,7 +60,7 @@ public class dal {
                     "purchase_price DECIMAL(10, 2)," +
                     "purchase_date DATE," +
                     "symbol VARCHAR(10)," +
-                    "FOREIGN KEY (portfolio_id) REFERENCES portfolio(portfolio_id)" +
+                    "FOREIGN KEY (portfolio_id) REFERENCES portfolios(portfolio_id)" +
                     ")";
 
             try (Statement statement = connection.createStatement()) {
