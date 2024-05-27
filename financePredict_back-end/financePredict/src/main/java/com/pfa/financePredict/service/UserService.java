@@ -2,14 +2,18 @@ package com.pfa.financePredict.service;
 import com.pfa.financePredict.model.User;
 import com.pfa.financePredict.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import com.pfa.financePredict.dal.*;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Vector;
 
 @Service
-public class UserService {
+public class UserService implements UserDetailsService {
 
     @Autowired
     private UserRepository userRepository;
@@ -25,13 +29,16 @@ public class UserService {
     public User getUserById(Long id) {
         return userRepository.findById(id).orElse(null);
     }
+    public User getUserByEmail(String email) {
+        return userRepository.findByEmail(email).orElse(null);
+    }
 
     public User saveUser(User user) {
         return userRepository.save(user);
     }
 
     public void createUser(User user) {
-        dal.createUser(user);
+        dao.createUser(user);
     }
 
 
@@ -59,4 +66,20 @@ public class UserService {
         return userRepository.findByEmail(email);
     }
 
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        // Load user from your data source based on the email
+        User user = getUserByEmail(email);
+
+        if (user == null) {
+            throw new UsernameNotFoundException("User not found with email: " + email);
+        }
+
+        // Create and return a UserDetails object based on the User entity
+        return new org.springframework.security.core.userdetails.User(
+                user.getEmail(),
+                user.getPassword(),
+                new Vector<>() // Add user's roles and authorities here
+        );
+    }
 }

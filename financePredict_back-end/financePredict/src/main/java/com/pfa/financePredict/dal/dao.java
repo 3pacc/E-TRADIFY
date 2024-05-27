@@ -7,15 +7,15 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class dal {
-    private static final Logger logger = LoggerFactory.getLogger(dal.class);
+public class dao {
+    private static final Logger logger = LoggerFactory.getLogger(dao.class);
     private static final String DB_URL = "jdbc:mysql://localhost:3306/PeakPredict?useSSL=false";
     private static final String DB_USER = "root";
     private static final String DB_PASSWORD = "Lol_lol00";
 
     private Connection connection;
 
-    public dal() {
+    public dao() {
         try {
             connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
             logger.info("Connected to the database.");
