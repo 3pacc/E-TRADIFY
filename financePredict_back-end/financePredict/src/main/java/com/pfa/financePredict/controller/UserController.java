@@ -137,10 +137,8 @@ public class UserController {
     }
 
     private User extractUserFromToken(String token) {
-        // Implement the logic to extract the user from the token
-        // Return the User object
-        // For simplicity, let's assume the token contains the user ID
         Long userId = Long.parseLong(token);
         return userService.getUserById(userId);
+
     }
 }

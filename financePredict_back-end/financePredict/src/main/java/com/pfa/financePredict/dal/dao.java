@@ -1,4 +1,5 @@
 package com.pfa.financePredict.dal;
+
 import com.pfa.financePredict.model.*;
 
 import java.sql.*;
@@ -11,7 +12,7 @@ public class dao {
     private static final Logger logger = LoggerFactory.getLogger(dao.class);
     private static final String DB_URL = "jdbc:mysql://localhost:3306/PeakPredict?useSSL=false";
     private static final String DB_USER = "root";
-    private static final String DB_PASSWORD = "Lol_lol00";
+    private static final String DB_PASSWORD = "riad";
 
     private Connection connection;
 
@@ -25,7 +26,8 @@ public class dao {
     }
 
     public static void createDatabase() {
-        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306?useSSL=false", DB_USER, DB_PASSWORD)) {
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306?useSSL=false", DB_USER,
+                DB_PASSWORD)) {
             String sql = "CREATE DATABASE IF NOT EXISTS PeakPredict";
             try (Statement statement = connection.createStatement()) {
                 statement.execute(sql);
@@ -38,16 +40,36 @@ public class dao {
     public static void createTables() {
         try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD)) {
             String userTableSql = "CREATE TABLE IF NOT EXISTS users (" +
-                    "id BIGINT AUTO_INCREMENT PRIMARY KEY," +
+                    "id INT AUTO_INCREMENT PRIMARY KEY," +
                     "name VARCHAR(255)," +
                     "email VARCHAR(255)," +
                     "password VARCHAR(255)," +
                     "role VARCHAR(255)" +
                     ")";
+
+            String portfolioTableSql = "CREATE TABLE IF NOT EXISTS portfolios (" +
+                    "portfolio_id INT AUTO_INCREMENT PRIMARY KEY," +
+                    "user_id INT," +
+                    "name VARCHAR(30)," +
+                    "description VARCHAR(255)," +
+                    "FOREIGN KEY (user_id) REFERENCES users(id)" +
+                    ")";
+
+            String portfolioItemTableSql = "CREATE TABLE IF NOT EXISTS portfolio_item (" +
+                    "item_id INT AUTO_INCREMENT PRIMARY KEY," +
+                    "portfolio_id INT," +
+                    "quantity INT," +
+                    "purchase_price DECIMAL(10, 2)," +
+                    "purchase_date DATE," +
+                    "symbol VARCHAR(10)," +
+                    "FOREIGN KEY (portfolio_id) REFERENCES portfolios(portfolio_id)" +
+                    ")";
+
             try (Statement statement = connection.createStatement()) {
                 statement.execute(userTableSql);
+                statement.execute(portfolioTableSql);
+                statement.execute(portfolioItemTableSql);
             }
-            // ...
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -128,7 +150,6 @@ public class dao {
         }
     }
 
-
     public void updateUser(User user) {
         try {
             String query = "UPDATE users SET name = ?, email = ?, password = ? WHERE id = ?";
@@ -170,4 +191,3 @@ public class dao {
         createTables();
     }
 }
-

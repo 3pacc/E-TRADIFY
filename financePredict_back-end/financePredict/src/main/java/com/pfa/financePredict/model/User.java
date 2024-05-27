@@ -1,5 +1,9 @@
 package com.pfa.financePredict.model;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 @Table(name = "users") // Updated table name
@@ -9,9 +13,16 @@ public class User {
     private Long id;
     private String name;
     private String email;
+
+    @JsonIgnore
     private String password;
+
     @Enumerated(EnumType.STRING)
     private Role role;
+
+    @OneToMany(mappedBy = "user")
+    @JsonManagedReference
+    private List<Portfolio> portfolios;
 
 
     public User(Long id, String name, String email, String password) {
@@ -63,5 +74,13 @@ public class User {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    public List<Portfolio> getPortfolios() {
+        return portfolios;
+    }
+
+    public void setPortfolios(List<Portfolio> portfolios) {
+        this.portfolios = portfolios;
     }
 }
