@@ -312,6 +312,11 @@ function CryptoPrices() {
 
     useEffect(() => {
         const fetchData = async () => {
+        const token = localStorage.getItem('token'); // Retrieve the token from localStorage or sessionStorage
+
+        if (token) {
+        // Make API requests with the token in the headers
+            const headers = { Authorization: `Bearer ${token}` };
             const endpoint = 'https://api3.binance.com';
             const queries = {
                 btc: '/api/v3/ticker/price?symbol=BTCUSDT',
@@ -343,7 +348,7 @@ function CryptoPrices() {
             const results = await Promise.all(requests);
             const updatedPrices = Object.assign({}, ...results);
             setPrices(updatedPrices);
-        };
+        }};
 
         fetchData();
         const interval = setInterval(fetchData, 1000); // Mise à jour toutes les 5 secondes

@@ -2,14 +2,15 @@ package com.pfa.financePredict.controller;
 
 import com.pfa.financePredict.model.*;
 import com.pfa.financePredict.service.UserService;
+import com.pfa.financePredict.service.security.AuthResponse;
+import com.pfa.financePredict.service.security.JwtTokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import com.pfa.financePredict.dal.dal;
+import com.pfa.financePredict.dal.dao;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @CrossOrigin
@@ -43,25 +44,32 @@ public class UserController {
 
     @PostMapping("/signin")
     public ResponseEntity<?> authenticateUser(@RequestBody User user) {
-        dal dal = new dal();
-        User foundUser = dal.getUserByEmail(user.getEmail());
+        dao dao = new dao();
+        User foundUser = dao.getUserByEmail(user.getEmail());
 //        dal.closeConnection();
 
         if (foundUser != null) {
             if (foundUser.getPassword().equals(user.getPassword())) {
                 // Check the user's role and return appropriate response
-                if (foundUser.getRole() == Role.ADMINISTRATOR) {
-                    return ResponseEntity.ok("Administrator authenticated successfully!");
-                } else if (foundUser.getRole() == Role.TRADER) {
-                    return ResponseEntity.ok("Trader authenticated successfully!");
-                }
+//                if (foundUser.getRole() == Role.ADMINISTRATOR) {
+                String token = JwtTokenUtil.generateToken(foundUser.getEmail());
+                return ResponseEntity.ok(new AuthResponse(token));
+
+//                return ResponseEntity.ok("Administrator authenticated successfully!", new AuthResponse(token));
+//                } else if (foundUser.getRole() == Role.TRADER) {
+//                    return ResponseEntity.ok("Trader authenticated successfully!");
+//                }
             } else {
                 return ResponseEntity.badRequest().body("Invalid password!");
             }
         } else {
             return ResponseEntity.badRequest().body("User not found!");
         }
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+
+//        String token = JwtTokenUtil.generateToken(user.getEmail());
+//        return ResponseEntity.ok(new AuthResponse(token));
+
+//        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
     }
 
     @GetMapping("/users/{id}")

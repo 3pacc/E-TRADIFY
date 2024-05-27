@@ -34,9 +34,12 @@ function SignInForm({ setIsLoggedIn }) {
           password: '',
         });
         sessionStorage.setItem('isLoggedIn', true);
+        const token = response.data.token;
+        localStorage.setItem('token', token);
+        return token;
       } catch (error) {
         console.error('Error:', error);
-        // Handle error, e.g., display an error message to the user
+        window.Error(error);
       }
     }
   };
@@ -66,9 +69,10 @@ function SignInForm({ setIsLoggedIn }) {
 
   const handleLogout = () => {
     sessionStorage.removeItem('isLoggedIn');
+    localStorage.removeItem('token'); // Remove the token from localStorage or sessionStorage
     setIsLoggedIn(false);
   };
-
+  
   return (
     <div className="form-container sign-in-container">
       <form onSubmit={handleOnSubmit}>
