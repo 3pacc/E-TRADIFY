@@ -330,9 +330,9 @@ function CryptoPrices() {
             };
 
             const requests = Object.keys(queries).map(async (key) => {
-                const response = await fetch(endpoint + queries[key]);
+                const response = await fetch(endpoint + queries[key], { headers });
                 const data = await response.json();
-                const response24h = await fetch(endpoint + '/api/v3/ticker/24hr?symbol=' + key.toUpperCase() + 'USDT');
+                const response24h = await fetch(endpoint + '/api/v3/ticker/24hr?symbol=' + key.toUpperCase() + 'USDT', { headers });
                 const data24h = await response24h.json();
                 return {
                     [key]: {
@@ -348,7 +348,10 @@ function CryptoPrices() {
             const results = await Promise.all(requests);
             const updatedPrices = Object.assign({}, ...results);
             setPrices(updatedPrices);
-        }};
+        } else {
+            console.log('User is not authenticated');
+          }
+    };
 
         fetchData();
         const interval = setInterval(fetchData, 1000); // Mise à jour toutes les 5 secondes
