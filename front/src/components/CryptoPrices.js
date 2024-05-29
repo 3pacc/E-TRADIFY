@@ -316,7 +316,7 @@ function CryptoPrices() {
 
         if (token) {
         // Make API requests with the token in the headers
-            const headers = { Authorization: `Bearer ${token}` };
+            // const headers = { Authorization: `Bearer ${token}` };
             const endpoint = 'https://api3.binance.com';
             const queries = {
                 btc: '/api/v3/ticker/price?symbol=BTCUSDT',
@@ -330,9 +330,9 @@ function CryptoPrices() {
             };
 
             const requests = Object.keys(queries).map(async (key) => {
-                const response = await fetch(endpoint + queries[key], { headers });
+                const response = await fetch(endpoint + queries[key]);
                 const data = await response.json();
-                const response24h = await fetch(endpoint + '/api/v3/ticker/24hr?symbol=' + key.toUpperCase() + 'USDT', { headers });
+                const response24h = await fetch(endpoint + '/api/v3/ticker/24hr?symbol=' + key.toUpperCase() + 'USDT');
                 const data24h = await response24h.json();
                 return {
                     [key]: {
@@ -354,12 +354,12 @@ function CryptoPrices() {
     };
 
         fetchData();
-        const interval = setInterval(fetchData, 1000); // Mise à jour toutes les 5 secondes
+        const interval = setInterval(fetchData, 1000); // Mise à jour toutes les 1 secondes
 
         return () => clearInterval(interval);
-    }, []);
+    }, [prices]);
     
-    const [visibleCards, setVisibleCards] = useState();
+    const [visibleCards] = useState();
   
     const renderCards = () => {
       const cryptoKeys = Object.keys(prices);
@@ -377,7 +377,7 @@ function CryptoPrices() {
                   </div>
                   <div className="text-container">
                     <h3>{key.toUpperCase()}USDT</h3>
-                    <span className="network">{value.price} $</span>
+                    <span className="network">{parseFloat(value.price).toFixed(3)} $</span>
                   </div>
                 </div>
                 <span className="percentage">{value.change24h}%</span>
@@ -385,7 +385,7 @@ function CryptoPrices() {
                 <div className="details-container">
                   <div className="detail">
                     <span>TVL</span>
-                    <span>${parseFloat(value.marketCap).toFixed(2)} M</span>
+                    <span>${parseFloat(value.volume24h).toFixed(2)} M</span>
                   </div>
                   <div className="detail">
                     <span>Network</span>
@@ -393,11 +393,12 @@ function CryptoPrices() {
                   </div>
                 </div>
                 <a href="staking-details.html" className="stack-button">
-                  Stack
+                  Predict
                 </a>
               </div>
             </div>
           </div>
+          
         );
       });
     };
@@ -409,8 +410,37 @@ function CryptoPrices() {
         <div className="card-container">
           <div className="card-wrapper">{renderCards()}</div>
         </div>
+        {/* New section for the table */}
+      <div className="table-section">
+        <h2>Table of available coins</h2>
+        <div className="table-container">
+          <div className="table-header">
+            <div>Rankings</div>
+            <div>Blockchain</div>
+            <div>Token Price</div>
+            <div>24H Volume</div>
+            <div>Market Cap</div>
+            <div>TVL</div>
+          </div>
+          <div className="table-body">
+            {Object.entries(prices).map(([key, value], index) => (
+              <div className="table-row" key={key}>
+                <div>{index + 1}</div>
+                <div>
+                  <img src={value.imageUrl} alt={key.toUpperCase()} style={{ width: '20px', marginRight: '10px', verticalAlign: 'middle' }} />
+                  {key.toUpperCase()}
+                </div>
+                <div>${parseFloat(value.price).toFixed(2)}</div>
+                <div>${parseFloat(value.volume24h).toLocaleString()}</div>
+                <div>${parseFloat(value.marketCap).toLocaleString()}</div>
+                <div>-</div>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
-
+      </div>
+    
     );
   }
   
