@@ -3,6 +3,9 @@
 body {
   font-family: "Poppins";
   display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-content: space-between;
 }
 
 .priceItem {
@@ -20,7 +23,7 @@ h3 {
   margin: 0 auto;
   padding: 20px;
   position:relative;
-  top:30px;
+  top:50px;
 }
 
 .card-container {

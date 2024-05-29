@@ -39,6 +39,8 @@
     transform: rotate(360deg);
   }
 }
-.crypto-prices{
-  padding-top: 100px ;
+.components{
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
 }
