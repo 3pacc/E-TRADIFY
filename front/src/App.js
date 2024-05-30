@@ -24,7 +24,7 @@ export default function App() {
 
   if (isLoggedIn) {
     return (
-      <div>
+      <div className="components">
               <Navbar />
               <CryptoPrices />
             </div>
@@ -84,7 +84,7 @@ export default function App() {
           path="/CryptoPrices"
           element={
             isLoggedIn ? (
-              <div>
+              <div className="components">
                 <Navbar />
                 <CryptoPrices />
               </div>
