@@ -309,8 +309,15 @@ function CryptoPrices() {
             volume24h: '' 
         },
     });
+    const [globalMarketCap, setGlobalMarketCap] = useState(null);
+    const [globalMarketCapChange, setGlobalMarketCapChange] = useState(null);
+    const [tradingVolume24h, setTradingVolume24h] = useState(null);
+    const [trendingCoins, setTrendingCoins] = useState([]);
+    const [largestGainers, setLargestGainers] = useState([]);
 
     useEffect(() => {
+        
+
         const fetchData = async () => {
         const token = localStorage.getItem('token'); // Retrieve the token from localStorage or sessionStorage
 
@@ -348,18 +355,58 @@ function CryptoPrices() {
             const results = await Promise.all(requests);
             const updatedPrices = Object.assign({}, ...results);
             setPrices(updatedPrices);
+            await fetchMarketData();
         } else {
             console.log('User is not authenticated');
           }
     };
 
         fetchData();
-        const interval = setInterval(fetchData, 1000); // Mise à jour toutes les 1 secondes
+        const interval = setInterval(fetchData, 30000); // Mise à jour toutes les 1 secondes
 
-        return () => clearInterval(interval);
+        return () => {
+            clearInterval(interval);
+          };
     }, [prices]);
     
     const [visibleCards] = useState();
+
+    const fetchMarketData = async () => {
+        try {
+          const response = await fetch(' https://api.coingecko.com/api/v3/global');
+          const data = await response.json();
+
+          setGlobalMarketCap(data.data.total_market_cap.usd.toLocaleString('en-US', { style: 'currency', currency: 'USD' }));
+          setGlobalMarketCapChange(data.data.market_cap_change_percentage_24h_usd.toFixed(2));
+          setTradingVolume24h(data.data.total_volume.usd.toLocaleString('en-US', { style: 'currency', currency: 'USD' }));
+
+      
+          const trendingResponse = await fetch(' https://api.coingecko.com/api/v3/search/trending');
+          const trendingData = await trendingResponse.json();
+          const trendingCoinsData = trendingData.coins.map((coin) => ({
+            name: coin.item.name,
+            price: coin.item.price_btc.toFixed(8),
+            change: coin.item.score.toFixed(2),
+          }));
+
+        setTrendingCoins(trendingCoinsData.slice(0, 3));
+      
+          const gainersResponse = await fetch(` https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&price_change_percentage=24h`);          const gainersData = await gainersResponse.json();
+          const largestGainersData = gainersData
+            .sort((a, b) => b.price_change_percentage_24h - a.price_change_percentage_24h)
+            .slice(0, 3)
+            .map((coin) => ({
+              name: coin.name,
+              price: coin.current_price.toLocaleString('en-US', { style: 'currency', currency: 'USD' }),
+              change: `${coin.price_change_percentage_24h.toFixed(2)}%`,
+            }));
+           
+            setLargestGainers(largestGainersData);
+              
+        } catch (error) {
+          console.error('Error fetching market data:', error);
+        }
+      };
   
     const renderCards = () => {
       const cryptoKeys = Object.keys(prices);
@@ -404,9 +451,60 @@ function CryptoPrices() {
     };
   
     return (
+        
       <div className="crypto-prices">
+        {/* New section for market cap and trending coins */}
+        
+        <h2>It is {new Date().toLocaleTimeString()}.</h2>
+            {/* Market cap section */}
+        <div className="market-cap-section">
+        <h2>Cryptocurrency Prices by Market Cap</h2>
+        <p>The global cryptocurrency market cap today is <b>{globalMarketCap}</b>, 
+         a <b>{globalMarketCapChange}% </b>change in the last 24 hours.</p>
+        <div className="market-cap-container">
+            <div className="market-cap-value">
+            <span>{globalMarketCap}</span>
+            <span>Market Cap {globalMarketCapChange}%</span>
+            </div>
+            <div className="trading-volume">
+            <span>{tradingVolume24h}</span>
+            <span>24h Trading Volume</span>
+            </div>
+        </div>
+
+        {/* Trending coins */}
+        <div className="trending-section">
+            <div className="trending-container">
+            <h3>Trending</h3>
+            <div className="trending-coins">
+                {trendingCoins.map((coin, index) => (
+                <div key={index} className="trending-coin">
+                    <span>{coin.name}</span>
+                    <span>{coin.price}</span>
+                    <span>{coin.change}</span>
+                </div>
+                ))}
+            </div>
+            <span className="view-more">View more &gt;</span>
+            </div>
+
+            {/* Largest gainers */}
+            <div className="gainers-container">
+            <h3>Largest Gainers</h3>
+            <div className="gainers-coins">
+                {largestGainers.map((coin, index) => (
+                <div key={index} className="gainer-coin">
+                    <span>{coin.name}</span>
+                    <span>{coin.price}</span>
+                    <span>{coin.change}</span>
+                </div>
+                ))}
+            </div>
+            <span className="view-more">View more &gt;</span>
+            </div>
+        </div>
+        </div>
         <h2>Crypto Prices</h2>
-          <h2>It is {new Date().toLocaleTimeString()}.</h2>
         <div className="card-container">
           <div className="card-wrapper">{renderCards()}</div>
         </div>
@@ -439,6 +537,8 @@ function CryptoPrices() {
           </div>
         </div>
       </div>
+      
+        <coingecko-coin-compare-chart-widget  coin-ids="bitcoin,ethereum,eos,ripple,litecoin" currency="usd" locale="en"></coingecko-coin-compare-chart-widget>
       </div>
     
     );

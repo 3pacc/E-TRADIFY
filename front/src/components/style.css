@@ -228,3 +228,69 @@ h3 {
 .table-row > div {
   padding: 12px;
 }
+/* /////////////////////////////////// */
+.market-cap-section {
+  background: linear-gradient(to right, #b6e3fb, #d0dce2);
+  color: #2c2c2c;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-top: 20px;
+  padding: 20px;
+}
+.market-cap-section p{
+  text-align-last: center;
+}
+.market-cap-section p b:first-child{
+  color:green ;
+}
+.market-cap-section p b:nth-child(2){
+  color:red ;
+}
+.market-cap-container {
+  display: flex;
+  justify-content: space-evenly;
+  margin-bottom: 20px;
+}
+
+.market-cap-value,
+.trading-volume {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.market-cap-value span:first-child,
+.trading-volume span:first-child {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.trending-section {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.trending-container,
+.gainers-container {
+  flex: 1;
+  margin-right: 20px;
+}
+
+.trending-coins,
+.gainers-coins {
+  display: flex;
+  flex-direction: column;
+}
+
+.trending-coin,
+.gainer-coin {
+  display: flex;
+  justify-content: space-evenly;
+  margin-bottom: 10px;
+}
+
+.view-more {
+  text-align: right;
+  font-weight: bold;
+  cursor: pointer;
+}
