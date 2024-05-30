@@ -12,7 +12,7 @@ public class dao {
     private static final Logger logger = LoggerFactory.getLogger(dao.class);
     private static final String DB_URL = "jdbc:mysql://localhost:3306/PeakPredict?useSSL=false";
     private static final String DB_USER = "root";
-    private static final String DB_PASSWORD = "Lol_lol00";
+    private static final String DB_PASSWORD = "riad";
 
     private Connection connection;
 
@@ -52,6 +52,9 @@ public class dao {
                     "user_id INT," +
                     "name VARCHAR(30)," +
                     "description VARCHAR(255)," +
+                    "is_test BOOLEAN NOT NULL DEFAULT FALSE," +
+                    "created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP," +
+                    "updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP," +
                     "FOREIGN KEY (user_id) REFERENCES users(id)" +
                     ")";
 
