@@ -330,9 +330,9 @@ function CryptoPrices() {
             };
 
             const requests = Object.keys(queries).map(async (key) => {
-                const response = await fetch(endpoint + queries[key], { headers });
+                const response = await fetch(endpoint + queries[key]);
                 const data = await response.json();
-                const response24h = await fetch(endpoint + '/api/v3/ticker/24hr?symbol=' + key.toUpperCase() + 'USDT', { headers });
+                const response24h = await fetch(endpoint + '/api/v3/ticker/24hr?symbol=' + key.toUpperCase() + 'USDT');
                 const data24h = await response24h.json();
                 return {
                     [key]: {
