@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 @RestController
@@ -21,22 +22,6 @@ public class PortfolioController {
     public PortfolioController(PortfolioService portfolioService, UserService userService) {
         this.portfolioService = portfolioService;
         this.userService = userService;
-    }
-
-    @GetMapping("/{id}")
-    public ResponseEntity<Portfolio> getPortfolioById(@PathVariable Long id) {
-        Portfolio portfolio = portfolioService.getPortfolioById(id);
-        if (portfolio != null) {
-            return ResponseEntity.ok(portfolio);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
-    }
-
-    @GetMapping("/user/{userId}")
-    public ResponseEntity<List<Portfolio>> getPortfoliosByUserId(@PathVariable Long userId) {
-        List<Portfolio> portfolios = portfolioService.getPortfoliosByUserId(userId);
-        return ResponseEntity.ok(portfolios);
     }
 
     @PostMapping
@@ -56,8 +41,27 @@ public class PortfolioController {
 
         // Associer le portfolio à l'utilisateur spécifié
         portfolio.setUser(user);
+        portfolio.setCreatedAt(new Timestamp(System.currentTimeMillis()));
+        portfolio.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
+
         Portfolio createdPortfolio = portfolioService.createPortfolio(portfolio, user);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdPortfolio);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Portfolio> getPortfolioById(@PathVariable Long id) {
+        Portfolio portfolio = portfolioService.getPortfolioById(id);
+        if (portfolio != null) {
+            return ResponseEntity.ok(portfolio);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<List<Portfolio>> getPortfoliosByUserId(@PathVariable Long userId) {
+        List<Portfolio> portfolios = portfolioService.getPortfoliosByUserId(userId);
+        return ResponseEntity.ok(portfolios);
     }
 
     @PutMapping("/{id}")

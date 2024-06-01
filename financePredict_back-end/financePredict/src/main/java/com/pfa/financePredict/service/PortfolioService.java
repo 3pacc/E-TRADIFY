@@ -5,6 +5,7 @@ import com.pfa.financePredict.repository.PortfolioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,6 +14,19 @@ public class PortfolioService {
 
     @Autowired
     private PortfolioRepository portfolioRepository;
+
+
+    public Portfolio createPortfolio(Portfolio portfolio, User user) {
+        if (user.getRole() == Role.ADMINISTRATOR || (user.getPortfolios() != null && user.getPortfolios().isEmpty())) {
+            portfolio.setUser(user);
+            portfolio.setCreatedAt(new Timestamp(System.currentTimeMillis()));
+            portfolio.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
+            return portfolioRepository.save(portfolio);
+        } else {
+            throw new IllegalArgumentException("Trader can have only one portfolio.");
+        }
+    }
+
 
     public List<Portfolio> getAllPortfolios() {
         return portfolioRepository.findAll();
@@ -24,15 +38,6 @@ public class PortfolioService {
 
     public List<Portfolio> getPortfoliosByUserId(Long userId) {
         return portfolioRepository.findByUserId(userId);
-    }
-
-    public Portfolio createPortfolio(Portfolio portfolio, User user) {
-        if (user.getRole() == Role.ADMINISTRATOR || (user.getPortfolios() != null && user.getPortfolios().isEmpty())) {
-            portfolio.setUser(user);
-            return portfolioRepository.save(portfolio);
-        } else {
-            throw new IllegalArgumentException("Trader can have only one portfolio.");
-        }
     }
 
     public Portfolio updatePortfolio(Portfolio portfolio, User currentUser) {
