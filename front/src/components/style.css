@@ -5,7 +5,12 @@ body {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  align-content: space-between;
+  align-content: space-evenly;
+  background-image: url(../../public/images/depositphotos_19997071-great-light-futuristic-computer-technology-business-background-b.jpg);
+
+  background-size: cover;
+  background-position: center;
+  /* filter: blur(5px) brightness(0.5); */
 }
 
 .priceItem {
@@ -81,7 +86,7 @@ h3 {
 .market-more-item {
   text-align: center;
   padding: 2rem;
-  background: linear-gradient(to right, #d0dce2, #b6e3fb);
+  background: linear-gradient(to right, #def0f9, #b6e3fb);
   
   /* background-color: #f8f9fa; */
   border-radius: 0.75rem;
@@ -188,11 +193,12 @@ h3 {
   background-color: #a1bfdf;
 }
 .table-section {
-  background-color: #a5c4d4;
+  background-color: #edfbfd;
   color: #2c2c2c;
   border-radius: 8px;
   overflow: hidden;
   margin-top: 20px;
+  box-shadow: #2b2b2b 1px 3px 10px;
 }
 
 .table-container {
@@ -202,7 +208,7 @@ h3 {
 }
 
 .table-header {
-  background-color: #588ba9;
+  background-color: #b1d8e7;
   display: flex;
   padding: 12px;
   font-weight: bold;
@@ -230,11 +236,12 @@ h3 {
 }
 /* /////////////////////////////////// */
 .market-cap-section {
-  background: linear-gradient(to right, #b6e3fb, #d0dce2);
+  background: linear-gradient(to right, #b5e5ff, #f1faff);
   color: #2c2c2c;
   border-radius: 8px;
   overflow: hidden;
   margin-top: 20px;
+  box-shadow: #2b2b2b 1px 3px 10px;
   padding: 20px;
 }
 .market-cap-section p{
@@ -293,4 +300,111 @@ h3 {
   text-align: right;
   font-weight: bold;
   cursor: pointer;
+}
+/* ///////////////////info section//////////////////// */
+/* CryptoSection.css */
+.crypto-section {
+  /* background: linear-gradient(to right, #87b7d1, #f1faff); */
+  color: #2b2b2b;
+  padding: 2rem;
+  text-align: center;
+}
+
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.feature-card {
+  background-color: #5d9cbf;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.feature-icon {
+  font-size: 2rem;
+  color: #ffd700;
+  margin-bottom: 1rem;
+}
+/* ***************** welcome ********************* */
+/* PredictiveInsights.css */
+.predictive-insights {
+  position: relative;
+  height: 400px;
+  overflow: hidden;
+  color: #fff;
+}
+
+.predictive-insights .content {
+  position: relative;
+  display: flex;
+  z-index: 1;
+  padding: 2rem;
+  /* text-align: center; */
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: baseline;
+}
+
+.predictive-insights h1 {
+  font-size: 3rem;
+  margin-bottom: 2rem;
+}
+
+.bonus-box {
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.bonus-box i {
+  font-size: 2rem;
+  color: #ff6b6b;
+  margin-bottom: 0.5rem;
+}
+
+.bonus-box span {
+  font-weight: bold;
+}
+
+.button-group {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.button-group button {
+  padding: 0.8rem 1.5rem;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.try-now {
+  background-color: #9370db;
+  color: #fff;
+  border: none;
+}
+
+.about-us {
+  background-color: #2b2b2b;
+  color: #fff;
+  border: none;
+}
+
+.background-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('../../public/images/6929247e9a984705ceb18f5bdff4bbdd.jpg');
+  background-size: cover;
+  background-position: center;
+  filter: blur(5px) brightness(0.5);
 }

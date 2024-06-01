@@ -16,43 +16,43 @@ const Navbar = () => {
 
   return (
     <nav className="navbar">
-      <div className="logo">logo</div>
+      <div className="logo">FinPredict</div>
       <ul className="navbar-list">
         <li>
-          <a href="#">Home</a>
+          <a href="/cryptoprices">Home</a>
         </li>
         <li className="dropdown">
-          <a href="#" onPointerDown={toggleDropdown1}>
+          <a href="/#" onPointerDown={toggleDropdown1}>
             Algorithms
           </a>
           {isDropdownOpen1 && (
             <ul className="dropdown-menu">
               <li>
-                <a href="#">Link 1</a>
+                <a href="/#">Link 1</a>
               </li>
               <li>
-                <a href="#">Link 2</a>
+                <a href="/#">Link 2</a>
               </li>
               <li>
-                <a href="#">Link 3</a>
+                <a href="/#">Link 3</a>
               </li>
             </ul>
           )}
         </li>
         <li>
-          <a href="#">Link 2</a>
+          <a href="/#">Link 2</a>
         </li>
         <li className="dropdown">
-          <a href="#" onMouseDown={toggleDropdown2}>
+          <a href="/#" onMouseDown={toggleDropdown2}>
             Indicators
           </a>
           {isDropdownOpen2 && (
             <ul className="dropdown-menu">
               <li>
-                <a href="#">Link 4</a>
+                <a href="/#">Link 4</a>
               </li>
               <li>
-                <a href="#">Link 5</a>
+                <a href="/#">Link 5</a>
               </li>
             </ul>
           )}

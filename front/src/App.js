@@ -7,6 +7,8 @@ import CryptoPrices from "./components/CryptoPrices";
 import Navbar from './components/navbar';
 import SignInForm from "./login/SignIn";
 import SignUpForm from "./login/SignUp";
+import CryptoCharts from "./components/CryptoCharts";
+import Charts from "./components/charts";
 
 
 export default function App() {
@@ -27,6 +29,8 @@ export default function App() {
       <div className="components">
               <Navbar />
               <CryptoPrices />
+              {/* <Charts/> */}
+              {/* <CryptoCharts/> */}
             </div>
       );
   }
@@ -87,6 +91,19 @@ export default function App() {
               <div className="components">
                 <Navbar />
                 <CryptoPrices />
+              </div>
+            ) : (
+              <Navigate to="/signin" replace={true} />
+            )
+          }
+        />
+        <Route
+          path="/CryptoCharts"
+          element={
+            isLoggedIn ? (
+              <div className="components">
+                <Navbar />
+                <CryptoCharts/>
               </div>
             ) : (
               <Navigate to="/signin" replace={true} />
