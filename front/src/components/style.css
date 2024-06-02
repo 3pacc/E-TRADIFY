@@ -3,14 +3,30 @@
 body {
   font-family: "Poppins";
   display: flex;
+  height: auto;
   flex-direction: row;
   flex-wrap: wrap;
   align-content: space-evenly;
-  background-image: url(../../public/images/depositphotos_19997071-great-light-futuristic-computer-technology-business-background-b.jpg);
-
-  background-size: cover;
+  background-image: url(../../public/images/V2CaB-Web-Herio-Desktop.webp);
+  background-size: contain;
   background-position: center;
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
   /* filter: blur(5px) brightness(0.5); */
+}
+
+body::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: inherit;
+  background-size: inherit;
+  background-position: inherit;
+  filter: blur(5px); /* Add this line */
+  z-index: -1;
 }
 
 .priceItem {
@@ -19,15 +35,19 @@ body {
   background: #f2f2f2;
   border-radius: 5px;
 }
-
+.crypto-prices h2{
+  color: #9dcad1;
+}
 h3 {
-  color: #007bff;
+  color: #135faf;
+  text-align: center;
 }
 .crypto-prices {
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
   position:relative;
+  /* background-image: url(../../public/images/V2CaB-Web-Herio-Desktop.webp); */
   top:50px;
 }
 
@@ -67,7 +87,7 @@ h3 {
     width: 100%;
     height: 100%;
     transition: opacity 2s cubic-bezier(.165, .84, .44, 1);
-    box-shadow: 0 8px 17px 0 rgba(0, 0, 0, .2), 0 6px 20px 0 rgba(0, 0, 0, .15);
+    box-shadow: 0 8px 17px 0 rgba(135, 204, 221, 0.385), 0 6px 20px 0 rgba(157, 206, 238, 0.401);
     content: '';
     opacity: 0;
     border-radius: 0.75rem;
@@ -200,7 +220,9 @@ h3 {
   margin-top: 20px;
   box-shadow: #2b2b2b 1px 3px 10px;
 }
-
+.table-section h2 {
+  color: #2c2c2c;
+}
 .table-container {
   display: flex;
   flex-direction: column;
@@ -236,13 +258,16 @@ h3 {
 }
 /* /////////////////////////////////// */
 .market-cap-section {
-  background: linear-gradient(to right, #b5e5ff, #f1faff);
-  color: #2c2c2c;
+  background: linear-gradient(to right, #6894db, #ddf3ff);
+  color: #000000;
   border-radius: 8px;
   overflow: hidden;
   margin-top: 20px;
-  box-shadow: #2b2b2b 1px 3px 10px;
+  box-shadow: #abddeb 1px 3px 10px;
   padding: 20px;
+}
+.market-cap-section h2{
+  color: #2b2b2b  ;
 }
 .market-cap-section p{
   text-align-last: center;
@@ -302,12 +327,15 @@ h3 {
   cursor: pointer;
 }
 /* ///////////////////info section//////////////////// */
-/* CryptoSection.css */
 .crypto-section {
   /* background: linear-gradient(to right, #87b7d1, #f1faff); */
   color: #2b2b2b;
   padding: 2rem;
   text-align: center;
+}
+.crypto-section > p{
+  font-size: large;
+  color: rgb(197, 189, 189);
 }
 
 .feature-grid {
@@ -318,12 +346,21 @@ h3 {
 }
 
 .feature-card {
-  background-color: #5d9cbf;
+  background-color: #91c5e0;
+  background: url(../../public/images/18ae54156adaa40c5e2781ee3ad24dbc.jpg);
   padding: 2rem;
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  filter:  brightness(0.8);
 }
 
+.feature-card h3{
+  color: #a8ecf5;
+}
+
+.feature-card p {
+  color: #f4f6f7;
+}
 .feature-icon {
   font-size: 2rem;
   color: #ffd700;
@@ -352,6 +389,7 @@ h3 {
 .predictive-insights h1 {
   font-size: 3rem;
   margin-bottom: 2rem;
+  color: #bbdee2;
 }
 
 .bonus-box {
@@ -403,8 +441,8 @@ h3 {
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url('../../public/images/6929247e9a984705ceb18f5bdff4bbdd.jpg');
+  background-image: url('../../public/images/V2CaB-Web-Herio-Desktop.webp');
   background-size: cover;
   background-position: center;
-  filter: blur(5px) brightness(0.5);
+  filter: blur(5px) brightness(0.7);
 }

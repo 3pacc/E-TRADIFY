@@ -1,11 +1,11 @@
 .navbar {
     background-color: #d6e6ee;
     padding: 10px;
-    position: fixed;
+    position: sticky;
     height: 60px;
     top: 0;
     left: 0;
-    width: 100%;
+    width: auto;
     z-index: 100;
     box-shadow: #333 1px .1px 10px;
     align-items: center;

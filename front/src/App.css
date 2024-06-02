@@ -3,6 +3,7 @@
 .App {
   text-align: center;
   font-family: "Poppins";
+  margin-top: 100px;
 }
 
 .App-logo {
@@ -43,4 +44,5 @@
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
+  background-image: url(../public/images/360_F_234159961_gSuq0hnZqEJfNfXDb5lpOfuKPvSgXeO3.jpg);
 }

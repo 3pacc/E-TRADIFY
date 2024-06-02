@@ -13,10 +13,11 @@ const Navbar = () => {
   const toggleDropdown2 = () => {
     setIsDropdownOpen2(!isDropdownOpen2);
   };
+  
 
   return (
     <nav className="navbar">
-      <div className="logo">FinPredict</div>
+      <div className="logo">PeakPredict</div>
       <ul className="navbar-list">
         <li>
           <a href="/cryptoprices">Home</a>

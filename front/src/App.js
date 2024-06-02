@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import "./login/style.css";
 import './components/style.css'; 
@@ -8,17 +8,45 @@ import Navbar from './components/navbar';
 import SignInForm from "./login/SignIn";
 import SignUpForm from "./login/SignUp";
 import CryptoCharts from "./components/CryptoCharts";
-import Charts from "./components/charts";
+// import Charts from "./components/charts";
+import Footer from "./components/footer";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 
 export default function App() {
   const [type, setType] = useState("signIn");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
+  // useEffect(() => {
+  //   const token = localStorage.getItem('token');
+  //   if (token) {
+  //     const decodedToken = tokenVerification(token);
+  //     if (decodedToken) {
+  //       setIsLoggedIn(true);
+  //     } else {
+  //       // Token is invalid or expired, handle the case accordingly
+  //       localStorage.removeItem('token');
+  //     }
+  //   }
+  // }, []);
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      setIsLoggedIn(true);
+    }
+  }, []);
+
   const handleOnClick = (text) => {
     if (text !== type) {
       setType(text);
     }
+  };
+
+  const handleLogout = () => {
+    sessionStorage.removeItem('isLoggedIn');
+    localStorage.removeItem('token'); // Remove the token from localStorage or sessionStorage
+    setIsLoggedIn(false);
   };
 
   const containerClass =
@@ -31,6 +59,7 @@ export default function App() {
               <CryptoPrices />
               {/* <Charts/> */}
               {/* <CryptoCharts/> */}
+              <Footer/>
             </div>
       );
   }
@@ -85,12 +114,17 @@ export default function App() {
           element={<SignInForm setIsLoggedIn={setIsLoggedIn} />}
         />
         <Route
+          path="/logout"
+          element={<SignInForm setIsLoggedIn={setIsLoggedIn} />}
+        />
+        <Route
           path="/CryptoPrices"
           element={
             isLoggedIn ? (
               <div className="components">
                 <Navbar />
                 <CryptoPrices />
+                <Footer/>
               </div>
             ) : (
               <Navigate to="/signin" replace={true} />
@@ -104,12 +138,15 @@ export default function App() {
               <div className="components">
                 <Navbar />
                 <CryptoCharts/>
+                <Footer/>
               </div>
             ) : (
               <Navigate to="/signin" replace={true} />
             )
           }
         />
+        
+      <ProtectedRoute path="/CryptoCharts" component={CryptoCharts} />
       </Routes>
     </div>
   );

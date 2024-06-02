@@ -33,7 +33,7 @@ function SignInForm({ setIsLoggedIn }) {
           email: '',
           password: '',
         });
-        sessionStorage.setItem('isLoggedIn', true);
+        localStorage.setItem('isLoggedIn', true);
         const token = response.data.token;
         localStorage.setItem('token', token);
         return token;
@@ -57,7 +57,7 @@ function SignInForm({ setIsLoggedIn }) {
   };
 
   const checkAuthentication = () => {
-    const isLoggedIn = sessionStorage.getItem('isLoggedIn');
+    const isLoggedIn = localStorage.getItem('isLoggedIn');
     if (isLoggedIn) {
       setIsLoggedIn(true);
     }
@@ -68,7 +68,7 @@ function SignInForm({ setIsLoggedIn }) {
   }, []);
 
   const handleLogout = () => {
-    sessionStorage.removeItem('isLoggedIn');
+    localStorage.removeItem('isLoggedIn');
     localStorage.removeItem('token'); // Remove the token from localStorage or sessionStorage
     setIsLoggedIn(false);
   };

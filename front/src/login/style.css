@@ -2,6 +2,7 @@
 .App {
     font-family: "Poppins";
     text-align: center;
+    margin-top: 100px;
   }
   
   /* @import url("https://fonts.googleapis.com/css?family=Montserrat:400,800"); */
@@ -13,12 +14,13 @@
   body {
     background: whitesmoke;
     display: flex;
+    height: auto;
     justify-content: center;
     align-items: center;
     font-family: "Poppins";
     flex-direction: column;
     height: 90vh;
-    margin: -20px 0 50px;
+    margin: -20px 0;
   }
   
   h1 {

@@ -12,7 +12,7 @@ public class dao {
     private static final Logger logger = LoggerFactory.getLogger(dao.class);
     private static final String DB_URL = "jdbc:mysql://localhost:3306/PeakPredict?useSSL=false";
     private static final String DB_USER = "root";
-    private static final String DB_PASSWORD = "riad";
+    private static final String DB_PASSWORD = "Lol_lol00";
 
     private Connection connection;
 

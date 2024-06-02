@@ -5,6 +5,8 @@ import CryptoCharts from './CryptoCharts';
 import Charts from './charts';
 import InfoSection from './Info';
 import Welcome from './Welcome';
+// import Footer from './footer';
+
 
 
 function CryptoPrices() {
@@ -299,6 +301,7 @@ function CryptoPrices() {
         </div>
       </div>
       <InfoSection/>
+      
       </div>
     );
   }
