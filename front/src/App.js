@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes , Route, Navigate, useNavigate } from "react-router-dom";
 import "./login/style.css";
 import './components/style.css'; 
 
@@ -16,6 +16,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 export default function App() {
   const [type, setType] = useState("signIn");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  // const navigate = useNavigate();
 
   // useEffect(() => {
   //   const token = localStorage.getItem('token');
@@ -47,6 +48,7 @@ export default function App() {
     sessionStorage.removeItem('isLoggedIn');
     localStorage.removeItem('token'); // Remove the token from localStorage or sessionStorage
     setIsLoggedIn(false);
+    // navigate("/signin");
   };
 
   const containerClass =
@@ -115,7 +117,10 @@ export default function App() {
         />
         <Route
           path="/logout"
-          element={<SignInForm setIsLoggedIn={setIsLoggedIn} />}
+          element={<div>
+            <p>You have been logged out.</p>
+            <SignInForm setIsLoggedIn={setIsLoggedIn} />
+          </div>}
         />
         <Route
           path="/CryptoPrices"
@@ -146,7 +151,7 @@ export default function App() {
           }
         />
         
-      <ProtectedRoute path="/CryptoCharts" component={CryptoCharts} />
+      {/* <ProtectedRoute path="/CryptoCharts" component={CryptoCharts} /> */}
       </Routes>
     </div>
   );

@@ -13,7 +13,6 @@ const Navbar = () => {
   const toggleDropdown2 = () => {
     setIsDropdownOpen2(!isDropdownOpen2);
   };
-  
 
   return (
     <nav className="navbar">

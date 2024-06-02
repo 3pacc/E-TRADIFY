@@ -43,10 +43,11 @@ h3 {
   text-align: center;
 }
 .crypto-prices {
-  max-width: 1200px;
+  /* max-width: 1200px; */
   margin: 0 auto;
   padding: 20px;
   position:relative;
+  margin-bottom: 70px;
   /* background-image: url(../../public/images/V2CaB-Web-Herio-Desktop.webp); */
   top:50px;
 }
@@ -64,6 +65,35 @@ h3 {
   scroll-behavior: smooth;
   width: 100%;
   padding: 20px;
+ 
+}
+.card-wrapper::before,
+.card-wrapper::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 20px;
+  pointer-events: none;
+  transition: opacity 0.3s;
+}
+
+.card-wrapper::before {
+  left: 0;
+  /* box-shadow:  10px 0 10px 10px rgba(0, 0, 0, 0.5); */
+}
+
+.card-wrapper::after {
+  right: 0;
+  /* box-shadow:  -10px 0 10px 10px rgba(0, 0, 0, 0.5); */
+}
+
+.card-wrapper.shadow-left::before {
+  opacity: 1;
+}
+
+.card-wrapper.shadow-right::after {
+  opacity: 1;
 }
 
 .swiper-slide {
@@ -349,6 +379,7 @@ h3 {
   background-color: #91c5e0;
   background: url(../../public/images/18ae54156adaa40c5e2781ee3ad24dbc.jpg);
   padding: 2rem;
+  max-width: 400px;
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   filter:  brightness(0.8);

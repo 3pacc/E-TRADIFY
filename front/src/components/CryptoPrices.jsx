@@ -215,6 +215,8 @@ function CryptoPrices() {
         
       <div className="crypto-prices">
         <Welcome/>
+        <InfoSection/>
+
         {/* New section for market cap and trending coins */}
         
         <h2>It is {new Date().toLocaleTimeString()}.</h2>
@@ -300,8 +302,6 @@ function CryptoPrices() {
           </div>
         </div>
       </div>
-      <InfoSection/>
-      
       </div>
     );
   }
