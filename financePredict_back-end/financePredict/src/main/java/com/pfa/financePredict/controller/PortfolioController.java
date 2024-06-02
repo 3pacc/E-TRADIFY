@@ -1,8 +1,11 @@
 package com.pfa.financePredict.controller;
 
+import com.pfa.financePredict.model.BuyCryptoRequest;
 import com.pfa.financePredict.model.Portfolio;
+import com.pfa.financePredict.model.PortfolioItem;
 import com.pfa.financePredict.model.User;
 import com.pfa.financePredict.service.*;
+import com.pfa.financePredict.service.security.JwtTokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,11 +20,22 @@ public class PortfolioController {
 
     private final PortfolioService portfolioService;
     private final UserService userService;
+    @Autowired
+    private JwtTokenUtil jwtTokenUtil;
 
     @Autowired
     public PortfolioController(PortfolioService portfolioService, UserService userService) {
         this.portfolioService = portfolioService;
         this.userService = userService;
+    }
+
+    @PostMapping("/buy")
+    public ResponseEntity<?> buyCrypto(@RequestBody BuyCryptoRequest buyRequest, @RequestHeader("Authorization") String token) {
+        String authToken = token.substring(7); // Remove "Bearer " to get the actual token
+        String username = jwtTokenUtil.extractEmail(authToken);
+
+        PortfolioItem purchasedItem = portfolioService.buyCrypto(username, buyRequest);
+        return ResponseEntity.ok(purchasedItem);
     }
 
     @PostMapping

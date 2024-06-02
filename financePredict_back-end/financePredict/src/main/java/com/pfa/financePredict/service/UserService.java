@@ -1,12 +1,14 @@
 package com.pfa.financePredict.service;
+import com.pfa.financePredict.model.Portfolio;
 import com.pfa.financePredict.model.User;
-import com.pfa.financePredict.repository.UserRepository;
+import com.pfa.financePredict.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import com.pfa.financePredict.dal.*;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -17,6 +19,9 @@ public class UserService implements UserDetailsService {
 
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private PortfolioRepository portfolioRepository;
+
 
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
@@ -33,8 +38,29 @@ public class UserService implements UserDetailsService {
         return userRepository.findByEmail(email).orElse(null);
     }
 
+    public Optional<User> findById(Long id) {
+        return userRepository.findById(id);
+    }
+
+    @Transactional
     public User saveUser(User user) {
-        return userRepository.save(user);
+        // Sauvegarder l'utilisateur
+        User savedUser = userRepository.save(user);
+
+        // Créer ou mettre à jour un portefeuille de test si nécessaire
+        if (user.isTestPortfolio()) {
+            Portfolio testPortfolio = portfolioRepository.findByUserAndIsTest(savedUser, true);
+            if (testPortfolio == null) {
+                testPortfolio = new Portfolio();
+                testPortfolio.setUser(savedUser);
+                testPortfolio.setName("Test Portfolio");
+                testPortfolio.setTest(true);
+            }
+            testPortfolio.setInitialAmount(user.getTestAmount());
+            portfolioRepository.save(testPortfolio);
+        }
+
+        return savedUser;
     }
 
     public void createUser(User user) {

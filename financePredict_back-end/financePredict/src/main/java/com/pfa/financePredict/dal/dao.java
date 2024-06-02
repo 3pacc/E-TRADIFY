@@ -42,7 +42,9 @@ public class dal {
                     "name VARCHAR(255)," +
                     "email VARCHAR(255)," +
                     "password VARCHAR(255)," +
-                    "role VARCHAR(255)" +
+                    "role VARCHAR(255)," +
+                    "test_portfolio BOOLEAN DEFAULT FALSE," +
+                    "test_amount DECIMAL(10,2) DEFAULT 0.0" +
                     ")";
 
             String portfolioTableSql = "CREATE TABLE IF NOT EXISTS portfolios (" +
@@ -51,6 +53,7 @@ public class dal {
                     "name VARCHAR(30)," +
                     "description VARCHAR(255)," +
                     "is_test BOOLEAN NOT NULL DEFAULT FALSE," +
+                    "initial_amount DECIMAL(10,2)," +  // Ajout de initial_amount
                     "created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP," +
                     "updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP," +
                     "FOREIGN KEY (user_id) REFERENCES users(id)" +
@@ -63,6 +66,8 @@ public class dal {
                     "purchase_price DECIMAL(10, 2)," +
                     "purchase_date DATE," +
                     "symbol VARCHAR(10)," +
+                    "network VARCHAR(50)," +
+                    "wallet_address VARCHAR(255)," +
                     "FOREIGN KEY (portfolio_id) REFERENCES portfolios(portfolio_id)" +
                     ")";
 

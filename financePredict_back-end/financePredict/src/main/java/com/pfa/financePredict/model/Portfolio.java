@@ -30,6 +30,9 @@ public class Portfolio {
     @Column(name = "updated_at", nullable = false)
     private Timestamp updatedAt;
 
+    private Double initialAmount;
+
+
     @PrePersist
     protected void onCreate() {
         Timestamp currentTime = new Timestamp(System.currentTimeMillis());
@@ -98,4 +101,13 @@ public class Portfolio {
     public void setUpdatedAt(Timestamp updatedAt) {
         this.updatedAt = updatedAt;
     }
+
+    public Double getInitialAmount() {
+        return initialAmount;
+    }
+
+    public void setInitialAmount(Double initialAmount) {
+        this.initialAmount = initialAmount;
+    }
+
 }

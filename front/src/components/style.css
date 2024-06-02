@@ -3,6 +3,9 @@
 body {
   font-family: "Poppins";
   display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-content: space-between;
 }
 
 .priceItem {
@@ -20,7 +23,7 @@ h3 {
   margin: 0 auto;
   padding: 20px;
   position:relative;
-  top:30px;
+  top:50px;
 }
 
 .card-container {
@@ -183,4 +186,111 @@ h3 {
 ::-webkit-scrollbar-thumb{
   height: 5px;
   background-color: #a1bfdf;
+}
+.table-section {
+  background-color: #a5c4d4;
+  color: #2c2c2c;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-top: 20px;
+}
+
+.table-container {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+.table-header {
+  background-color: #588ba9;
+  display: flex;
+  padding: 12px;
+  font-weight: bold;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-around;
+}
+
+.table-header div{
+  margin-right: 25px;
+}
+
+.table-body {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+}
+
+.table-row {
+  display: contents;
+  border-bottom: 1px solid #2c2c2c;
+}
+
+.table-row > div {
+  padding: 12px;
+}
+/* /////////////////////////////////// */
+.market-cap-section {
+  background: linear-gradient(to right, #b6e3fb, #d0dce2);
+  color: #2c2c2c;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-top: 20px;
+  padding: 20px;
+}
+.market-cap-section p{
+  text-align-last: center;
+}
+.market-cap-section p b:first-child{
+  color:green ;
+}
+.market-cap-section p b:nth-child(2){
+  color:red ;
+}
+.market-cap-container {
+  display: flex;
+  justify-content: space-evenly;
+  margin-bottom: 20px;
+}
+
+.market-cap-value,
+.trading-volume {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.market-cap-value span:first-child,
+.trading-volume span:first-child {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.trending-section {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.trending-container,
+.gainers-container {
+  flex: 1;
+  margin-right: 20px;
+}
+
+.trending-coins,
+.gainers-coins {
+  display: flex;
+  flex-direction: column;
+}
+
+.trending-coin,
+.gainer-coin {
+  display: flex;
+  justify-content: space-evenly;
+  margin-bottom: 10px;
+}
+
+.view-more {
+  text-align: right;
+  font-weight: bold;
+  cursor: pointer;
 }

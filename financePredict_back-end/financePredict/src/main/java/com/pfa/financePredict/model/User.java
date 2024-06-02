@@ -24,6 +24,9 @@ public class User {
     @JsonManagedReference
     private List<Portfolio> portfolios;
 
+    private boolean testPortfolio;
+    private Double testAmount;
+
 
     public User(Long id, String name, String email, String password) {
         this.id = id;
@@ -83,4 +86,21 @@ public class User {
     public void setPortfolios(List<Portfolio> portfolios) {
         this.portfolios = portfolios;
     }
+
+    public boolean isTestPortfolio() {
+        return testPortfolio;
+    }
+
+    public void setTestPortfolio(boolean testPortfolio) {
+        this.testPortfolio = testPortfolio;
+    }
+
+    public Double getTestAmount() {
+        return testAmount;
+    }
+
+    public void setTestAmount(Double testAmount) {
+        this.testAmount = testAmount;
+    }
 }
+

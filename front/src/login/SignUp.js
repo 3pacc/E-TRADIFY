@@ -13,7 +13,7 @@ function SignUpForm({ setIsLoggedIn }) {
     name: "",
     email: "",
     password: "",
-    token:""
+    token:""  
   });
 
   const handleChange = (e) => {
@@ -29,16 +29,8 @@ function SignUpForm({ setIsLoggedIn }) {
     if (validateForm()) {
       try {
         const response = await axios.post('/api/auth/signup', formData);
-        const token = response.data.token;
-        localStorage.setItem('authToken', token);
         console.log(response.data);
-        setIsLoggedIn(true);
-        setFormData({
-          name: "",
-          email: "",
-          password: "",
-          token: token
-        });
+        alert("Registration successful! Please sign in.");
       } catch (error) {
         console.error('Error:', error);
       }

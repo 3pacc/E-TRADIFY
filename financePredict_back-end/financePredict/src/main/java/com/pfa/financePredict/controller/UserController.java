@@ -2,12 +2,15 @@ package com.pfa.financePredict.controller;
 
 import com.pfa.financePredict.model.*;
 import com.pfa.financePredict.service.UserService;
+import com.pfa.financePredict.service.security.AuthResponse;
+import com.pfa.financePredict.service.security.JwtTokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import com.pfa.financePredict.dal.dal;
+import com.pfa.financePredict.dal.dao;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -17,6 +20,8 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private JwtTokenUtil jwtTokenUtil;
 
     private boolean isAdmin(User user) {
         return user != null && user.getRole() == Role.ADMINISTRATOR;
@@ -37,30 +42,24 @@ public class UserController {
         }
 
         userService.saveUser(user);
-        return ResponseEntity.ok("User registered successfully!");
+        return ResponseEntity.ok("User registered successfully!Please sign in");
     }
 
     @PostMapping("/signin")
     public ResponseEntity<?> authenticateUser(@RequestBody User user) {
-        dal dal = new dal();
-        User foundUser = dal.getUserByEmail(user.getEmail());
-        dal.closeConnection();
+        dao dao = new dao();
+        User foundUser = dao.getUserByEmail(user.getEmail());
 
         if (foundUser != null) {
             if (foundUser.getPassword().equals(user.getPassword())) {
-                // Check the user's role and return appropriate response
-                if (foundUser.getRole() == Role.ADMINISTRATOR) {
-                    return ResponseEntity.ok("Administrator authenticated successfully!");
-                } else if (foundUser.getRole() == Role.TRADER) {
-                    return ResponseEntity.ok("Trader authenticated successfully!");
-                }
+                String token = JwtTokenUtil.generateToken(foundUser.getEmail());
+                return ResponseEntity.ok(new AuthResponse(token));
             } else {
                 return ResponseEntity.badRequest().body("Invalid password!");
             }
         } else {
             return ResponseEntity.badRequest().body("User not found!");
         }
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
     }
 
     @GetMapping("/users/{id}")
@@ -127,8 +126,43 @@ public class UserController {
         }
     }
 
+    @PutMapping("/{userId}/test-portfolio")
+    public ResponseEntity<User> setTestPortfolio(@PathVariable Long userId, @RequestBody TestPortfolioRequest request, @RequestHeader("Authorization") String token) {
+        User currentUser = extractUserFromToken(token);
+        if (isAdmin(currentUser)) {
+            Optional<User> userOpt = userService.findById(userId);
+            if (userOpt.isPresent()) {
+                User user = userOpt.get();
+                user.setTestPortfolio(request.isTestPortfolio());
+                user.setTestAmount(request.getTestAmount());
+                User updatedUser = userService.saveUser(user);
+                return ResponseEntity.ok(updatedUser);
+            }
+            return ResponseEntity.notFound().build();
+        } else {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        }
+    }
+
+    @PutMapping("/test-portfolio")
+    public ResponseEntity<?> setTestPortfolio(@RequestBody TestPortfolioRequest request, @RequestHeader("Authorization") String token) {
+        String authToken = token.substring(7); // Remove "Bearer " to get the actual token
+        String username = jwtTokenUtil.extractEmail(authToken);
+        Optional<User> currentUser = userService.findByEmail(username);
+        if (currentUser.isPresent()) {
+            User user = currentUser.get();
+            user.setTestPortfolio(request.isTestPortfolio());
+            user.setTestAmount(request.getTestAmount());
+            User updatedUser = userService.saveUser(user);
+            return ResponseEntity.ok(updatedUser);
+        } else {
+            return ResponseEntity.status(403).body("User not found or not authorized");
+        }
+    }
+
     private User extractUserFromToken(String token) {
         Long userId = Long.parseLong(token);
         return userService.getUserById(userId);
+
     }
 }

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, lazy, Suspense } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import "./login/style.css";
 import './components/style.css'; 
@@ -8,6 +8,8 @@ import Navbar from './components/navbar';
 import SignInForm from "./login/SignIn";
 import SignUpForm from "./login/SignUp";
 
+// Utiliser lazy pour l'importation conditionnelle
+const BuyCrypto = lazy(() => import("./components/BuyCrypto"));
 
 export default function App() {
   const [type, setType] = useState("signIn");
@@ -24,11 +26,19 @@ export default function App() {
 
   if (isLoggedIn) {
     return (
-      <div>
-              <Navbar />
-              <CryptoPrices />
-            </div>
-      );
+      <div className="components">
+        <Navbar />
+        <Routes>
+          <Route path="/CryptoPrices" element={<CryptoPrices />} />
+          <Route path="/buycrypto" element={
+            <Suspense fallback={<div>Loading...</div>}>
+              <BuyCrypto />
+            </Suspense>
+          } />
+          <Route path="*" element={<Navigate to="/CryptoPrices" />} />
+        </Routes>
+      </div>
+    );
   }
 
   return (
@@ -84,9 +94,24 @@ export default function App() {
           path="/CryptoPrices"
           element={
             isLoggedIn ? (
-              <div>
+              <div className="components">
                 <Navbar />
                 <CryptoPrices />
+              </div>
+            ) : (
+              <Navigate to="/signin" replace={true} />
+            )
+          }
+        />
+        <Route
+          path="/buycrypto"
+          element={
+            isLoggedIn ? (
+              <div className="components">
+                <Navbar />
+                <Suspense fallback={<div>Loading...</div>}>
+                  <BuyCrypto />
+                </Suspense>
               </div>
             ) : (
               <Navigate to="/signin" replace={true} />
