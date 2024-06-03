@@ -4,8 +4,8 @@ body {
   font-family: "Poppins";
   display: flex;
   height: auto;
-  flex-direction: row;
-  flex-wrap: wrap;
+  flex-direction: column;
+  flex-wrap: nowrap;
   align-content: space-evenly;
   background-image: url(../../public/images/V2CaB-Web-Herio-Desktop.webp);
   background-size: contain;
@@ -13,6 +13,7 @@ body {
   backdrop-filter: blur(3px);
   -webkit-backdrop-filter: blur(3px);
   /* filter: blur(5px) brightness(0.5); */
+  align-items: stretch;
 }
 
 body::before {

@@ -43,6 +43,7 @@
 .components{
   display: flex;
   flex-direction: column;
+  width: 100%;
   flex-wrap: wrap;
   background-image: url(../public/images/360_F_234159961_gSuq0hnZqEJfNfXDb5lpOfuKPvSgXeO3.jpg);
 }

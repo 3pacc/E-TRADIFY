@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import TradingViewWidget from 'react-tradingview-widget';
-
+import './CryptoCharts.css'; 
 function CryptoCharts() {
   const containerRef = useRef(null);
 
@@ -29,7 +29,8 @@ function CryptoCharts() {
   }, []);
 
     return (
-      <div>
+      <div className='crypto-charts-container' ref={containerRef} >
+      <div className='crypto-charts'> 
         <h2>Bitcoin Chart</h2>
         <TradingViewWidget
           symbol="BINANCE:BTCUSDT"
@@ -83,6 +84,7 @@ function CryptoCharts() {
             <a href="https://www.tradingview.com/" rel="noopener nofollow" target="_blank">
             </a>
           </div>
+        </div>
         </div>
       </div>
     );

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, lazy } from "react";
 import { Routes , Route, Navigate, useNavigate } from "react-router-dom";
 import "./login/style.css";
 import './components/style.css'; 
@@ -10,8 +10,9 @@ import SignUpForm from "./login/SignUp";
 import CryptoCharts from "./components/CryptoCharts";
 // import Charts from "./components/charts";
 import Footer from "./components/footer";
-import ProtectedRoute from "./components/ProtectedRoute";
+// import ProtectedRoute from "./components/ProtectedRoute";
 
+// const CryptoCharts = lazy(() => import("./components/CryptoCharts"));
 
 export default function App() {
   const [type, setType] = useState("signIn");
@@ -58,9 +59,11 @@ export default function App() {
     return (
       <div className="components">
               <Navbar />
-              <CryptoPrices />
-              {/* <Charts/> */}
-              {/* <CryptoCharts/> */}
+                <Routes>
+                  <Route path="/CryptoPrices" element={<CryptoPrices />} />
+                  <Route path="*" element={<Navigate to="/CryptoPrices" />} />
+                  <Route path="/CryptoCharts" element={<CryptoCharts />} />
+                </Routes>
               <Footer/>
             </div>
       );
@@ -132,7 +135,8 @@ export default function App() {
                 <Footer/>
               </div>
             ) : (
-              <Navigate to="/signin" replace={true} />
+              null
+              // <Navigate to="/signin" replace={true} />
             )
           }
         />
@@ -146,7 +150,8 @@ export default function App() {
                 <Footer/>
               </div>
             ) : (
-              <Navigate to="/signin" replace={true} />
+              null
+              // <Navigate to="/signin" replace={true} />
             )
           }
         />

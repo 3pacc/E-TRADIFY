@@ -19,7 +19,7 @@ const Navbar = () => {
       <div className="logo">PeakPredict</div>
       <ul className="navbar-list">
         <li>
-          <a href="/cryptoprices">Home</a>
+          <a href="/CryptoPrices">Home</a>
         </li>
         <li className="dropdown">
           <a href="/#" onPointerDown={toggleDropdown1}>

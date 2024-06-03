@@ -1,0 +1,20 @@
+.crypto-charts h2{
+    color: #9dcad1;
+  }
+  h3 {
+    color: #135faf;
+    text-align: center;
+  }
+.crypto-charts {
+    /* min-width: 1100px; */
+    margin: 0 auto;
+    padding: 20px;
+    position:relative;
+    margin-bottom: 70px;
+    /* background-image: url(../../public/images/V2CaB-Web-Herio-Desktop.webp); */
+    top:50px;
+  }
+  .crypto-charts-container{
+    width: 100%;
+    align-items: center;
+  }

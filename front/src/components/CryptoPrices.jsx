@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 // import { createChart } from 'lightweight-charts';
 import './style.css'; 
-import CryptoCharts from './CryptoCharts';
+// import CryptoCharts from './CryptoCharts';
 import Charts from './charts';
 import InfoSection from './Info';
 import Welcome from './Welcome';
+import { useNavigate } from 'react-router-dom';
 // import Footer from './footer';
 
 
@@ -73,7 +74,7 @@ function CryptoPrices() {
     const [tradingVolume24h, setTradingVolume24h] = useState(null);
     const [trendingCoins, setTrendingCoins] = useState([]);
     const [largestGainers, setLargestGainers] = useState([]);
-    
+    const navigate = useNavigate();
     // const firstChart = createChart(document.getElementById('firstContainer'));
 
     useEffect(() => {
@@ -200,7 +201,7 @@ function CryptoPrices() {
                     <span>Binance</span>
                   </div>
                 </div>
-                <a href="/CryptoCharts" onClick={CryptoCharts} className="stack-button">
+                <a href="/CryptoCharts"  onClick={() => navigate('/CryptoCharts')}  className="stack-button">
                   Predict
                 </a>
               </div>
@@ -222,51 +223,51 @@ function CryptoPrices() {
         <h2>It is {new Date().toLocaleTimeString()}.</h2>
             {/* Market cap section */}
         <div className="market-cap-section">
-        <h2>Cryptocurrency Prices by Market Cap</h2>
-        <p>The global cryptocurrency market cap today is <b>{globalMarketCap}</b>, 
-         a <b>{globalMarketCapChange}% </b>change in the last 24 hours.</p>
-        <div className="market-cap-container">
-            <div className="market-cap-value">
-            <span>{globalMarketCap}</span>
-            <span>Market Cap {globalMarketCapChange}%</span>
-            </div>
-            <div className="trading-volume">
-            <span>{tradingVolume24h}</span>
-            <span>24h Trading Volume</span>
-            </div>
-        </div>
+          <h2>Cryptocurrency Prices by Market Cap</h2>
+          <p>The global cryptocurrency market cap today is <b>{globalMarketCap}</b>, 
+          a <b>{globalMarketCapChange}% </b>change in the last 24 hours.</p>
+          <div className="market-cap-container">
+              <div className="market-cap-value">
+              <span>{globalMarketCap}</span>
+              <span>Market Cap {globalMarketCapChange}%</span>
+              </div>
+              <div className="trading-volume">
+              <span>{tradingVolume24h}</span>
+              <span>24h Trading Volume</span>
+              </div>
+          </div>
 
-        {/* Trending coins */}
-        <div className="trending-section">
-            <div className="trending-container">
-            <h3>Trending</h3>
-            <div className="trending-coins">
-                {trendingCoins.map((coin, index) => (
-                <div key={index} className="trending-coin">
-                    <span>{coin.name}</span>
-                    <span>{coin.price}</span>
-                    <span>{coin.change}</span>
-                </div>
-                ))}
-            </div>
-            <span className="view-more">View more &gt;</span>
-            </div>
+          {/* Trending coins */}
+          <div className="trending-section">
+              <div className="trending-container">
+              <h3>Trending</h3>
+              <div className="trending-coins">
+                  {trendingCoins.map((coin, index) => (
+                  <div key={index} className="trending-coin">
+                      <span>{coin.name}</span>
+                      <span>{coin.price}</span>
+                      <span>{coin.change}</span>
+                  </div>
+                  ))}
+              </div>
+              <span className="view-more">View more &gt;</span>
+              </div>
 
-            {/* Largest gainers */}
-            <div className="gainers-container">
-            <h3>Largest Gainers</h3>
-            <div className="gainers-coins">
-                {largestGainers.map((coin, index) => (
-                <div key={index} className="gainer-coin">
-                    <span>{coin.name}</span>
-                    <span>{coin.price}</span>
-                    <span>{coin.change}</span>
-                </div>
-                ))}
+              {/* Largest gainers */}
+              <div className="gainers-container">
+              <h3>Largest Gainers</h3>
+              <div className="gainers-coins">
+                  {largestGainers.map((coin, index) => (
+                  <div key={index} className="gainer-coin">
+                      <span>{coin.name}</span>
+                      <span>{coin.price}</span>
+                      <span>{coin.change}</span>
+                  </div>
+                  ))}
+              </div>
+              <span className="view-more">View more &gt;</span>
             </div>
-            <span className="view-more">View more &gt;</span>
-            </div>
-        </div>
+          </div>
         </div>
         <h2>Crypto Prices</h2>
         <div className="card-container">
@@ -274,34 +275,34 @@ function CryptoPrices() {
         </div>
         <Charts/>
         {/* New section for the table */}
-      <div className="table-section">
-        <h2>Table of available coins</h2>
-        <div className="table-container">
-          <div className="table-header">
-            <div>Rankings</div>
-            <div>Blockchain</div>
-            <div>Token Price</div>
-            <div>24H Volume</div>
-            <div>Market Cap</div>
-            <div>TVL</div>
-          </div>
-          <div className="table-body">
-            {Object.entries(prices).map(([key, value], index) => (
-              <div className="table-row" key={key}>
-                <div>{index + 1}</div>
-                <div>
-                  <img src={value.imageUrl} alt={key.toUpperCase()} style={{ width: '20px', marginRight: '10px', verticalAlign: 'middle' }} />
-                  {key.toUpperCase()}
+        <div className="table-section">
+          <h2>Table of available coins</h2>
+          <div className="table-container">
+            <div className="table-header">
+              <div>Rankings</div>
+              <div>Blockchain</div>
+              <div>Token Price</div>
+              <div>24H Volume</div>
+              <div>Market Cap</div>
+              <div>TVL</div>
+            </div>
+            <div className="table-body">
+              {Object.entries(prices).map(([key, value], index) => (
+                <div className="table-row" key={key}>
+                  <div>{index + 1}</div>
+                  <div>
+                    <img src={value.imageUrl} alt={key.toUpperCase()} style={{ width: '20px', marginRight: '10px', verticalAlign: 'middle' }} />
+                    {key.toUpperCase()}
+                  </div>
+                  <div>${parseFloat(value.price).toFixed(2)}</div>
+                  <div>${parseFloat(value.volume24h).toLocaleString()}</div>
+                  <div>${parseFloat(value.marketCap).toLocaleString()}</div>
+                  <div>-</div>
                 </div>
-                <div>${parseFloat(value.price).toFixed(2)}</div>
-                <div>${parseFloat(value.volume24h).toLocaleString()}</div>
-                <div>${parseFloat(value.marketCap).toLocaleString()}</div>
-                <div>-</div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
-      </div>
       </div>
     );
   }
