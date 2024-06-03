@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom'; // Utilisez Link pour la navigation
+import { Link } from 'react-router-dom';
 import './Navbar.css';
-import ConnectWalletModal from './ConnectWalletModal'; // Assurez-vous que le chemin est correct
+import ConnectWalletModal from './ConnectWalletModal';
 
-const Navbar = () => {
+const Navbar = ({ onConnectWallet, isWalletModalOpen, toggleWalletModal }) => {
   const [isDropdownOpen1, setIsDropdownOpen1] = useState(false);
   const [isDropdownOpen2, setIsDropdownOpen2] = useState(false);
-  const [isWalletModalOpen, setIsWalletModalOpen] = useState(false);
 
   const toggleDropdown1 = () => {
     setIsDropdownOpen1(!isDropdownOpen1);
@@ -14,10 +13,6 @@ const Navbar = () => {
 
   const toggleDropdown2 = () => {
     setIsDropdownOpen2(!isDropdownOpen2);
-  };
-
-  const toggleWalletModal = () => {
-    setIsWalletModalOpen(!isWalletModalOpen);
   };
 
   return (
@@ -64,10 +59,10 @@ const Navbar = () => {
           )}
         </li>
         <li>
-        <Link to="/buycrypto">Buy Crypto</Link>  {/* Utilisez Link pour la navigation */}
+          <Link to="/buycrypto">Buy Crypto</Link>
         </li>
         <li>
-          <button className="connect-wallet-button" onClick={toggleWalletModal}>Connect Wallet</button>
+          <button className="connect-wallet-button" onClick={onConnectWallet}>Connect Wallet</button>
         </li>
       </ul>
       {isWalletModalOpen && <ConnectWalletModal onClose={toggleWalletModal} />}

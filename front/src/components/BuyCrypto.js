@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './buyCrypto.css';
 
-const BuyCrypto = () => {
+const BuyCrypto = ({ isLoggedIn, promptLogin }) => {
   const [spendAmount, setSpendAmount] = useState('');
   const [spendCurrency, setSpendCurrency] = useState('BDT');
   const [receiveAmount, setReceiveAmount] = useState('');
@@ -11,6 +11,10 @@ const BuyCrypto = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!isLoggedIn) {
+      promptLogin();
+      return;
+    }
     const token = localStorage.getItem('token');
 
     try {
@@ -33,6 +37,7 @@ const BuyCrypto = () => {
       if (response.ok) {
         const data = await response.json();
         console.log('Purchase successful', data);
+        alert('Transaction successful!');
         // Handle successful purchase
       } else {
         console.error('Failed to complete purchase', response.statusText);
