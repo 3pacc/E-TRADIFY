@@ -163,7 +163,7 @@ h3 {
 }
 
 .logo {
-  width: 40px;
+  /* width: 40px; */
   height: 40px;
   margin-bottom: 1rem;
 }
@@ -353,7 +353,7 @@ h3 {
 }
 
 .view-more {
-  text-align: right;
+  text-align: left;
   font-weight: bold;
   cursor: pointer;
 }
@@ -380,9 +380,9 @@ h3 {
   background-color: #91c5e0;
   background: url(../../public/images/18ae54156adaa40c5e2781ee3ad24dbc.jpg);
   padding: 2rem;
-  max-width: 400px;
+  /* max-width: 400px; */
   border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 6px 20px rgba(153, 232, 243, 0.244);
   filter:  brightness(0.8);
 }
 

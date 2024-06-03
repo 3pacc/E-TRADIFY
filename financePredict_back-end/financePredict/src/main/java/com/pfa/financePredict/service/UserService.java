@@ -1,5 +1,7 @@
 package com.pfa.financePredict.service;
+import com.pfa.financePredict.model.Portfolio;
 import com.pfa.financePredict.model.User;
+import com.pfa.financePredict.repository.PortfolioRepository;
 import com.pfa.financePredict.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,6 +19,8 @@ public class UserService implements UserDetailsService {
 
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private PortfolioRepository portfolioRepository;
 
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
@@ -34,7 +38,21 @@ public class UserService implements UserDetailsService {
     }
 
     public User saveUser(User user) {
-        return userRepository.save(user);
+        User savedUser = userRepository.save(user);
+
+        if (user.isTestPortfolio()) {
+            Portfolio testPortfolio = portfolioRepository.findByUserAndIsTest(savedUser, true);
+            if (testPortfolio == null) {
+                testPortfolio = new Portfolio();
+                testPortfolio.setUser(savedUser);
+                testPortfolio.setName("Test Portfolio");
+                testPortfolio.setTest(true);
+            }
+            testPortfolio.setInitialAmount(user.getTestAmount());
+            portfolioRepository.save(testPortfolio);
+        }
+
+        return savedUser;
     }
 
     public void createUser(User user) {
@@ -65,7 +83,9 @@ public class UserService implements UserDetailsService {
     public Optional<User> findByEmail(String email) {
         return userRepository.findByEmail(email);
     }
-
+    public Optional<User> findById(Long id) {
+        return userRepository.findById(id);
+    }
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         // Load user from your data source based on the email

@@ -16,6 +16,7 @@ public class Portfolio {
     private String name;
     private String description;
 
+    private Double initialAmount;
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     @JsonBackReference
@@ -97,5 +98,13 @@ public class Portfolio {
 
     public void setUpdatedAt(Timestamp updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public Double getInitialAmount() {
+        return initialAmount;
+    }
+
+    public void setInitialAmount(Double initialAmount) {
+        this.initialAmount = initialAmount;
     }
 }

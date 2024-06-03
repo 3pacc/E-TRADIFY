@@ -1,0 +1,172 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  /* Container and Row */
+  .container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  
+  .column {
+    flex: 1;
+  }
+  
+  .info-column {
+    flex: 1;
+    background: linear-gradient(to right, #b6e3fb, #d0dce2);
+    padding: 20px;
+    border-radius: 10px;
+    color: #333;
+  }
+  
+  .form-column {
+    flex: 2;
+    background: linear-gradient(to right, #b6e3fb, #d0dce2);
+    padding: 20px;
+    border-radius: 10px;
+    color: #333;
+  }
+
+  .form-column > * {
+    background: linear-gradient(to right, #b6e3fb, #d0dce2);
+  }
+  
+  /* Section Styles */
+  .buy-crypto {
+    padding: 60px 0;
+    /* background: linear-gradient(to right, #b6e3fb, #d0dce2); */
+    /* min-height: 100vh;  */
+    display: flex;
+    align-items: center;
+  }
+  
+  .title {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  .info-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .info-thumb img {
+    width: 50px;
+    margin-right: 20px;
+  }
+  
+  .info-content h4 {
+    margin-bottom: 10px;
+    font-size: 18px;
+  }
+  
+  /* Form Styles */
+  .form-section {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    color: #333;
+  }
+  
+  .form-title {
+    font-size: xx-large;
+    margin-bottom: 10px;
+    text-decoration-line: underline;
+  }
+  
+  .form-subtitle {
+    font-size: 20px;
+    margin-bottom: 20px;
+    display: flow;
+    text-align: center;
+  }
+  
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  .form-group label {
+    display: block;
+    margin-bottom: 10px;
+  }
+  
+  .input-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  input[type="text"],
+  select,
+  textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+  }
+  
+  select {
+    width: auto;
+  }
+  
+  textarea {
+    resize: none;
+  }
+  
+  .exchange-rate {
+    display: block;
+    margin-top: 10px;
+  }
+  
+  .gas-fee {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+  }
+  
+  .fee-amount {
+    font-weight: bold;
+  }
+  
+  .submit-button {
+    width: 100%;
+    padding: 15px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .submit-button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Responsive Styles */
+  @media (max-width: 768px) {
+    .row {
+      flex-direction: column;
+    }
+  
+    .info-column,
+    .form-column {
+      width: 100%;
+    }
+  }
+  

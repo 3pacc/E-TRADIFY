@@ -1,11 +1,15 @@
 package com.pfa.financePredict.service;
 
 import com.pfa.financePredict.model.*;
+import com.pfa.financePredict.repository.PortfolioItemRepository;
 import com.pfa.financePredict.repository.PortfolioRepository;
+import com.pfa.financePredict.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,7 +18,11 @@ public class PortfolioService {
 
     @Autowired
     private PortfolioRepository portfolioRepository;
+    @Autowired
+    private PortfolioItemRepository portfolioItemRepository;
 
+    @Autowired
+    private UserRepository userRepository;
 
     public Portfolio createPortfolio(Portfolio portfolio, User user) {
         if (user.getRole() == Role.ADMINISTRATOR || (user.getPortfolios() != null && user.getPortfolios().isEmpty())) {
@@ -27,7 +35,31 @@ public class PortfolioService {
         }
     }
 
+    public PortfolioItem buyCrypto(String username, BuyCryptoRequest buyRequest) {
+        var user = userRepository.findByEmail(username).orElseThrow(() -> new RuntimeException("User not found"));
 
+        // Rechercher d'abord un portefeuille de test
+        var portfolio = portfolioRepository.findByUserId(user.getId()).stream()
+                .filter(Portfolio::getTest)
+                .findFirst()
+                .orElseGet(() -> portfolioRepository.findByUserId(user.getId()).stream()
+                        .filter(p -> !p.getTest())
+                        .findFirst()
+                        .orElseThrow(() -> new RuntimeException("Portfolio not found")));
+
+        PortfolioItem newItem = new PortfolioItem();
+        newItem.setPortfolio(portfolio);
+        newItem.setQuantity((int) buyRequest.getReceiveAmount());
+        newItem.setPurchasePrice(buyRequest.getSpendAmount());
+        newItem.setPurchaseDate(Date.valueOf(LocalDate.now()));
+        newItem.setSymbol(buyRequest.getReceiveCurrency());
+        newItem.setNetwork(buyRequest.getNetwork());
+        newItem.setWalletAddress(buyRequest.getWalletAddress());
+
+        portfolioItemRepository.save(newItem);
+
+        return newItem;
+    }
     public List<Portfolio> getAllPortfolios() {
         return portfolioRepository.findAll();
     }

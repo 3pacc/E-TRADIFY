@@ -30,15 +30,16 @@ function SignUpForm({ setIsLoggedIn }) {
       try {
         const response = await axios.post('/api/auth/signup', formData);
         const token = response.data.token;
-        localStorage.setItem('authToken', token);
+        localStorage.setItem('Token', token);
         console.log(response.data);
-        setIsLoggedIn(true);
+        // setIsLoggedIn(true);
         setFormData({
           name: "",
           email: "",
           password: "",
           token: token
         });
+        alert("Registration successful! Please sign in.");
       } catch (error) {
         console.error('Error:', error);
       }

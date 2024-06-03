@@ -13,7 +13,8 @@ public class User {
     private Long id;
     private String name;
     private String email;
-
+    private boolean testPortfolio;
+    private Double testAmount;
     @JsonIgnore
     private String password;
 
@@ -82,5 +83,21 @@ public class User {
 
     public void setPortfolios(List<Portfolio> portfolios) {
         this.portfolios = portfolios;
+    }
+
+    public boolean isTestPortfolio() {
+        return testPortfolio;
+    }
+
+    public void setTestPortfolio(boolean testPortfolio) {
+        this.testPortfolio = testPortfolio;
+    }
+
+    public Double getTestAmount() {
+        return testAmount;
+    }
+
+    public void setTestAmount(Double testAmount) {
+        this.testAmount = testAmount;
     }
 }

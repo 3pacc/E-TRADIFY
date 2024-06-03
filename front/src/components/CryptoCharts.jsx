@@ -30,7 +30,8 @@ function CryptoCharts() {
 
     return (
       <div className='crypto-charts-container' ref={containerRef} >
-      <div className='crypto-charts'> 
+      <div className='crypto-charts'>
+        <div className='item'> 
         <h2>Bitcoin Chart</h2>
         <TradingViewWidget
           symbol="BINANCE:BTCUSDT"
@@ -40,7 +41,15 @@ function CryptoCharts() {
           dateRange="12M"
           colorTheme="dark"
         />
-  
+        <div className="tradingview-widget-container">
+          <div ref={containerRef} className="tradingview-widget-container__widget"></div>
+          <div className="tradingview-widget-copyright">
+            <a href="https://www.tradingview.com/" rel="noopener nofollow" target="_blank">
+            </a>
+          </div>
+        </div>
+        </div>  
+        
         <h2>Ethereum Chart</h2>
         <TradingViewWidget
           symbol="BINANCE:ETHUSDT"
@@ -78,13 +87,7 @@ function CryptoCharts() {
           dateRange="3M"
           colorTheme="dark"
         />
-        <div className="tradingview-widget-container">
-          <div ref={containerRef} className="tradingview-widget-container__widget"></div>
-          <div className="tradingview-widget-copyright">
-            <a href="https://www.tradingview.com/" rel="noopener nofollow" target="_blank">
-            </a>
-          </div>
-        </div>
+        
         </div>
       </div>
     );

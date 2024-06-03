@@ -8,16 +8,15 @@ import Navbar from './components/navbar';
 import SignInForm from "./login/SignIn";
 import SignUpForm from "./login/SignUp";
 import CryptoCharts from "./components/CryptoCharts";
-// import Charts from "./components/charts";
 import Footer from "./components/footer";
-// import ProtectedRoute from "./components/ProtectedRoute";
-
-// const CryptoCharts = lazy(() => import("./components/CryptoCharts"));
+import BuyCrypto from "./components/BuyCrypto";
 
 export default function App() {
   const [type, setType] = useState("signIn");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  // const navigate = useNavigate();
+  const [showAuthModal, setShowAuthModal] = useState(false);
+  const [isWalletModalOpen, setIsWalletModalOpen] = useState(false);
+  const navigate = useNavigate();
 
   // useEffect(() => {
   //   const token = localStorage.getItem('token');
@@ -44,6 +43,33 @@ export default function App() {
       setType(text);
     }
   };
+  const handleConnectWallet = () => {
+    if (!isLoggedIn) {
+      setShowAuthModal(true);
+    } else {
+      setIsWalletModalOpen(true);
+    }
+  };
+
+  const handleCloseAuthModal = () => {
+    setShowAuthModal(false);
+  };
+
+  const toggleWalletModal = () => {
+    setIsWalletModalOpen(!isWalletModalOpen);
+  };
+
+  const promptLogin = () => {
+    setShowAuthModal(true);
+  };
+
+  const handlePredictClick = () => {
+    if (!isLoggedIn) {
+      setShowAuthModal(true);
+    } else {
+      navigate('/CryptoCharts');
+    }
+  };
 
   const handleLogout = () => {
     sessionStorage.removeItem('isLoggedIn');
@@ -63,6 +89,7 @@ export default function App() {
                   <Route path="/CryptoPrices" element={<CryptoPrices />} />
                   <Route path="*" element={<Navigate to="/CryptoPrices" />} />
                   <Route path="/CryptoCharts" element={<CryptoCharts />} />
+                  <Route path="/Buycrypto" element={<BuyCrypto isLoggedIn={isLoggedIn} promptLogin={promptLogin} />} />
                 </Routes>
               <Footer/>
             </div>
@@ -155,6 +182,7 @@ export default function App() {
             )
           }
         />
+         <Route path="/Buycrypto" element={<BuyCrypto isLoggedIn={isLoggedIn} promptLogin={promptLogin} />} />
         
       {/* <ProtectedRoute path="/CryptoCharts" component={CryptoCharts} /> */}
       </Routes>

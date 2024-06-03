@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import com.pfa.financePredict.dal.dao;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin
@@ -19,6 +20,8 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private JwtTokenUtil jwtTokenUtil;
 
     private boolean isAdmin(User user) {
         return user != null && user.getRole() == Role.ADMINISTRATOR;
@@ -133,6 +136,39 @@ public class UserController {
             return ResponseEntity.ok(users);
         } else {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        }
+    }
+    @PutMapping("/{userId}/test-portfolio")
+    public ResponseEntity<User> setTestPortfolio(@PathVariable Long userId, @RequestBody TestPortfolioRequest request, @RequestHeader("Authorization") String token) {
+        User currentUser = extractUserFromToken(token);
+        if (isAdmin(currentUser)) {
+            Optional<User> userOpt = userService.findById(userId);
+            if (userOpt.isPresent()) {
+                User user = userOpt.get();
+                user.setTestPortfolio(request.isTestPortfolio());
+                user.setTestAmount(request.getTestAmount());
+                User updatedUser = userService.saveUser(user);
+                return ResponseEntity.ok(updatedUser);
+            }
+            return ResponseEntity.notFound().build();
+        } else {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        }
+    }
+
+    @PutMapping("/test-portfolio")
+    public ResponseEntity<?> setTestPortfolio(@RequestBody TestPortfolioRequest request, @RequestHeader("Authorization") String token) {
+        String authToken = token.substring(7); // Remove "Bearer " to get the actual token
+        String username = jwtTokenUtil.extractEmail(authToken);
+        Optional<User> currentUser = userService.findByEmail(username);
+        if (currentUser.isPresent()) {
+            User user = currentUser.get();
+            user.setTestPortfolio(request.isTestPortfolio());
+            user.setTestAmount(request.getTestAmount());
+            User updatedUser = userService.saveUser(user);
+            return ResponseEntity.ok(updatedUser);
+        } else {
+            return ResponseEntity.status(403).body("User not found or not authorized");
         }
     }
 
