@@ -173,6 +173,20 @@ function CryptoPrices() {
     const renderCards = () => {
       const cryptoKeys = Object.keys(prices);
       const visibleCryptoKeys = cryptoKeys.slice(0, visibleCards);
+
+      const handlePredictClick = (crypto) => {
+        switch (crypto.toLowerCase()) {
+          case 'btc':
+            navigate('/btc-chart');
+            break;
+          case 'eth':
+            navigate('/eth-chart');
+            break;
+          // Add more cases for other cryptocurrencies
+          default:
+            break;
+        }
+      };
   
       return visibleCryptoKeys.map((key) => {
         const value = prices[key];
@@ -201,7 +215,7 @@ function CryptoPrices() {
                     <span>Binance</span>
                   </div>
                 </div>
-                <a href="/CryptoCharts"  onClick={() => navigate('/CryptoCharts')}  className="stack-button">
+                <a href="#"   onClick={() => handlePredictClick(key)}  className="stack-button">
                   Predict
                 </a>
               </div>

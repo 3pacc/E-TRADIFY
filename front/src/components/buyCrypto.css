@@ -1,11 +1,9 @@
-/* General Reset */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
   }
   
-  /* Container and Row */
   .container {
     width: 100%;
     max-width: 1200px;
@@ -43,7 +41,6 @@
     background: linear-gradient(to right, #b6e3fb, #d0dce2);
   }
   
-  /* Section Styles */
   .buy-crypto {
     padding: 60px 0;
     /* background: linear-gradient(to right, #b6e3fb, #d0dce2); */
@@ -100,6 +97,7 @@
   
   .form-group label {
     display: block;
+    font-weight: bold;
     margin-bottom: 10px;
   }
   
@@ -121,6 +119,8 @@
   
   select {
     width: auto;
+    background-color: #c9edf2;
+    box-shadow: #33333382 3px 8px 13px 0px;
   }
   
   textarea {
@@ -134,24 +134,29 @@
   
   .gas-fee {
     display: flex;
-    justify-content: space-between;
+    /* justify-content: space-evenly; */
     margin-top: 10px;
+    left: 0;
   }
   
   .fee-amount {
     font-weight: bold;
+    padding-left: 10px;
   }
   
   .submit-button {
-    width: 100%;
+    width: 200px;
     padding: 15px;
-    background-color: #007bff;
+    background-color: #1d5086;
     color: #fff;
     border: none;
-    border-radius: 5px;
+    /* border-radius: 5px; */
     font-size: 16px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    align-self: center;
+    
+    box-shadow: #33333382 3px 8px 13px 0px;
   }
   
   .submit-button:hover {

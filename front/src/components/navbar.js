@@ -29,19 +29,19 @@ const Navbar = () => {
           <a href="/CryptoPrices">Home</a>
         </li>
         <li className="dropdown">
-          <a href="/#" onPointerDown={toggleDropdown1}>
-            Algorithms
+          <a href="/CryptoCharts" onPointerDown={toggleDropdown1}>
+            Charts
           </a>
           {isDropdownOpen1 && (
             <ul className="dropdown-menu">
               <li>
-                <a href="/#">Link 1</a>
+                <a href="/btc-chart">BTC</a>
               </li>
               <li>
-                <a href="/#">Link 2</a>
+                <a href="/eth-chart">ETH</a>
               </li>
               <li>
-                <a href="/#">Link 3</a>
+                <a href="/ripple-chart">Ripple</a>
               </li>
             </ul>
           )}

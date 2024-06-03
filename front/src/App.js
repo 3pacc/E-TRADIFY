@@ -2,7 +2,8 @@ import React, { useState, useEffect, lazy } from "react";
 import { Routes , Route, Navigate, useNavigate } from "react-router-dom";
 import "./login/style.css";
 import './components/style.css'; 
-
+import BTC from './coins/BTC'
+import ETH from './coins/ETH'
 import CryptoPrices from "./components/CryptoPrices";
 import Navbar from './components/navbar';
 import SignInForm from "./login/SignIn";
@@ -90,6 +91,8 @@ export default function App() {
                   <Route path="*" element={<Navigate to="/CryptoPrices" />} />
                   <Route path="/CryptoCharts" element={<CryptoCharts />} />
                   <Route path="/Buycrypto" element={<BuyCrypto isLoggedIn={isLoggedIn} promptLogin={promptLogin} />} />
+                  <Route path="/btc-chart" element={<BTC />} />
+                  <Route path="/eth-chart" element={<ETH />} />
                 </Routes>
               <Footer/>
             </div>
@@ -184,6 +187,8 @@ export default function App() {
         />
          <Route path="/Buycrypto" element={<BuyCrypto isLoggedIn={isLoggedIn} promptLogin={promptLogin} />} />
         
+         <Route path="/btc-chart" element={<BTC />} />
+         <Route path="/eth-chart" element={<ETH />} />
       {/* <ProtectedRoute path="/CryptoCharts" component={CryptoCharts} /> */}
       </Routes>
     </div>
