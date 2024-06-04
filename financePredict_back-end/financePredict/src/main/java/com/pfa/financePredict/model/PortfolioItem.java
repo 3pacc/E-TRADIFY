@@ -17,7 +17,7 @@ public class PortfolioItem {
     private Portfolio portfolio;
 
     @Column(name = "quantity", nullable = false)
-    private int quantity;
+    private double quantity;
 
     @Column(name = "purchase_price", nullable = false)
     private double purchasePrice;
@@ -51,11 +51,11 @@ public class PortfolioItem {
         this.portfolio = portfolio;
     }
 
-    public int getQuantity() {
+    public Double getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(int quantity) {
+    public void setQuantity(Double quantity) {
         this.quantity = quantity;
     }
 

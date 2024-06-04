@@ -7,6 +7,7 @@ public class BuyCryptoRequest {
     private String receiveCurrency;
     private String network;
     private String walletAddress;
+    private double price;
 
     public double getSpendAmount() {
         return spendAmount;
@@ -54,5 +55,13 @@ public class BuyCryptoRequest {
 
     public void setWalletAddress(String walletAddress) {
         this.walletAddress = walletAddress;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
     }
 }

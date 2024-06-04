@@ -62,7 +62,7 @@ public class dao {
             String portfolioItemTableSql = "CREATE TABLE IF NOT EXISTS portfolio_item (" +
                     "item_id INT AUTO_INCREMENT PRIMARY KEY," +
                     "portfolio_id INT," +
-                    "quantity INT," +
+                    "quantity DOUBLE," +
                     "purchase_price DECIMAL(10, 2)," +
                     "purchase_date DATE," +
                     "symbol VARCHAR(10)," +
