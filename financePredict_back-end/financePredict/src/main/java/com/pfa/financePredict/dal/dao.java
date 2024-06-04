@@ -53,6 +53,7 @@ public class dao {
                     "name VARCHAR(30)," +
                     "description VARCHAR(255)," +
                     "is_test BOOLEAN NOT NULL DEFAULT FALSE," +
+                    "initial_amount DECIMAL(10,2)," +
                     "created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP," +
                     "updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP," +
                     "FOREIGN KEY (user_id) REFERENCES users(id)" +
@@ -65,6 +66,8 @@ public class dao {
                     "purchase_price DECIMAL(10, 2)," +
                     "purchase_date DATE," +
                     "symbol VARCHAR(10)," +
+                    "network VARCHAR(50)," +
+                    "wallet_address VARCHAR(255)," +
                     "FOREIGN KEY (portfolio_id) REFERENCES portfolios(portfolio_id)" +
                     ")";
 

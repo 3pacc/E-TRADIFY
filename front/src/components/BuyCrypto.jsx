@@ -51,14 +51,14 @@ const BuyCrypto = ({ isLoggedIn, promptLogin }) => {
 
   return (
     <section className="buy-crypto">
-      <div className="container">
+      <div className="crypto-container">
         <div className="row">
           <div className="column info-column">
             <div className="info-section">
               <h2 className="title">Effortlessly Buy Crypto Your Way, Anytime, Anywhere</h2>
               <div className="info-item">
                 <div className="info-thumb">
-                  <img src="C:/Users/hp/Financial_Predictive_Analysis_Platform/front/public/images/accessible.png" alt="Accessible" />
+                  <img src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.pngegg.com%2Fen%2Fpng-bvomi&psig=AOvVaw113kbC0-Zh1tUAqxJv4zfj&ust=1717551946411000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCNDVhuHpwIYDFQAAAAAdAAAAABAE" alt="Accessible" />
                 </div>
                 <div className="info-content">
                   <h4>Accessible</h4>
@@ -67,7 +67,7 @@ const BuyCrypto = ({ isLoggedIn, promptLogin }) => {
               </div>
               <div className="info-item">
                 <div className="info-thumb">
-                  <img src="assets/images/icon/convenient.png" alt="Convenient" />
+                  <img src="../../public/images/convenient.png" alt="Convenient" />
                 </div>
                 <div className="info-content">
                   <h4>Convenient</h4>
@@ -76,7 +76,7 @@ const BuyCrypto = ({ isLoggedIn, promptLogin }) => {
               </div>
               <div className="info-item">
                 <div className="info-thumb">
-                  <img src="assets/images/icon/low-cost.png" alt="Low-cost" />
+                  <img src="../../public/images/low-cost.png" alt="Low-cost" />
                 </div>
                 <div className="info-content">
                   <h4>Low-cost</h4>
@@ -89,7 +89,7 @@ const BuyCrypto = ({ isLoggedIn, promptLogin }) => {
             <div className="form-section">
               <h2 className="form-title">Buy Crypto</h2>
               <span className="form-subtitle">Buy In Seconds</span>
-              <form onSubmit={handleSubmit}>
+              <form onSubmit={handleSubmit} className='form-BuyCrypto'>
                 <div className="form-group">
                   <label htmlFor="spend">Spend</label>
                   <div className="input-group">
@@ -98,7 +98,7 @@ const BuyCrypto = ({ isLoggedIn, promptLogin }) => {
                       id="spend"
                       value={spendAmount}
                       onChange={(e) => setSpendAmount(e.target.value)}
-                      placeholder="2201-650,600"
+                      placeholder="add an amount"
                     />
                     <select
                       id="spend-currency"
@@ -154,14 +154,14 @@ const BuyCrypto = ({ isLoggedIn, promptLogin }) => {
                 </div>
                 <div className="form-group">
                   <label htmlFor="wallet">Wallet Address</label>
-                  <textarea
+                  <input
                     id="wallet"
                     value={walletAddress}
                     onChange={(e) => setWalletAddress(e.target.value)}
                     placeholder="Address"
                     cols="15"
                     rows="3"
-                  ></textarea>
+                  ></input>
                 </div>
                 <button type="submit" className="submit-button">Next</button>
               </form>

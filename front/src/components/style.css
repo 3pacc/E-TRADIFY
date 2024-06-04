@@ -55,6 +55,8 @@ h3 {
 
 .card-container {
   display: grid;
+  padding-top: 20px;
+  padding-bottom: 20px;
   /* flex-direction: column;
   align-items: center; */
 }

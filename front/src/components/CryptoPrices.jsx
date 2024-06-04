@@ -182,6 +182,18 @@ function CryptoPrices() {
           case 'eth':
             navigate('/eth-chart');
             break;
+          case 'xrp':
+            navigate('/xrp-chart');
+            break;
+          case 'ada':
+            navigate('/ada-chart');
+            break;
+          case 'sol':
+            navigate('/sol-chart');
+            break;
+          case 'bnb':
+            navigate('/bnb-chart');
+            break;
           // Add more cases for other cryptocurrencies
           default:
             break;
@@ -283,8 +295,8 @@ function CryptoPrices() {
             </div>
           </div>
         </div>
-        <h2>Crypto Prices</h2>
         <div className="card-container">
+        <h2>Crypto Prices</h2>
           <div className="card-wrapper">{renderCards()}</div>
         </div>
         <Charts/>

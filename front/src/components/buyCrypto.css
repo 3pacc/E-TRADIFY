@@ -1,16 +1,19 @@
 * {
-    margin: 0;
+    /* margin: 0; */
     padding: 0;
     box-sizing: border-box;
   }
   
-  .container {
+  .crypto-container {
     width: 100%;
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
   }
-  
+  .crypto-container h2{
+    text-decoration-color: linear-gradient(to right, #44728c, #7acffe);
+    mix-blend-mode: luminosity;
+  }
   .row {
     display: flex;
     flex-wrap: wrap;
@@ -63,6 +66,7 @@
   .info-thumb img {
     width: 50px;
     margin-right: 20px;
+    display: block;
   }
   
   .info-content h4 {
@@ -71,6 +75,16 @@
   }
   
   /* Form Styles */
+  .form-BuyCrypto{
+    background-color: transparent !important;
+    display: flex;
+    align-items: stretch;
+    flex-direction: column;
+    padding: 0 50px;
+    height: 100%;
+    text-align: center;
+    flex-wrap: wrap;
+  }
   .form-section {
     background-color: #fff;
     padding: 20px;
@@ -107,26 +121,23 @@
     gap: 10px;
   }
   
-  input[type="text"],
-  select,
-  textarea {
+  .form-BuyCrypto input[type="text"],
+  select{
+    background-color: #eee;
+    border: none;
+    border-radius: 20px;
+    padding: 12px 15px;
+    margin: 8px 0;
     width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 16px;
   }
   
-  select {
+  .form-BuyCrypto select {
     width: auto;
     background-color: #c9edf2;
     box-shadow: #33333382 3px 8px 13px 0px;
   }
   
-  textarea {
-    resize: none;
-  }
-  
+
   .exchange-rate {
     display: block;
     margin-top: 10px;
@@ -134,7 +145,7 @@
   
   .gas-fee {
     display: flex;
-    /* justify-content: space-evenly; */
+    justify-content: center;
     margin-top: 10px;
     left: 0;
   }

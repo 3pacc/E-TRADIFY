@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './Navbar.css';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import './Drop.jsx';
 import ConnectWalletModal from './ConnectWalletModal'; 
 
@@ -9,6 +9,8 @@ const Navbar = () => {
   const [isDropdownOpen1, setIsDropdownOpen1] = useState(false);
   const [isDropdownOpen2, setIsDropdownOpen2] = useState(false);
   const [isWalletModalOpen, setIsWalletModalOpen] = useState(false);
+  const location = useLocation();
+  const [activeLink, setActiveLink] = useState(location.pathname);
   const toggleDropdown1 = () => {
     setIsDropdownOpen1(!isDropdownOpen1);
   };
@@ -21,17 +23,23 @@ const Navbar = () => {
     setIsWalletModalOpen(!isWalletModalOpen);
   };
 
+  const handleLinkClick = (path) => {
+    setActiveLink(path);
+  };
+
   return (
     <nav className="navbar">
       <div className="logo">PeakPredict</div>
       <ul className="navbar-list">
         <li>
-          <a href="/CryptoPrices">Home</a>
+          <Link to="/CryptoPrices" onClick={() => handleLinkClick('/CryptoPrices')} className={activeLink === '/CryptoPrices' ? 'active' : ''}>
+            Home
+          </Link>
         </li>
         <li className="dropdown">
-          <a href="/CryptoCharts" onPointerDown={toggleDropdown1}>
+          <Link to="/CryptoCharts" onClick={() => handleLinkClick('/CryptoCharts')} className={activeLink === '/CryptoCharts' ? 'active' : ''} onMouseEnter={toggleDropdown1}>
             Charts
-          </a>
+          </Link>
           {isDropdownOpen1 && (
             <ul className="dropdown-menu">
               <li>
@@ -47,13 +55,13 @@ const Navbar = () => {
           )}
         </li>
         <li className="dropdown">
-          <a href="/#" onMouseDown={toggleDropdown2}>
+          <a href="/binance.com" onMouseDown={toggleDropdown2}>
             Indicators
           </a>
           {isDropdownOpen2 && (
             <ul className="dropdown-menu">
               <li>
-                <a href="/#">Link 4</a>
+                <a href="/binance.com">Link 4</a>
               </li>
               <li>
                 <a href="/#">Link 5</a>
@@ -62,7 +70,7 @@ const Navbar = () => {
           )}
         </li>
         {/* <Drop/> */} <li>
-        <Link to="/buycrypto">Buy Crypto</Link>  {/* Utilisez Link pour la navigation */}
+        <Link to="/buycrypto" onClick={() => handleLinkClick('/buycrypto')} className={activeLink === '/buycrypto' ? 'active' : ''}>Buy Crypto</Link>  {/* Utilisez Link pour la navigation */}
         </li>
         <li>
           <button className="connect-wallet-button" onClick={toggleWalletModal}>Connect Wallet</button>

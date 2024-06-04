@@ -1,9 +1,13 @@
 import React, { useState, useEffect, lazy } from "react";
-import { Routes , Route, Navigate, useNavigate } from "react-router-dom";
+import { Routes , Route, Navigate, useNavigate, useLocation } from "react-router-dom";
 import "./login/style.css";
 import './components/style.css'; 
 import BTC from './coins/BTC'
 import ETH from './coins/ETH'
+import XRP from './coins/XRP'
+import ADA from './coins/ADA'
+import SOL from './coins/SOL'
+import BNB from './coins/BNB'
 import CryptoPrices from "./components/CryptoPrices";
 import Navbar from './components/navbar';
 import SignInForm from "./login/SignIn";
@@ -11,6 +15,7 @@ import SignUpForm from "./login/SignUp";
 import CryptoCharts from "./components/CryptoCharts";
 import Footer from "./components/footer";
 import BuyCrypto from "./components/BuyCrypto";
+import ConnectWalletModal from "./components/ConnectWalletModal";
 
 export default function App() {
   const [type, setType] = useState("signIn");
@@ -18,26 +23,17 @@ export default function App() {
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [isWalletModalOpen, setIsWalletModalOpen] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
 
-  // useEffect(() => {
-  //   const token = localStorage.getItem('token');
-  //   if (token) {
-  //     const decodedToken = tokenVerification(token);
-  //     if (decodedToken) {
-  //       setIsLoggedIn(true);
-  //     } else {
-  //       // Token is invalid or expired, handle the case accordingly
-  //       localStorage.removeItem('token');
-  //     }
-  //   }
-  // }, []);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
       setIsLoggedIn(true);
+    }else{
+      setIsLoggedIn(false);
     }
-  }, []);
+  }, [location]);
 
   const handleOnClick = (text) => {
     if (text !== type) {
@@ -52,9 +48,6 @@ export default function App() {
     }
   };
 
-  const handleCloseAuthModal = () => {
-    setShowAuthModal(false);
-  };
 
   const toggleWalletModal = () => {
     setIsWalletModalOpen(!isWalletModalOpen);
@@ -64,19 +57,11 @@ export default function App() {
     setShowAuthModal(true);
   };
 
-  const handlePredictClick = () => {
-    if (!isLoggedIn) {
-      setShowAuthModal(true);
-    } else {
-      navigate('/CryptoCharts');
-    }
-  };
 
   const handleLogout = () => {
-    sessionStorage.removeItem('isLoggedIn');
-    localStorage.removeItem('token'); // Remove the token from localStorage or sessionStorage
+    localStorage.removeItem('token'); 
     setIsLoggedIn(false);
-    // navigate("/signin");
+    navigate("/signin"); 
   };
 
   const containerClass =
@@ -85,14 +70,23 @@ export default function App() {
   if (isLoggedIn) {
     return (
       <div className="components">
-              <Navbar />
+              <Navbar 
+              onConnectWallet={handleConnectWallet} 
+              isWalletModalOpen={isWalletModalOpen} 
+              toggleWalletModal={toggleWalletModal}
+              handleLogout={handleLogout}/>
                 <Routes>
-                  <Route path="/CryptoPrices" element={<CryptoPrices />} />
+                  <Route path="/CryptoPrices" element={<CryptoPrices/>} />
                   <Route path="*" element={<Navigate to="/CryptoPrices" />} />
                   <Route path="/CryptoCharts" element={<CryptoCharts />} />
                   <Route path="/Buycrypto" element={<BuyCrypto isLoggedIn={isLoggedIn} promptLogin={promptLogin} />} />
+                  <Route path="/logout" handleLogout={handleLogout} element={<div><SignInForm /><SignUpForm/></div>} />
                   <Route path="/btc-chart" element={<BTC />} />
                   <Route path="/eth-chart" element={<ETH />} />
+                  <Route path="/xrp-chart" element={<XRP />} />
+                  <Route path="/ada-chart" element={<ADA />} />
+                  <Route path="/sol-chart" element={<SOL />} />
+                  <Route path="/bnb-chart" element={<BNB />} />
                 </Routes>
               <Footer/>
             </div>
@@ -137,8 +131,8 @@ export default function App() {
                   </div>
                 </div>
               </div>
-            </div>
-          }
+            </div>        
+        }
         />
         <Route
           path="/signup"
@@ -165,8 +159,8 @@ export default function App() {
                 <Footer/>
               </div>
             ) : (
-              null
-              // <Navigate to="/signin" replace={true} />
+              // null
+              <Navigate to="/signin" replace={true} />
             )
           }
         />
@@ -189,6 +183,10 @@ export default function App() {
         
          <Route path="/btc-chart" element={<BTC />} />
          <Route path="/eth-chart" element={<ETH />} />
+         <Route path="/xrp-chart" element={<XRP />} />
+         <Route path="/ada-chart" element={<ADA />} />
+         <Route path="/sol-chart" element={<SOL />} />
+         <Route path="/bnb-chart" element={<BNB />} />
       {/* <ProtectedRoute path="/CryptoCharts" component={CryptoCharts} /> */}
       </Routes>
     </div>

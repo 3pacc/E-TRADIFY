@@ -1,6 +1,8 @@
 import React, { useEffect, useRef } from 'react';
 import TradingViewWidget from 'react-tradingview-widget';
+import './coin.css'
 
+import ChartWidget from '../components/ChartWidget'
 function CryptoCharts() {
   const containerRef = useRef(null);
 
@@ -28,26 +30,27 @@ function CryptoCharts() {
   }, []);
 
     return (
-      <div>
-  
-        <h2>Ethereum Chart</h2>
-        <TradingViewWidget
-          symbol="BINANCE:ETHUSDT"
-          width="100%"
-          height="400"
-          locale="en"
-          dateRange="6M"
-          colorTheme="light"
-        />
-        
-        <div className="tradingview-widget-container">
-          <div ref={containerRef} className="tradingview-widget-container__widget"></div>
-          <div className="tradingview-widget-copyright">
-            <a href="https://www.tradingview.com/" rel="noopener nofollow" target="_blank">
-            </a>
-          </div>
+      <div className="coin-container">
+            <h2>Ethereum Chart</h2>
+            <div className='coin'>
+            {/* <TradingViewWidget  
+            symbol="BINANCE:BNBUSDT"
+            width="100%"
+            height="400"
+            locale="en"
+            dateRange="12M"
+            colorTheme="dark"
+            /> */} 
+                <ChartWidget symbol="BINANCE:ETHUSDT"/>
+                <div className="tradingview-widget-container">
+                <div ref={containerRef} className="tradingview-widget-container__widget"></div>
+                <div className="tradingview-widget-copyright">
+                    <a href="https://www.tradingview.com/" rel="noopener nofollow" target="_blank">
+                    </a>
+                </div>
+                </div>
+            </div>
         </div>
-      </div>
     );
   }
   

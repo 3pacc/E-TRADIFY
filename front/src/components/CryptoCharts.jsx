@@ -1,32 +1,32 @@
-import React, { useEffect, useRef } from 'react';
+import React, { /*useEffect,*/ useRef } from 'react';
 import TradingViewWidget from 'react-tradingview-widget';
 import './CryptoCharts.css'; 
 function CryptoCharts() {
   const containerRef = useRef(null);
 
-  useEffect(() => {
-    const script = document.createElement('script');
-    script.src = 'https://s3.tradingview.com/external-embedding/embed-widget-technical-analysis.js';
-    script.async = true;
-    script.innerHTML = JSON.stringify({
-      interval: '1m',
-      width: 425,
-      isTransparent: false,
-      height: 450,
-      symbol: 'BINANCE:BTCUSDT',
-      showIntervalTabs: true,
-      displayMode: 'single',
-      locale: 'en',
-      colorTheme: 'light',
-      backgroundColor:'rgb(214, 230, 238)'
-    });
+  // useEffect(() => {
+  //   const script = document.createElement('script');
+  //   script.src = 'https://s3.tradingview.com/external-embedding/embed-widget-technical-analysis.js';
+  //   script.async = true;
+  //   script.innerHTML = JSON.stringify({
+  //     interval: '1m',
+  //     width: 425,
+  //     isTransparent: false,
+  //     height: 450,
+  //     symbol: 'BINANCE:BTCUSDT',
+  //     showIntervalTabs: true,
+  //     displayMode: 'single',
+  //     locale: 'en',
+  //     colorTheme: 'light',
+  //     backgroundColor:'rgb(214, 230, 238)'
+  //   });
 
-    containerRef.current.appendChild(script);
+  //   containerRef.current.appendChild(script);
 
-    return () => {
-      containerRef.current.removeChild(script);
-    };
-  }, []);
+  //   return () => {
+  //     containerRef.current.removeChild(script);
+  //   };
+  // }, []);
 
     return (
       <div className='crypto-charts-container' ref={containerRef} >
@@ -84,7 +84,33 @@ function CryptoCharts() {
           dateRange="3M"
           colorTheme="dark"
         />
-        
+        <h2>BNB Chart</h2>
+        <TradingViewWidget
+          symbol="BINANCE:BNBUSDT"
+          width="100%"
+          height="400"
+          locale="en"
+          dateRange="3M"
+          colorTheme="dark"
+        />
+        <h2>Bitcoin cash Chart</h2>
+        <TradingViewWidget
+          symbol="BINANCE:BCHUSDT"
+          width="100%"
+          height="400"
+          locale="en"
+          dateRange="3M"
+          colorTheme="dark"
+        />
+        <h2>Tron 'TRX' Chart</h2>
+        <TradingViewWidget
+          symbol="BINANCE:TRXUSDT"
+          width="100%"
+          height="400"
+          locale="en"
+          dateRange="3M"
+          colorTheme="dark"
+        />
         </div>
       </div>
     );

@@ -1,0 +1,21 @@
+.coin-container{
+    padding-top: 30px ;
+}
+
+.coin{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+.coin div{
+    padding: 20px;
+}
+.coin-container h2{
+  color: #9dcad1;
+  font-size: xx-large;
+}
+.tradingview-widget-copyright .tv-embed-widget-wrapper__body {
+    background: #051238;
+    border-color: #111421;
+}

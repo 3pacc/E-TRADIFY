@@ -35,11 +35,11 @@ public class UserController {
         }
 
         // Check the password to determine the user's role
-        if (user.getPassword().equals(ADMIN_PASSWORD)) {
-            user.setRole(Role.ADMINISTRATOR);
-        } else {
-            user.setRole(Role.TRADER);
-        }
+//        if (user.getPassword().equals(ADMIN_PASSWORD)) {
+//            user.setRole(Role.ADMINISTRATOR);
+//        } else {
+//            user.setRole(Role.TRADER);
+//        }
 
         userService.saveUser(user);
         return ResponseEntity.ok("User registered successfully!");
@@ -158,7 +158,7 @@ public class UserController {
 
     @PutMapping("/test-portfolio")
     public ResponseEntity<?> setTestPortfolio(@RequestBody TestPortfolioRequest request, @RequestHeader("Authorization") String token) {
-        String authToken = token.substring(7); // Remove "Bearer " to get the actual token
+        String authToken = token.substring(7);
         String username = jwtTokenUtil.extractEmail(authToken);
         Optional<User> currentUser = userService.findByEmail(username);
         if (currentUser.isPresent()) {

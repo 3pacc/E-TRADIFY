@@ -83,19 +83,20 @@
   }
   
   form {
-    /* background-color: #ffffff; */
+    background-color: #ffffff;
     display: flex;
-    /* align-items: center; */
+    align-items: center;
     justify-content: center;
     flex-direction: column;
     padding: 0 50px;
     height: 100%;
-    /* text-align: center; */
+    text-align: center;
   }
   
   input {
     background-color: #eee;
     border: none;
+    border-radius: 20px;
     padding: 12px 15px;
     margin: 8px 0;
     width: 100%;
@@ -110,6 +111,8 @@
     width: 768px;
     max-width: 100%;
     min-height: 480px;
+    
+    display: inline-flex;
   }
   
   .form-container {

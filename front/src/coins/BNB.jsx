@@ -1,8 +1,8 @@
 import React, { useEffect, useRef } from 'react';
 import TradingViewWidget from 'react-tradingview-widget';
+import ChartWidget from '../components/ChartWidget'
 import './coin.css'
 
-import ChartWidget from '../components/ChartWidget'
 function CryptoCharts() {
   const containerRef = useRef(null);
 
@@ -15,12 +15,11 @@ function CryptoCharts() {
       width: 425,
       isTransparent: false,
       height: 450,
-      symbol: 'BINANCE:BTCUSDT',
+      symbol: 'BINANCE:BNBUSDT',
       showIntervalTabs: true,
       displayMode: 'single',
       locale: 'en',
       colorTheme: 'dark',
-      backgroundColor:'rgb(5, 18, 56)'
     });
 
     containerRef.current.appendChild(script);
@@ -31,8 +30,8 @@ function CryptoCharts() {
   }, []);
 
     return (
-      <div className="coin-container">
-            <h2>Bitcoin Chart</h2>
+        <div className="coin-container">
+            <h2>BNB Chart</h2>
             <div className='coin'>
             {/* <TradingViewWidget  
             symbol="BINANCE:BNBUSDT"
@@ -41,8 +40,8 @@ function CryptoCharts() {
             locale="en"
             dateRange="12M"
             colorTheme="dark"
-            /> */}
-                <ChartWidget symbol="BINANCE:BTCUSDT"/>
+            /> */} 
+                <ChartWidget symbol="BINANCE:BNBUSDT"/>
                 <div className="tradingview-widget-container">
                 <div ref={containerRef} className="tradingview-widget-container__widget"></div>
                 <div className="tradingview-widget-copyright">
@@ -52,6 +51,7 @@ function CryptoCharts() {
                 </div>
             </div>
         </div>
+        
     );
   }
   

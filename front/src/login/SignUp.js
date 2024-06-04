@@ -97,7 +97,7 @@ function SignUpForm({ setIsLoggedIn }) {
           onChange={handleChange}
           placeholder="Password"
         />
-        <button>Sign Up</button>
+        <button onClick={validateForm}>Sign Up</button>
       </form>
     </div>
   );

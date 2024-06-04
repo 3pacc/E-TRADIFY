@@ -1,8 +1,9 @@
 import React, { useEffect, useRef } from 'react';
 import TradingViewWidget from 'react-tradingview-widget';
-import './coin.css'
 
 import ChartWidget from '../components/ChartWidget'
+import './coin.css'
+
 function CryptoCharts() {
   const containerRef = useRef(null);
 
@@ -15,12 +16,11 @@ function CryptoCharts() {
       width: 425,
       isTransparent: false,
       height: 450,
-      symbol: 'BINANCE:BTCUSDT',
+      symbol: 'BINANCE:SOLUSDT',
       showIntervalTabs: true,
       displayMode: 'single',
       locale: 'en',
       colorTheme: 'dark',
-      backgroundColor:'rgb(5, 18, 56)'
     });
 
     containerRef.current.appendChild(script);
@@ -31,27 +31,27 @@ function CryptoCharts() {
   }, []);
 
     return (
-      <div className="coin-container">
-            <h2>Bitcoin Chart</h2>
-            <div className='coin'>
-            {/* <TradingViewWidget  
-            symbol="BINANCE:BNBUSDT"
-            width="100%"
-            height="400"
-            locale="en"
-            dateRange="12M"
-            colorTheme="dark"
-            /> */}
-                <ChartWidget symbol="BINANCE:BTCUSDT"/>
-                <div className="tradingview-widget-container">
-                <div ref={containerRef} className="tradingview-widget-container__widget"></div>
-                <div className="tradingview-widget-copyright">
-                    <a href="https://www.tradingview.com/" rel="noopener nofollow" target="_blank">
-                    </a>
-                </div>
-                </div>
+        <div className="coin-container">
+        <h2>Solana Chart</h2>
+        <div className='coin'>
+        {/* <TradingViewWidget  
+        symbol="BINANCE:BNBUSDT"
+        width="100%"
+        height="400"
+        locale="en"
+        dateRange="12M"
+        colorTheme="dark"
+        /> */} 
+            <ChartWidget symbol="BINANCE:SOLUSDT"/>
+            <div className="tradingview-widget-container">
+            <div ref={containerRef} className="tradingview-widget-container__widget"></div>
+            <div className="tradingview-widget-copyright">
+                <a href="https://www.tradingview.com/" rel="noopener nofollow" target="_blank">
+                </a>
+            </div>
             </div>
         </div>
+    </div>
     );
   }
   

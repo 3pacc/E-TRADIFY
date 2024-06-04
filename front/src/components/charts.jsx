@@ -41,7 +41,7 @@ function Charts() {
           "width": "100%",
           "height": "500",
           "locale": "en",
-          "colorTheme": "light",
+          "colorTheme": "dark",
           "autosize": true,
           "showVolume": false,
           "showMA": false,
