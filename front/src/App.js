@@ -133,12 +133,12 @@ export default function App() {
             <Route path="/CryptoCharts" element={<CryptoCharts />} />
             <Route path="/Buycrypto" element={<BuyCrypto isLoggedIn={isLoggedIn} promptLogin={promptLogin} />} />
             <Route path="/logout" handleLogout={handleLogout} element={<div><SignInForm /><SignUpForm/></div>} />
-            <Route path="/btc-chart" element={<BTC />} />
-            <Route path="/eth-chart" element={<ETH />} />
-            <Route path="/xrp-chart" element={<XRP />} />
-            <Route path="/ada-chart" element={<ADA />} />
-            <Route path="/sol-chart" element={<SOL />} />
-            <Route path="/bnb-chart" element={<BNB />} />
+            <Route path="/btc-chart" element={<BTC isLoggedIn={isLoggedIn} promptLogin={promptLogin}/>} />
+            <Route path="/eth-chart" element={<ETH isLoggedIn={isLoggedIn} promptLogin={promptLogin}/>} />
+            <Route path="/xrp-chart" element={<XRP isLoggedIn={isLoggedIn} promptLogin={promptLogin}/>} />
+            <Route path="/ada-chart" element={<ADA isLoggedIn={isLoggedIn} promptLogin={promptLogin}/>} />
+            <Route path="/sol-chart" element={<SOL isLoggedIn={isLoggedIn} promptLogin={promptLogin}/>} />
+            <Route path="/bnb-chart" element={<BNB isLoggedIn={isLoggedIn} promptLogin={promptLogin}/>} />
           </Routes>
         <Footer/>
       {showAuthModal && (
