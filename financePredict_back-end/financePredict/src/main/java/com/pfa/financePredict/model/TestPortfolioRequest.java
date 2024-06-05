@@ -4,7 +4,6 @@ public class TestPortfolioRequest {
     private boolean testPortfolio;
     private Double testAmount;
 
-    // Getters and setters
     public boolean isTestPortfolio() {
         return testPortfolio;
     }

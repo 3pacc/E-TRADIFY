@@ -1,4 +1,4 @@
-import React, { useState, useEffect, lazy } from "react";
+import React, { useState, useEffect } from "react";
 import { Routes , Route, Navigate, useNavigate, useLocation } from "react-router-dom";
 import "./login/style.css";
 import './components/style.css'; 
@@ -23,23 +23,15 @@ export default function App() {
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [isWalletModalOpen, setIsWalletModalOpen] = useState(false);
   const navigate = useNavigate();
-  const location = useLocation();
+  // const location = useLocation();
 
-
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      setIsLoggedIn(true);
-    }else{
-      setIsLoggedIn(false);
-    }
-  }, [location]);
 
   const handleOnClick = (text) => {
     if (text !== type) {
       setType(text);
     }
   };
+
   const handleConnectWallet = () => {
     if (!isLoggedIn) {
       setShowAuthModal(true);
@@ -48,9 +40,43 @@ export default function App() {
     }
   };
 
+  const handleCloseAuthModal = () => {
+    setShowAuthModal(false);
+  };
 
   const toggleWalletModal = () => {
     setIsWalletModalOpen(!isWalletModalOpen);
+  };
+  
+
+  const handlePredictClick = (crypto) => {
+    if (!isLoggedIn) {
+      setShowAuthModal(true);
+    } else {
+        switch (crypto.toLowerCase()) {
+          case 'btc':
+            navigate('/btc-chart');
+            break;
+          case 'eth':
+            navigate('/eth-chart');
+            break;
+          case 'xrp':
+            navigate('/xrp-chart');
+            break;
+          case 'ada':
+            navigate('/ada-chart');
+            break;
+          case 'sol':
+            navigate('/sol-chart');
+            break;
+          case 'bnb':
+            navigate('/bnb-chart');
+            break;
+          // Add more cases for other cryptocurrencies
+          default:
+            break;
+        }
+    }
   };
 
   const promptLogin = () => {
@@ -63,42 +89,61 @@ export default function App() {
     setIsLoggedIn(false);
     navigate("/signin"); 
   };
+  
 
   const containerClass =
     "container " + (type === "signUp" ? "right-panel-active" : "");
 
-  if (isLoggedIn) {
-    return (
-      <div className="components">
-              <Navbar 
-              onConnectWallet={handleConnectWallet} 
-              isWalletModalOpen={isWalletModalOpen} 
-              toggleWalletModal={toggleWalletModal}
-              handleLogout={handleLogout}/>
-                <Routes>
-                  <Route path="/CryptoPrices" element={<CryptoPrices/>} />
-                  <Route path="*" element={<Navigate to="/CryptoPrices" />} />
-                  <Route path="/CryptoCharts" element={<CryptoCharts />} />
-                  <Route path="/Buycrypto" element={<BuyCrypto isLoggedIn={isLoggedIn} promptLogin={promptLogin} />} />
-                  <Route path="/logout" handleLogout={handleLogout} element={<div><SignInForm /><SignUpForm/></div>} />
-                  <Route path="/btc-chart" element={<BTC />} />
-                  <Route path="/eth-chart" element={<ETH />} />
-                  <Route path="/xrp-chart" element={<XRP />} />
-                  <Route path="/ada-chart" element={<ADA />} />
-                  <Route path="/sol-chart" element={<SOL />} />
-                  <Route path="/bnb-chart" element={<BNB />} />
-                </Routes>
-              <Footer/>
-            </div>
-      );
-  }
+  // if (isLoggedIn) {
+  //   return (
+  //     <div className="components">
+  //             <Navbar 
+  //             onConnectWallet={handleConnectWallet} 
+  //             isWalletModalOpen={isWalletModalOpen} 
+  //             toggleWalletModal={toggleWalletModal}
+  //             handleLogout={handleLogout}/>
+  //               <Routes>
+  //                 <Route path="/CryptoPrices" element={<CryptoPrices onPredictClick={handlePredictClick}/>} />
+  //                 <Route path="*" element={<Navigate to="/CryptoPrices" />} />
+  //                 <Route path="/CryptoCharts" element={<CryptoCharts />} />
+  //                 <Route path="/Buycrypto" element={<BuyCrypto isLoggedIn={isLoggedIn} promptLogin={promptLogin} />} />
+  //                 <Route path="/logout" handleLogout={handleLogout} element={<div><SignInForm /><SignUpForm/></div>} />
+  //                 <Route path="/btc-chart" element={<BTC />} />
+  //                 <Route path="/eth-chart" element={<ETH />} />
+  //                 <Route path="/xrp-chart" element={<XRP />} />
+  //                 <Route path="/ada-chart" element={<ADA />} />
+  //                 <Route path="/sol-chart" element={<SOL />} />
+  //                 <Route path="/bnb-chart" element={<BNB />} />
+  //               </Routes>
+  //             <Footer/>
+  //           </div>
+  //     );
+  // }
 
   return (
     <div className="App">
-      <Routes>
-        <Route
-          path="/"
-          element={
+      <Navbar 
+        onConnectWallet={handleConnectWallet} 
+        isWalletModalOpen={isWalletModalOpen} 
+        toggleWalletModal={toggleWalletModal}
+        handleLogout={handleLogout}/>
+          <Routes>
+            <Route path="/" element={<CryptoPrices onPredictClick={handlePredictClick} />} />
+            <Route path="/CryptoPrices" element={<CryptoPrices onPredictClick={handlePredictClick}/>} />
+            <Route path="*" element={<Navigate to="/CryptoPrices" />} />
+            <Route path="/CryptoCharts" element={<CryptoCharts />} />
+            <Route path="/Buycrypto" element={<BuyCrypto isLoggedIn={isLoggedIn} promptLogin={promptLogin} />} />
+            <Route path="/logout" handleLogout={handleLogout} element={<div><SignInForm /><SignUpForm/></div>} />
+            <Route path="/btc-chart" element={<BTC />} />
+            <Route path="/eth-chart" element={<ETH />} />
+            <Route path="/xrp-chart" element={<XRP />} />
+            <Route path="/ada-chart" element={<ADA />} />
+            <Route path="/sol-chart" element={<SOL />} />
+            <Route path="/bnb-chart" element={<BNB />} />
+          </Routes>
+        <Footer/>
+      {showAuthModal && (
+            <div className="auth-modal">
             <div className={containerClass} id="container">
               <SignUpForm setIsLoggedIn={setIsLoggedIn} />
               <SignInForm setIsLoggedIn={setIsLoggedIn} />
@@ -128,13 +173,18 @@ export default function App() {
                     >
                       Sign Up
                     </button>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>        
-        }
-        />
-        <Route
+              <button className="close-modal" onClick={handleCloseAuthModal}>X</button>
+              </div>
+            )}
+          {isWalletModalOpen && <ConnectWalletModal onClose={toggleWalletModal} />}
+          </div>       
+  );
+}
+        {/* <Route
           path="/signup"
           element={<SignUpForm setIsLoggedIn={setIsLoggedIn} />}
         />
@@ -187,8 +237,8 @@ export default function App() {
          <Route path="/ada-chart" element={<ADA />} />
          <Route path="/sol-chart" element={<SOL />} />
          <Route path="/bnb-chart" element={<BNB />} />
-      {/* <ProtectedRoute path="/CryptoCharts" component={CryptoCharts} /> */}
+      <ProtectedRoute path="/CryptoCharts" component={CryptoCharts} />
       </Routes>
     </div>
   );
-}
+} */}

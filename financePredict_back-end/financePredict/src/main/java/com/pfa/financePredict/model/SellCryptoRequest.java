@@ -1,6 +1,6 @@
 package com.pfa.financePredict.model;
 
-public class BuyCryptoRequest {
+public class SellCryptoRequest {
     private double spendAmount;
     private String spendCurrency;
     private double receiveAmount;
@@ -8,6 +8,7 @@ public class BuyCryptoRequest {
     private String network;
     private String walletAddress;
     private double price;
+
     public double getSpendAmount() {
         return spendAmount;
     }
@@ -55,6 +56,7 @@ public class BuyCryptoRequest {
     public void setWalletAddress(String walletAddress) {
         this.walletAddress = walletAddress;
     }
+
     public double getPrice() {
         return price;
     }

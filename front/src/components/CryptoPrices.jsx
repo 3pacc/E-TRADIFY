@@ -10,7 +10,7 @@ import { useNavigate } from 'react-router-dom';
 
 
 
-function CryptoPrices() {
+function CryptoPrices({onPredictClick}) {
     const [prices, setPrices] = useState({
         btc: { 
             price: '', 
@@ -74,18 +74,13 @@ function CryptoPrices() {
     const [tradingVolume24h, setTradingVolume24h] = useState(null);
     const [trendingCoins, setTrendingCoins] = useState([]);
     const [largestGainers, setLargestGainers] = useState([]);
+    
     const navigate = useNavigate();
     // const firstChart = createChart(document.getElementById('firstContainer'));
 
     useEffect(() => {
-        
-
+      
         const fetchData = async () => {
-        const token = localStorage.getItem('token'); // Retrieve the token from localStorage or sessionStorage
-
-        if (token) {
-        // Make API requests with the token in the headers
-            // const headers = { Authorization: `Bearer ${token}` };
             const endpoint = 'https://api3.binance.com';
             const queries = {
                 btc: '/api/v3/ticker/price?symbol=BTCUSDT',
@@ -118,9 +113,6 @@ function CryptoPrices() {
             const updatedPrices = Object.assign({}, ...results);
             setPrices(updatedPrices);
             await fetchMarketData();
-        } else {
-            console.log('User is not authenticated');
-          }
     };
 
         fetchData();
@@ -174,31 +166,12 @@ function CryptoPrices() {
       const cryptoKeys = Object.keys(prices);
       const visibleCryptoKeys = cryptoKeys.slice(0, visibleCards);
 
-      const handlePredictClick = (crypto) => {
-        switch (crypto.toLowerCase()) {
-          case 'btc':
-            navigate('/btc-chart');
-            break;
-          case 'eth':
-            navigate('/eth-chart');
-            break;
-          case 'xrp':
-            navigate('/xrp-chart');
-            break;
-          case 'ada':
-            navigate('/ada-chart');
-            break;
-          case 'sol':
-            navigate('/sol-chart');
-            break;
-          case 'bnb':
-            navigate('/bnb-chart');
-            break;
-          // Add more cases for other cryptocurrencies
-          default:
-            break;
+      const handlePredict = (crypto) => {
+        if (onPredictClick) {
+          onPredictClick(crypto);
         }
       };
+      
   
       return visibleCryptoKeys.map((key) => {
         const value = prices[key];
@@ -227,7 +200,7 @@ function CryptoPrices() {
                     <span>Binance</span>
                   </div>
                 </div>
-                <a href="#"   onClick={() => handlePredictClick(key)}  className="stack-button">
+                <a href="#"   onClick={() => handlePredict(key)}  className="stack-button">
                   Predict
                 </a>
               </div>

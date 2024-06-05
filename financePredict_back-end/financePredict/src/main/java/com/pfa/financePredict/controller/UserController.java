@@ -53,15 +53,8 @@ public class UserController {
 
         if (foundUser != null) {
             if (foundUser.getPassword().equals(user.getPassword())) {
-                // Check the user's role and return appropriate response
-//                if (foundUser.getRole() == Role.ADMINISTRATOR) {
                 String token = JwtTokenUtil.generateToken(foundUser.getEmail());
                 return ResponseEntity.ok(new AuthResponse(token));
-
-//                return ResponseEntity.ok("Administrator authenticated successfully!", new AuthResponse(token));
-//                } else if (foundUser.getRole() == Role.TRADER) {
-//                    return ResponseEntity.ok("Trader authenticated successfully!");
-//                }
             } else {
                 return ResponseEntity.badRequest().body("Invalid password!");
             }
@@ -69,10 +62,6 @@ public class UserController {
             return ResponseEntity.badRequest().body("User not found!");
         }
 
-//        String token = JwtTokenUtil.generateToken(user.getEmail());
-//        return ResponseEntity.ok(new AuthResponse(token));
-
-//        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
     }
 
     @GetMapping("/users/{id}")

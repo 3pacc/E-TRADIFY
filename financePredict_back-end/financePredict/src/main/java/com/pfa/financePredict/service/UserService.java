@@ -3,6 +3,7 @@ import com.pfa.financePredict.model.Portfolio;
 import com.pfa.financePredict.model.User;
 import com.pfa.financePredict.repository.PortfolioRepository;
 import com.pfa.financePredict.repository.UserRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -36,7 +37,7 @@ public class UserService implements UserDetailsService {
     public User getUserByEmail(String email) {
         return userRepository.findByEmail(email).orElse(null);
     }
-
+    @Transactional
     public User saveUser(User user) {
         User savedUser = userRepository.save(user);
 

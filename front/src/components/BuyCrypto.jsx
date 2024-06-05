@@ -38,7 +38,6 @@ const BuyCrypto = ({ isLoggedIn, promptLogin }) => {
         const data = await response.json();
         console.log('Purchase successful', data);
         alert('Transaction successful!');
-        // Handle successful purchase
       } else {
         console.error('Failed to complete purchase', response.statusText);
         alert('Error during purchase: ' + response.statusText);
