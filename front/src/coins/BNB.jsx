@@ -3,7 +3,7 @@ import TradingViewWidget from 'react-tradingview-widget';
 import ChartWidget from '../components/ChartWidget'
 import './coin.css'
 
-function CryptoCharts() {
+function BNB() {
   const containerRef = useRef(null);
 
   useEffect(() => {
@@ -50,9 +50,14 @@ function CryptoCharts() {
                 </div>
                 </div>
             </div>
+            <div className='pred'>
+                  <h3>By the analysis made with the machine learning module</h3>
+                  <span> Predicted price for the next day:  <b>622.57</b></span> 
+                  <span className='decision'>Decision: Sell</span>
+            </div>
         </div>
         
     );
   }
   
-  export default CryptoCharts;
+  export default BNB;

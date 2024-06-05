@@ -1,10 +1,11 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import TradingViewWidget from 'react-tradingview-widget';
 import './coin.css'
 
 import ChartWidget from '../components/ChartWidget'
-function CryptoCharts() {
+function BTC() {
   const containerRef = useRef(null);
+  const [scriptElement, setScriptElement] = useState(null);
 
   useEffect(() => {
     const script = document.createElement('script');
@@ -24,9 +25,12 @@ function CryptoCharts() {
     });
 
     containerRef.current.appendChild(script);
+    setScriptElement(script);
 
     return () => {
-      containerRef.current.removeChild(script);
+      if (containerRef.current) {
+        containerRef.current.removeChild(scriptElement);
+      }
     };
   }, []);
 
@@ -41,7 +45,7 @@ function CryptoCharts() {
             locale="en"
             dateRange="12M"
             colorTheme="dark"
-            /> */}
+            /> */} 
                 <ChartWidget symbol="BINANCE:BTCUSDT"/>
                 <div className="tradingview-widget-container">
                 <div ref={containerRef} className="tradingview-widget-container__widget"></div>
@@ -50,9 +54,15 @@ function CryptoCharts() {
                     </a>
                 </div>
                 </div>
+               
+            </div>
+            <div className='pred'>
+                  <h3>By the analysis made with the machine learning module</h3>
+                  <span> the Predicted price for the next day: <b>57274.51</b></span> 
+                  <span className='decision'>Decision: Sell</span>
             </div>
         </div>
     );
   }
   
-  export default CryptoCharts;
+  export default BTC;

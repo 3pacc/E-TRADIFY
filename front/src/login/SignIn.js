@@ -36,6 +36,7 @@ function SignInForm({ setIsLoggedIn }) {
         localStorage.setItem('isLoggedIn', true);
         const token = response.data.token;
         localStorage.setItem('token', token);
+        alert("Authentification successful!.");
         return token;
       } catch (error) {
         console.error('Error:', error);

@@ -30,9 +30,8 @@ const TradingViewWidget = ({ symbol }) => {
     <div className="tradingview-widget-container">
       <div className="tradingview-widget-container__widget" ref={containerRef}></div>
       <div className="tradingview-widget-copyright">
-        <a href="https://www.tradingview.com/" rel="noopener nofollow" target="_blank">
-          <span className="blue-text">Track all markets on TradingView</span>
-        </a>
+        {/* <a href="https://www.tradingview.com/" rel="noopener nofollow" target="_blank">
+        </a> */}
       </div>
     </div>
   );

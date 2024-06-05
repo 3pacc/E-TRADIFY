@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { Routes , Route, Navigate, useNavigate, useLocation } from "react-router-dom";
+import React, { useState } from "react";
+import { Routes , Route, Navigate, useNavigate} from "react-router-dom";
 import "./login/style.css";
 import './components/style.css'; 
 import BTC from './coins/BTC'
@@ -132,13 +132,13 @@ export default function App() {
             <Route path="*" element={<Navigate to="/CryptoPrices" />} />
             <Route path="/CryptoCharts" element={<CryptoCharts />} />
             <Route path="/Buycrypto" element={<BuyCrypto isLoggedIn={isLoggedIn} promptLogin={promptLogin} />} />
-            <Route path="/logout" handleLogout={handleLogout} element={<div><SignInForm /><SignUpForm/></div>} />
-            <Route path="/btc-chart" element={<BTC isLoggedIn={isLoggedIn} promptLogin={promptLogin}/>} />
-            <Route path="/eth-chart" element={<ETH isLoggedIn={isLoggedIn} promptLogin={promptLogin}/>} />
-            <Route path="/xrp-chart" element={<XRP isLoggedIn={isLoggedIn} promptLogin={promptLogin}/>} />
-            <Route path="/ada-chart" element={<ADA isLoggedIn={isLoggedIn} promptLogin={promptLogin}/>} />
-            <Route path="/sol-chart" element={<SOL isLoggedIn={isLoggedIn} promptLogin={promptLogin}/>} />
-            <Route path="/bnb-chart" element={<BNB isLoggedIn={isLoggedIn} promptLogin={promptLogin}/>} />
+            <Route path="/logout" handleLogout={handleLogout} />
+            <Route path="/btc-chart" element={<BTC />} />
+            <Route path="/eth-chart" element={<ETH/>} />
+            <Route path="/xrp-chart" element={<XRP isLoggedIn={isLoggedIn} />} />
+            <Route path="/ada-chart" element={<ADA isLoggedIn={isLoggedIn} />} />
+            <Route path="/sol-chart" element={<SOL isLoggedIn={isLoggedIn} />} />
+            <Route path="/bnb-chart" element={<BNB isLoggedIn={isLoggedIn} />} />
           </Routes>
         <Footer/>
       {showAuthModal && (

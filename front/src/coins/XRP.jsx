@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import TradingViewWidget from 'react-tradingview-widget';
 
 import ChartWidget from '../components/ChartWidget'
-function CryptoCharts() {
+function XRP() {
   const containerRef = useRef(null);
 
   useEffect(() => {
@@ -30,7 +30,7 @@ function CryptoCharts() {
 
     return (
         <div className="coin-container">
-        <h2>Bitcoin Chart</h2>
+        <h2>XRP Chart</h2>
         <div className='coin'>
         {/* <TradingViewWidget  
         symbol="BINANCE:BNBUSDT"
@@ -49,8 +49,13 @@ function CryptoCharts() {
             </div>
             </div>
         </div>
+        <div className='pred'>
+                  <h3>By the analysis made with the machine learning module</h3>
+                  <span> vPredicted price for the next day: <b>0.53</b></span> 
+                  <span className='decision'>Decision: Buy</span>
+            </div>
     </div>
     );
   }
   
-  export default CryptoCharts;
+  export default XRP;
