@@ -57,7 +57,7 @@ const BuyCrypto = ({ isLoggedIn, promptLogin }) => {
               <h2 className="title">Effortlessly Buy Crypto Your Way, Anytime, Anywhere</h2>
               <div className="info-item">
                 <div className="info-thumb">
-                  <img src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.pngegg.com%2Fen%2Fpng-bvomi&psig=AOvVaw113kbC0-Zh1tUAqxJv4zfj&ust=1717551946411000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCNDVhuHpwIYDFQAAAAAdAAAAABAE" alt="Accessible" />
+                  {/* <img src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.pngegg.com%2Fen%2Fpng-bvomi&psig=AOvVaw113kbC0-Zh1tUAqxJv4zfj&ust=1717551946411000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCNDVhuHpwIYDFQAAAAAdAAAAABAE" alt="Accessible" /> */}
                 </div>
                 <div className="info-content">
                   <h4>Accessible</h4>
@@ -66,7 +66,7 @@ const BuyCrypto = ({ isLoggedIn, promptLogin }) => {
               </div>
               <div className="info-item">
                 <div className="info-thumb">
-                  <img src="../../public/images/convenient.png" alt="Convenient" />
+                  {/* <img src="../../public/images/convenient.png" alt="Convenient" /> */}
                 </div>
                 <div className="info-content">
                   <h4>Convenient</h4>
@@ -75,7 +75,7 @@ const BuyCrypto = ({ isLoggedIn, promptLogin }) => {
               </div>
               <div className="info-item">
                 <div className="info-thumb">
-                  <img src="../../public/images/low-cost.png" alt="Low-cost" />
+                  {/* <img src="../../public/images/low-cost.png" alt="Low-cost" /> */}
                 </div>
                 <div className="info-content">
                   <h4>Low-cost</h4>

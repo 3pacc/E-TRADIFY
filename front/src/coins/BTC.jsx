@@ -5,7 +5,7 @@ import './coin.css'
 import ChartWidget from '../components/ChartWidget'
 function BTC() {
   const containerRef = useRef(null);
-  const [scriptElement, setScriptElement] = useState(null);
+  const [scriptElement] = useState(null);
 
   useEffect(() => {
     const script = document.createElement('script');
@@ -24,11 +24,11 @@ function BTC() {
       backgroundColor:'rgb(5, 18, 56)'
     });
 
-    containerRef.current.appendChild(script);
-    setScriptElement(script);
-
+    if (containerRef.current) {
+      containerRef.current.appendChild(script);
+    }
     return () => {
-      if (containerRef.current) {
+      if (containerRef.current && containerRef.current.contains(script)) {
         containerRef.current.removeChild(scriptElement);
       }
     };
@@ -58,8 +58,8 @@ function BTC() {
             </div>
             <div className='pred'>
                   <h3>By the analysis made with the machine learning module</h3>
-                  <span> the Predicted price for the next day: <b>57274.51</b></span> 
-                  <span className='decision'>Decision: Sell</span>
+                  <span> the Predicted price for the next day: <b>69412</b></span> 
+                  <span className='decision'>Decision: SELL</span>
             </div>
         </div>
     );

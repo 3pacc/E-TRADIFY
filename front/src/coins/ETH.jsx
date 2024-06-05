@@ -4,7 +4,7 @@ import './coin.css'
 
 import ChartWidget from '../components/ChartWidget'
 function ETH() {
-  const containerRef = useRef(null);
+  const containerRef = useRef({div: null });
 
   useEffect(() => {
     const script = document.createElement('script');
@@ -22,11 +22,26 @@ function ETH() {
       colorTheme: 'dark',
     });
 
+    script.onload = () => {
+      const div = document.createElement('div');
+      containerRef.current.div = div;
+      div.appendChild(script);
+    
+      return () => {
+        if (containerRef.current.div) {
+          containerRef.current.div.removeChild(script);
+          containerRef.current.div = null;
+        }
+      };
+    };
+
     containerRef.current.appendChild(script);
 
     return () => {
-      containerRef.current.removeChild(script);
-    };
+      if (containerRef.current.div) {
+        containerRef.current.div.removeChild(script);
+        containerRef.current.div = null;
+      }    };
   }, []);
 
     return (

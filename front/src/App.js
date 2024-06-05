@@ -86,7 +86,8 @@ export default function App() {
   const handleLogout = () => {
     localStorage.removeItem('token'); 
     setIsLoggedIn(false);
-    navigate("/signin"); 
+    alert("you have been logged out");
+    // navigate("/signin"); 
   };
   
 
@@ -125,7 +126,8 @@ export default function App() {
         onConnectWallet={handleConnectWallet} 
         isWalletModalOpen={isWalletModalOpen} 
         toggleWalletModal={toggleWalletModal}
-        handleLogout={handleLogout}/>
+        handleLogout={handleLogout}
+        />
           <Routes>
             <Route path="/" element={<CryptoPrices onPredictClick={handlePredictClick} />} />
             <Route path="/CryptoPrices" element={<CryptoPrices onPredictClick={handlePredictClick}/>} />

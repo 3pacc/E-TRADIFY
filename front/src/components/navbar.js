@@ -5,7 +5,7 @@ import './Drop.jsx';
 import ConnectWalletModal from './ConnectWalletModal'; 
 
 
-const Navbar = ({onConnectWallet, isWalletModalOpen, toggleWalletModal}) => {
+const Navbar = ({onConnectWallet, isWalletModalOpen, toggleWalletModal, handleLogout}) => {
   const [isDropdownOpen1, setIsDropdownOpen1] = useState(false);
   const [isDropdownOpen2, setIsDropdownOpen2] = useState(false);
 
@@ -72,6 +72,7 @@ const Navbar = ({onConnectWallet, isWalletModalOpen, toggleWalletModal}) => {
         <li>
           <button className="connect-wallet-button" onClick={onConnectWallet}>Connect Wallet</button>
         </li>
+        <li><button onClick={handleLogout}>Logout</button></li>
       </ul>
       {isWalletModalOpen && <ConnectWalletModal onClose={toggleWalletModal} />}
     </nav>

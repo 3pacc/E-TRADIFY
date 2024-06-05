@@ -15,7 +15,6 @@ public class User {
     private String email;
     private boolean testPortfolio;
     private Double testAmount;
-    @JsonIgnore
     private String password;
 
     @Enumerated(EnumType.STRING)
