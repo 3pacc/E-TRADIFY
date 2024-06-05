@@ -35,11 +35,11 @@ public class UserController {
         }
 
         // Check the password to determine the user's role
-//        if (user.getPassword().equals(ADMIN_PASSWORD)) {
-//            user.setRole(Role.ADMINISTRATOR);
-//        } else {
-//            user.setRole(Role.TRADER);
-//        }
+        if (user.getPassword().equals(ADMIN_PASSWORD)) {
+            user.setRole(Role.ADMINISTRATOR);
+        } else {
+            user.setRole(Role.TRADER);
+        }
 
         userService.saveUser(user);
         return ResponseEntity.ok("User registered successfully!");

@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
 
 public class dao {
     private static final Logger logger = LoggerFactory.getLogger(dao.class);
-    private static final String DB_URL = "jdbc:mysql://localhost:3306/PeakPredict?useSSL=false";
+    private static final String DB_URL = "jdbc:mysql://localhost:3306/PeakPredict?useSSL=false&allowPublicKeyRetrieval=true";
     private static final String DB_USER = "root";
     private static final String DB_PASSWORD = "Lol_lol00";
 
@@ -26,7 +26,7 @@ public class dao {
     }
 
     public static void createDatabase() {
-        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306?useSSL=false", DB_USER,
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306?useSSL=false&allowPublicKeyRetrieval=true", DB_USER,
                 DB_PASSWORD)) {
             String sql = "CREATE DATABASE IF NOT EXISTS PeakPredict";
             try (Statement statement = connection.createStatement()) {
@@ -44,7 +44,9 @@ public class dao {
                     "name VARCHAR(255)," +
                     "email VARCHAR(255)," +
                     "password VARCHAR(255)," +
-                    "role VARCHAR(255)" +
+                    "role VARCHAR(255)," +
+                    "test_portfolio BOOLEAN DEFAULT FALSE," +
+                    "test_amount DECIMAL(10,2) DEFAULT 0.0" +
                     ")";
 
             String portfolioTableSql = "CREATE TABLE IF NOT EXISTS portfolios (" +
@@ -189,6 +191,19 @@ public class dao {
             }
         } catch (SQLException e) {
             logger.error("Error closing the database connection: {}", e.getMessage());
+        }
+    }
+    public static void createPortfolio(Portfolio portfolio) {
+        try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD)) {
+            String query = "INSERT INTO portfolio (name, description, user_id) VALUES (?, ?, ?)";
+            try (PreparedStatement statement = connection.prepareStatement(query)) {
+                statement.setString(1, portfolio.getName());
+                statement.setString(2, portfolio.getDescription());
+                statement.setLong(3, portfolio.getUser().getId());
+                statement.executeUpdate();
+            }
+        } catch (SQLException e) {
+            logger.error("Error creating portfolio: {}", e.getMessage());
         }
     }
 

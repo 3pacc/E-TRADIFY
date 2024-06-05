@@ -72,7 +72,6 @@ export default function App() {
           case 'bnb':
             navigate('/bnb-chart');
             break;
-          // Add more cases for other cryptocurrencies
           default:
             break;
         }
